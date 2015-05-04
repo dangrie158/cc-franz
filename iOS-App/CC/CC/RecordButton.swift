@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 
+
 class RecordButton:UIButton{
     var currentState:State = .STOPPED
     
+    // recording button states
     enum State{
         case RECORDING
         case STOPPED
@@ -26,35 +28,42 @@ class RecordButton:UIButton{
         setupRecordButton()
     }
     
+    override func drawRect(rect: CGRect) {
+        let context = UIGraphicsGetCurrentContext()
+        drawBackground(context, inArea: rect)
+        switch currentState{
+            case .RECORDING:
+                drawRec(context, inArea:rect)
+            case .STOPPED:
+                drawStop(context, inArea:rect)
+        }
+    }
+    
+    // basic setup of the recording button
     func setupRecordButton(){
-        self.layer.cornerRadius = 0.5 * self.bounds.size.width
-        self.backgroundColor = UIColor.redColor()
-        self.setTitle("•", forState: UIControlState.Normal)
+        //self.layer.cornerRadius = 0.5 * self.bounds.size.width
+        //self.backgroundColor = UIColor.redColor()
         self.setState(currentState)
-        self.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        self.addTarget(self, action: Selector("pressStart") , forControlEvents: UIControlEvents.TouchDown)
-        self.addTarget(self, action: Selector("pressStop") , forControlEvents: UIControlEvents.TouchUpInside)
+        //self.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        //self.addTarget(self, action: Selector("pressStart") , forControlEvents: UIControlEvents.TouchDown)
+        //self.addTarget(self, action: Selector("pressStop") , forControlEvents: UIControlEvents.TouchUpInside)
         self.addTarget(self, action: Selector("click"), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
+    // stop recording
     func pressStop(){
-        self.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
+        
     }
     
+    // start recording
     func pressStart(){
-        self.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.6)
+        
     }
     
+    // change the record button states
     func setState(state:State){
-        switch state{
-            case .RECORDING:
-                self.setTitle("■", forState: UIControlState.Normal)
-                self.titleLabel?.font = UIFont(name: "Arial", size: 100)
-        case .STOPPED:
-                self.setTitle("•", forState: UIControlState.Normal)
-                self.titleLabel?.font = UIFont(name: "Arial", size: 300)
-        }
         currentState = state
+        self.setNeedsDisplay()
     }
     
     func click(){
@@ -64,5 +73,22 @@ class RecordButton:UIButton{
         case .STOPPED:
             setState(.RECORDING)
         }
+    }
+    
+    func drawBackground(context:CGContext, inArea rect:CGRect){
+        var borderRect:CGRect = CGRectMake(0, 0, rect.width, rect.height);
+        CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 1.0);
+        CGContextFillEllipseInRect (context, borderRect);
+    }
+    
+    func drawRec(context:CGContext, inArea rect:CGRect){
+        var borderRect:CGRect = CGRectMake((rect.width/2)-(rect.width/8), (rect.height/2)-(rect.width/8), rect.width/4, rect.height/4);
+        CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+        CGContextFillEllipseInRect (context, borderRect);
+    }
+    func drawStop(context:CGContext, inArea rect:CGRect){
+        var borderRect:CGRect = CGRectMake((rect.width/2)-(rect.width/8), (rect.height/2)-(rect.width/8), rect.width/4, rect.height/4);
+        CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+        CGContextFillRect(context, borderRect);
     }
 }
