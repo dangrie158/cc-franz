@@ -15,6 +15,12 @@
 		481551921AEF769400509E02 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 481551901AEF769400509E02 /* LaunchScreen.xib */; };
 		4815519E1AEF769400509E02 /* CCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4815519D1AEF769400509E02 /* CCTests.swift */; };
 		481551A81AEF8A0A00509E02 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481551A71AEF8A0A00509E02 /* RecordButton.swift */; };
+		482A0DB11AF79B06003F18AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482A0DB01AF79B06003F18AB /* Foundation.framework */; };
+		482A0DB31AF79B0D003F18AB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482A0DB21AF79B0D003F18AB /* Security.framework */; };
+		482A0DB51AF79B12003F18AB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482A0DB41AF79B12003F18AB /* CFNetwork.framework */; };
+		482A0DB71AF79B20003F18AB /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 482A0DB61AF79B20003F18AB /* libicucore.dylib */; };
+		482A0DBC1AF79BB3003F18AB /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 482A0DBB1AF79BB3003F18AB /* SRWebSocket.m */; };
+		482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,15 @@
 		4815519C1AEF769400509E02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4815519D1AEF769400509E02 /* CCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCTests.swift; sourceTree = "<group>"; };
 		481551A71AEF8A0A00509E02 /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
+		482A0DAF1AF79A15003F18AB /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		482A0DB01AF79B06003F18AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		482A0DB21AF79B0D003F18AB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		482A0DB41AF79B12003F18AB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		482A0DB61AF79B20003F18AB /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		482A0DB91AF79BB3003F18AB /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		482A0DBA1AF79BB3003F18AB /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		482A0DBB1AF79BB3003F18AB /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +62,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				482A0DB71AF79B20003F18AB /* libicucore.dylib in Frameworks */,
+				482A0DB51AF79B12003F18AB /* CFNetwork.framework in Frameworks */,
+				482A0DB31AF79B0D003F18AB /* Security.framework in Frameworks */,
+				482A0DB11AF79B06003F18AB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +82,10 @@
 		481551771AEF769300509E02 = {
 			isa = PBXGroup;
 			children = (
+				482A0DB61AF79B20003F18AB /* libicucore.dylib */,
+				482A0DB41AF79B12003F18AB /* CFNetwork.framework */,
+				482A0DB21AF79B0D003F18AB /* Security.framework */,
+				482A0DB01AF79B06003F18AB /* Foundation.framework */,
 				481551821AEF769400509E02 /* CC */,
 				4815519A1AEF769400509E02 /* CCTests */,
 				481551811AEF769400509E02 /* Products */,
@@ -81,6 +104,7 @@
 		481551821AEF769400509E02 /* CC */ = {
 			isa = PBXGroup;
 			children = (
+				482A0DB81AF79BB3003F18AB /* SocketRocket */,
 				481551851AEF769400509E02 /* AppDelegate.swift */,
 				481551871AEF769400509E02 /* FirstViewController.swift */,
 				481551891AEF769400509E02 /* SecondViewController.swift */,
@@ -89,6 +113,8 @@
 				481551901AEF769400509E02 /* LaunchScreen.xib */,
 				481551831AEF769400509E02 /* Supporting Files */,
 				481551A71AEF8A0A00509E02 /* RecordButton.swift */,
+				482A0DAF1AF79A15003F18AB /* BridgingHeader.h */,
+				482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */,
 			);
 			path = CC;
 			sourceTree = "<group>";
@@ -116,6 +142,16 @@
 				4815519C1AEF769400509E02 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		482A0DB81AF79BB3003F18AB /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				482A0DB91AF79BB3003F18AB /* SocketRocket-Prefix.pch */,
+				482A0DBA1AF79BB3003F18AB /* SRWebSocket.h */,
+				482A0DBB1AF79BB3003F18AB /* SRWebSocket.m */,
+			);
+			path = SocketRocket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +256,8 @@
 			files = (
 				481551A81AEF8A0A00509E02 /* RecordButton.swift in Sources */,
 				4815518A1AEF769400509E02 /* SecondViewController.swift in Sources */,
+				482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */,
+				482A0DBC1AF79BB3003F18AB /* SRWebSocket.m in Sources */,
 				481551861AEF769400509E02 /* AppDelegate.swift in Sources */,
 				481551881AEF769400509E02 /* FirstViewController.swift in Sources */,
 			);
@@ -354,6 +392,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = CC/BridgingHeader.h;
 			};
 			name = Debug;
 		};
@@ -365,6 +404,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = CC/BridgingHeader.h;
 			};
 			name = Release;
 		};
@@ -421,6 +461,7 @@
 				481551A31AEF769400509E02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		481551A41AEF769400509E02 /* Build configuration list for PBXNativeTarget "CCTests" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +470,7 @@
 				481551A61AEF769400509E02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

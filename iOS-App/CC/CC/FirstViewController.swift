@@ -8,16 +8,18 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, SRWebSocketDelegate{
 
     var timer:NSTimer? = NSTimer()
     var counter:Int = 0
+    var socketio:SRWebSocket?
     
     @IBOutlet weak var timeElappsedTextfield: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        socketConnect()
         
     }
 
@@ -41,5 +43,31 @@ class FirstViewController: UIViewController {
         }
         timer = nil
     }
+    
+    func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+        println("Message: \(message)")
+    }
+    
+    func webSocketDidOpen(webSocket: SRWebSocket!) {
+        socketio?.send("Hallo WebSocket")
+    }
+    
+    func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+
+    }
+    
+    func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+        
+    }
+    
+    func socketConnect() {
+        socketio = SRWebSocket(URL: NSURL(scheme: "ws", host: "85.214.213.194:8080", path: "/"))
+        socketio!.delegate = self
+        socketio!.open()
+        
+        
+    }
+    
+
 
 }
