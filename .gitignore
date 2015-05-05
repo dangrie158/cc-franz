@@ -93,3 +93,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#Node.js
+*/node_modules/*
