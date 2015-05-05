@@ -30,7 +30,7 @@ class HorizontalSlider:UISlider{
     }
     
     func sliding(){
-        
+
     }
     
     func stopSliding(){

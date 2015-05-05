@@ -44,6 +44,12 @@ class FirstViewController: UIViewController, SRWebSocketDelegate{
         timer = nil
     }
     
+    @IBOutlet weak var slider: HorizontalSlider!
+    @IBAction func sliderValueChanged(sender: AnyObject) {
+        println(slider.value)
+    }
+    
+    
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         println("Message: \(message)")
     }
