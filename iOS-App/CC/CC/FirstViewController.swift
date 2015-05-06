@@ -70,8 +70,6 @@ class FirstViewController: UIViewController, SRWebSocketDelegate{
         socketio = SRWebSocket(URL: NSURL(scheme: "ws", host: "85.214.213.194:8080", path: "/"))
         socketio!.delegate = self
         socketio!.open()
-        
-        
     }
     
 

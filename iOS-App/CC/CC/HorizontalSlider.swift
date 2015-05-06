@@ -22,20 +22,17 @@ class HorizontalSlider:UISlider{
     
     func setupSlider(){
         self.continuous = true
+        self.minimumValue = -1.0
+        self.maximumValue = 1.0
+        self.value = 0.0
         self.minimumTrackTintColor = UIColor.greenColor()
         self.maximumTrackTintColor = UIColor.greenColor()
-        self.addTarget(self, action: Selector("sliding") , forControlEvents: UIControlEvents.TouchDown)
         self.addTarget(self, action: Selector("stopSliding") , forControlEvents: UIControlEvents.TouchUpInside)
         self.addTarget(self, action: Selector("stopSliding") , forControlEvents: UIControlEvents.TouchUpOutside)
     }
     
-    func sliding(){
-
-    }
-    
     func stopSliding(){
-        UIView.animateWithDuration(2.0, animations:{
-            self.value = 0
-        })
+        self.setValue(0.0, animated: true)
+        self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
     }
 }

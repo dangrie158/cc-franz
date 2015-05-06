@@ -41,12 +41,8 @@ class RecordButton:UIButton{
     
     // basic setup of the recording button
     func setupRecordButton(){
-        //self.layer.cornerRadius = 0.5 * self.bounds.size.width
-        //self.backgroundColor = UIColor.redColor()
         self.setState(currentState)
-        //self.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        //self.addTarget(self, action: Selector("pressStart") , forControlEvents: UIControlEvents.TouchDown)
-        //self.addTarget(self, action: Selector("pressStop") , forControlEvents: UIControlEvents.TouchUpInside)
+        self.setTitle("", forState: UIControlState.Normal)
         self.addTarget(self, action: Selector("click"), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
