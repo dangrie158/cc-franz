@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		481551861AEF769400509E02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481551851AEF769400509E02 /* AppDelegate.swift */; };
-		481551881AEF769400509E02 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481551871AEF769400509E02 /* FirstViewController.swift */; };
-		4815518A1AEF769400509E02 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481551891AEF769400509E02 /* SecondViewController.swift */; };
+		481551881AEF769400509E02 /* LiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481551871AEF769400509E02 /* LiveController.swift */; };
+		4815518A1AEF769400509E02 /* ScriptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481551891AEF769400509E02 /* ScriptController.swift */; };
 		4815518D1AEF769400509E02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4815518B1AEF769400509E02 /* Main.storyboard */; };
 		4815518F1AEF769400509E02 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4815518E1AEF769400509E02 /* Images.xcassets */; };
 		481551921AEF769400509E02 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 481551901AEF769400509E02 /* LaunchScreen.xib */; };
@@ -21,6 +21,9 @@
 		482A0DB71AF79B20003F18AB /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 482A0DB61AF79B20003F18AB /* libicucore.dylib */; };
 		482A0DBC1AF79BB3003F18AB /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 482A0DBB1AF79BB3003F18AB /* SRWebSocket.m */; };
 		482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */; };
+		650CC2141B00C553009569A8 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CC2131B00C553009569A8 /* ConnectionManager.swift */; };
+		6583D1381B009C2500BE3364 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6583D1371B009C2500BE3364 /* Launch Screen.xib */; };
+		6583D13A1B00A46000BE3364 /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6583D1391B00A46000BE3364 /* LaunchScreenController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +40,8 @@
 		481551801AEF769400509E02 /* CC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		481551841AEF769400509E02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		481551851AEF769400509E02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		481551871AEF769400509E02 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		481551891AEF769400509E02 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		481551871AEF769400509E02 /* LiveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveController.swift; sourceTree = "<group>"; };
+		481551891AEF769400509E02 /* ScriptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptController.swift; sourceTree = "<group>"; };
 		4815518C1AEF769400509E02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4815518E1AEF769400509E02 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		481551911AEF769400509E02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -55,6 +58,9 @@
 		482A0DBA1AF79BB3003F18AB /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		482A0DBB1AF79BB3003F18AB /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSlider.swift; sourceTree = "<group>"; };
+		650CC2131B00C553009569A8 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
+		6583D1371B009C2500BE3364 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		6583D1391B00A46000BE3364 /* LaunchScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,7 @@
 		481551771AEF769300509E02 = {
 			isa = PBXGroup;
 			children = (
+				6583D1371B009C2500BE3364 /* Launch Screen.xib */,
 				482A0DB61AF79B20003F18AB /* libicucore.dylib */,
 				482A0DB41AF79B12003F18AB /* CFNetwork.framework */,
 				482A0DB21AF79B0D003F18AB /* Security.framework */,
@@ -106,8 +113,8 @@
 			children = (
 				482A0DB81AF79BB3003F18AB /* SocketRocket */,
 				481551851AEF769400509E02 /* AppDelegate.swift */,
-				481551871AEF769400509E02 /* FirstViewController.swift */,
-				481551891AEF769400509E02 /* SecondViewController.swift */,
+				481551871AEF769400509E02 /* LiveController.swift */,
+				481551891AEF769400509E02 /* ScriptController.swift */,
 				4815518B1AEF769400509E02 /* Main.storyboard */,
 				4815518E1AEF769400509E02 /* Images.xcassets */,
 				481551901AEF769400509E02 /* LaunchScreen.xib */,
@@ -115,6 +122,8 @@
 				481551A71AEF8A0A00509E02 /* RecordButton.swift */,
 				482A0DAF1AF79A15003F18AB /* BridgingHeader.h */,
 				482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */,
+				6583D1391B00A46000BE3364 /* LaunchScreenController.swift */,
+				650CC2131B00C553009569A8 /* ConnectionManager.swift */,
 			);
 			path = CC;
 			sourceTree = "<group>";
@@ -235,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4815518D1AEF769400509E02 /* Main.storyboard in Resources */,
+				6583D1381B009C2500BE3364 /* Launch Screen.xib in Resources */,
 				481551921AEF769400509E02 /* LaunchScreen.xib in Resources */,
 				4815518F1AEF769400509E02 /* Images.xcassets in Resources */,
 			);
@@ -255,11 +265,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				481551A81AEF8A0A00509E02 /* RecordButton.swift in Sources */,
-				4815518A1AEF769400509E02 /* SecondViewController.swift in Sources */,
+				4815518A1AEF769400509E02 /* ScriptController.swift in Sources */,
 				482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */,
 				482A0DBC1AF79BB3003F18AB /* SRWebSocket.m in Sources */,
+				6583D13A1B00A46000BE3364 /* LaunchScreenController.swift in Sources */,
+				650CC2141B00C553009569A8 /* ConnectionManager.swift in Sources */,
 				481551861AEF769400509E02 /* AppDelegate.swift in Sources */,
-				481551881AEF769400509E02 /* FirstViewController.swift in Sources */,
+				481551881AEF769400509E02 /* LiveController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
