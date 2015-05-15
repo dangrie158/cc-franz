@@ -8,18 +8,44 @@
 
 import UIKit
 
-class ConnectionManager: NSObject, SRWebSocketDelegate {
+class CameraSlider: NSObject, SRWebSocketDelegate {
     enum State{
         case DISCONNECTED
         case CONNECTING
         case CONNECTED
     }
-    private var currentState:State = .DISCONNECTED
+    
+    enum Direction{
+        case RIGHT
+        case LEFT
+        case CCW
+        case CW
+    }
+    
+    /***********************
+    * ConnectionManagement *
+    ***********************/
+    
+    /*****************************
+    * static methods / variables *
+    ******************************/
+    
+    //the singleton instance itself
+    static let instance = CameraSlider()
+    
+    //The Singleton instance getter
+    static func getInstance() -> CameraSlider {
+        return instance;
+    }
+    
+    /*******************************
+    * instance methods / variables *
+    ********************************/
+    private let controlAdress = "85.214.213.194:8080"
+    private var currentConnectionState:State = .DISCONNECTED
     
     private var connectedCallback : ((SRWebSocket) -> Void)? = nil;
     private var disconnectedCallback : (() -> Void)? = nil;
-    
-    private let controlAdress = "85.214.213.194:8080"
     
     private var wsConnection:SRWebSocket?
     
@@ -28,24 +54,27 @@ class ConnectionManager: NSObject, SRWebSocketDelegate {
         socketConnect()
     }
 
+    /***********************
+    * ConnectionManagement *
+    ***********************/
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         println("Message: \(message)")
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        currentState = .CONNECTED
+        currentConnectionState = .CONNECTED
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        currentState = .DISCONNECTED
+        currentConnectionState = .DISCONNECTED
     }
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
-        currentState = .DISCONNECTED
+        currentConnectionState = .DISCONNECTED
     }
     
     func socketConnect() {
-        currentState = .CONNECTING
+        currentConnectionState = .CONNECTING
         wsConnection = SRWebSocket(URL: NSURL(scheme: "ws", host: controlAdress, path: "/"))
         wsConnection!.delegate = self
         wsConnection!.open()
@@ -60,7 +89,7 @@ class ConnectionManager: NSObject, SRWebSocketDelegate {
     }
     
     private func setState(newState:State){
-        let oldState = currentState
+        let oldState = currentConnectionState
         switch newState {
         case .DISCONNECTED:
             if oldState == State.CONNECTED && disconnectedCallback != nil {
@@ -75,6 +104,29 @@ class ConnectionManager: NSObject, SRWebSocketDelegate {
                 connectedCallback!(wsConnection!)
             }
         }
-        currentState = newState
+        currentConnectionState = newState
     }
+    
+    /***********************
+    *   Hardware Control   *
+    ***********************/
+    func eStop(){
+        //handle eStop
+    }
+    
+    func home(){
+        //handle homing
+    }
+    
+    func setSpeed(){
+        
+    }
+    
+    func move(direction: Direction, withSpeed speed: Float){
+    }
+    
+    func rotate(direction: Direction, withSpeed speed: Float){
+        move(direction, withSpeed: speed)
+    }
+    
 }
