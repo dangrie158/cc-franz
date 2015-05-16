@@ -16529,17 +16529,17 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="63.5" y1="-58.42" x2="63.5" y2="12.7" width="0.1524" layer="90" style="longdash"/>
 <wire x1="63.5" y1="12.7" x2="157.48" y2="12.7" width="0.1524" layer="90" style="longdash"/>
 <wire x1="157.48" y1="12.7" x2="157.48" y2="-58.42" width="0.1524" layer="90" style="longdash"/>
-<text x="66.04" y="106.68" size="2.54" layer="91" align="top-left">Move Motorcontroller</text>
-<text x="66.04" y="58.42" size="2.54" layer="91" align="top-left">Tilt Motorcontroller</text>
-<text x="66.04" y="10.16" size="2.54" layer="91" align="top-left">Endstop Amplifier</text>
-<text x="22.86" y="10.16" size="2.54" layer="91" align="top-left">IR Transmitter</text>
-<text x="-114.3" y="10.16" size="2.54" layer="91" align="top-left">ICSP &amp;
+<text x="66.04" y="106.68" size="2.54" layer="90" align="top-left">Move Motorcontroller</text>
+<text x="66.04" y="58.42" size="2.54" layer="90" align="top-left">Tilt Motorcontroller</text>
+<text x="66.04" y="10.16" size="2.54" layer="90" align="top-left">Endstop Amplifier</text>
+<text x="22.86" y="10.16" size="2.54" layer="90" align="top-left">IR Transmitter</text>
+<text x="-114.3" y="10.16" size="2.54" layer="90" align="top-left">ICSP &amp;
 Reset Circuit</text>
-<text x="-114.3" y="106.68" size="2.54" layer="91" align="top-left">User Interface</text>
-<text x="-114.3" y="167.64" size="2.54" layer="91" align="top-left">Powersupply</text>
-<text x="-33.02" y="167.64" size="2.54" layer="91" align="top-left">ESP8266 WLAN</text>
-<text x="66.04" y="167.64" size="2.54" layer="91" align="top-left">RS232 Debug Port</text>
-<text x="-33.02" y="5.08" size="2.54" layer="91">Decoupling for µC
+<text x="-114.3" y="106.68" size="2.54" layer="90" align="top-left">User Interface</text>
+<text x="-114.3" y="167.64" size="2.54" layer="90" align="top-left">Powersupply</text>
+<text x="-33.02" y="167.64" size="2.54" layer="90" align="top-left">ESP8266 WLAN</text>
+<text x="66.04" y="167.64" size="2.54" layer="90" align="top-left">RS232 Debug Port</text>
+<text x="-33.02" y="10.16" size="2.54" layer="90" align="top-left">Decoupling for µC
 Place near µC Power Pins</text>
 <wire x1="-35.56" y1="12.7" x2="15.24" y2="12.7" width="0.1524" layer="90" style="longdash"/>
 <wire x1="15.24" y1="12.7" x2="15.24" y2="-58.42" width="0.1524" layer="90" style="longdash"/>
