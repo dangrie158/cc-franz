@@ -18428,24 +18428,24 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <part name="C6" library="rcl" deviceset="C-EU" device="050-024X044" value="100nF"/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
-<part name="S1" library="switch-omron" deviceset="10-XX" device="" value="RESET"/>
+<part name="RESET" library="switch-omron" deviceset="10-XX" device="" value="SWITCH"/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
-<part name="U$1" library="parts" deviceset="A4988" device=""/>
-<part name="SW1" library="special" deviceset="SW_DIP-3" device="" value="MS MOT1"/>
+<part name="U3" library="parts" deviceset="A4988" device=""/>
+<part name="MSMOT1" library="special" deviceset="SW_DIP-3" device="" value="DIP SWITCH"/>
 <part name="SUPPLY5" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="P+2" library="supply1" deviceset="+24V" device=""/>
 <part name="SUPPLY6" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
-<part name="JP2" library="con-amp" deviceset="MTA04-100" device="" value="MOT1"/>
+<part name="MOT1" library="con-amp" deviceset="MTA04-100" device="" value="CONNECTOR"/>
 <part name="C7" library="rcl" deviceset="CPOL-EU" device="E2,5-6E" value="100µF"/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
-<part name="U$2" library="parts" deviceset="A4988" device=""/>
-<part name="SW2" library="special" deviceset="SW_DIP-3" device="" value="MS MOT2"/>
+<part name="U4" library="parts" deviceset="A4988" device=""/>
+<part name="MSMOT2" library="special" deviceset="SW_DIP-3" device="" value="DIP SWITCH"/>
 <part name="SUPPLY7" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="P+3" library="supply1" deviceset="+24V" device=""/>
 <part name="SUPPLY8" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
-<part name="JP3" library="con-amp" deviceset="MTA04-100" device="" value="MOT2"/>
+<part name="MOT2" library="con-amp" deviceset="MTA04-100" device="" value="CONNECTOR"/>
 <part name="C8" library="rcl" deviceset="CPOL-EU" device="E2,5-6E" value="100µF"/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
 <part name="U2" library="SparkFun-DigitalIC" deviceset="MAX232" device="PTH"/>
@@ -18457,12 +18457,12 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <part name="C12" library="rcl" deviceset="CPOL-EU" device="E2,5-6E" value="1µF"/>
 <part name="SUPPLY11" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
-<part name="JP4" library="con-amp" deviceset="MTA04-100" device="" value="RS232"/>
+<part name="RS232" library="con-amp" deviceset="MTA04-100" device="" value="CONNECTOR"/>
 <part name="C13" library="rcl" deviceset="C-EU" device="050-024X044" value="100nF"/>
-<part name="JP5" library="SparkFun-Connectors" deviceset="PINHD-2X3" device="" value="ICSP"/>
+<part name="ICSP" library="SparkFun-Connectors" deviceset="PINHD-2X3" device="" value="CONNECTOR"/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY12" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
-<part name="U$3" library="parts" deviceset="ESP8266" device=""/>
+<part name="U5" library="parts" deviceset="ESP8266" device=""/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY13" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
 <part name="R2" library="rcl" deviceset="R-EU_" device="0207/7" value="10kΩ"/>
@@ -18477,22 +18477,22 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <part name="T1" library="transistor" deviceset="BC337" device=""/>
 <part name="SUPPLY15" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
-<part name="JP6" library="con-amp" deviceset="MTA02-100" device="" value="IR"/>
-<part name="S2" library="switch-omron" deviceset="10-XX" device="" value="LEFT"/>
+<part name="IROUT" library="con-amp" deviceset="MTA02-100" device="" value="CONNECTOR"/>
+<part name="LEFT" library="switch-omron" deviceset="10-XX" device="" value="SWITCH"/>
 <part name="R5" library="rcl" deviceset="R-EU_" device="0207/7" value="10kΩ"/>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY16" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
-<part name="S3" library="switch-omron" deviceset="10-XX" device="" value="TILT CW"/>
+<part name="TILTCW" library="switch-omron" deviceset="10-XX" device="" value="SWITCH"/>
 <part name="R6" library="rcl" deviceset="R-EU_" device="0207/7" value="10kΩ"/>
 <part name="SUPPLY17" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
-<part name="S4" library="switch-omron" deviceset="10-XX" device="" value="RIGHT"/>
+<part name="RIGHT" library="switch-omron" deviceset="10-XX" device="" value="SWITCH"/>
 <part name="R7" library="rcl" deviceset="R-EU_" device="0207/7" value="10kΩ"/>
 <part name="GND17" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY18" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
-<part name="S5" library="switch-omron" deviceset="10-XX" device="" value="TILT CCW"/>
+<part name="TILTCCW" library="switch-omron" deviceset="10-XX" device="" value="SWITCH"/>
 <part name="R8" library="rcl" deviceset="R-EU_" device="0207/7" value="10kΩ"/>
 <part name="SUPPLY19" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
-<part name="S6" library="switch-omron" deviceset="10-XX" device="" value="HOMING"/>
+<part name="HOMING" library="switch-omron" deviceset="10-XX" device="" value="SWITCH"/>
 <part name="R9" library="rcl" deviceset="R-EU_" device="0207/7" value="10kΩ"/>
 <part name="GND19" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY20" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
@@ -18501,7 +18501,7 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <part name="R10" library="rcl" deviceset="R-EU_" device="0207/7" value="100Ω"/>
 <part name="R11" library="rcl" deviceset="R-EU_" device="0207/7" value="100Ω"/>
 <part name="SUPPLY21" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
-<part name="JP7" library="con-amp" deviceset="MTA03-100" device="" value="ENDSTOP"/>
+<part name="ENDSTOP" library="con-amp" deviceset="MTA03-100" device="" value="CONNECTOR"/>
 <part name="SUPPLY22" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="R12" library="rcl" deviceset="R-EU_" device="0207/7" value="100Ω"/>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
@@ -18603,24 +18603,24 @@ reset µC on new Connection</text>
 <instance part="C6" gate="G$1" x="101.6" y="93.98"/>
 <instance part="GND3" gate="1" x="111.76" y="83.82"/>
 <instance part="SUPPLY3" gate="G$1" x="111.76" y="99.06"/>
-<instance part="S1" gate="1" x="-68.58" y="55.88" rot="R270"/>
+<instance part="RESET" gate="1" x="-68.58" y="55.88" rot="R270"/>
 <instance part="GND4" gate="1" x="-63.5" y="48.26"/>
-<instance part="U$1" gate="G$1" x="17.78" y="139.7"/>
-<instance part="SW1" gate="A" x="-15.24" y="139.7"/>
+<instance part="U3" gate="G$1" x="17.78" y="139.7"/>
+<instance part="MSMOT1" gate="A" x="-15.24" y="139.7"/>
 <instance part="SUPPLY5" gate="G$1" x="-27.94" y="144.78"/>
 <instance part="P+2" gate="1" x="35.56" y="160.02"/>
 <instance part="SUPPLY6" gate="G$1" x="38.1" y="157.48"/>
 <instance part="GND5" gate="1" x="35.56" y="124.46"/>
-<instance part="JP2" gate="G$1" x="40.64" y="142.24" rot="R270"/>
+<instance part="MOT1" gate="G$1" x="40.64" y="142.24" rot="R270"/>
 <instance part="C7" gate="G$1" x="50.8" y="142.24"/>
 <instance part="GND6" gate="1" x="50.8" y="124.46"/>
-<instance part="U$2" gate="G$1" x="114.3" y="139.7"/>
-<instance part="SW2" gate="A" x="81.28" y="139.7"/>
+<instance part="U4" gate="G$1" x="114.3" y="139.7"/>
+<instance part="MSMOT2" gate="A" x="81.28" y="139.7"/>
 <instance part="SUPPLY7" gate="G$1" x="68.58" y="144.78"/>
 <instance part="P+3" gate="1" x="132.08" y="160.02"/>
 <instance part="SUPPLY8" gate="G$1" x="134.62" y="157.48"/>
 <instance part="GND7" gate="1" x="132.08" y="124.46"/>
-<instance part="JP3" gate="G$1" x="137.16" y="142.24" rot="R270"/>
+<instance part="MOT2" gate="G$1" x="137.16" y="142.24" rot="R270"/>
 <instance part="C8" gate="G$1" x="147.32" y="142.24"/>
 <instance part="GND8" gate="1" x="147.32" y="124.46"/>
 <instance part="U2" gate="G$1" x="50.8" y="-22.86"/>
@@ -18632,12 +18632,12 @@ reset µC on new Connection</text>
 <instance part="C12" gate="G$1" x="78.74" y="-17.78" rot="R270"/>
 <instance part="SUPPLY11" gate="G$1" x="81.28" y="-5.08"/>
 <instance part="GND10" gate="1" x="93.98" y="-48.26"/>
-<instance part="JP4" gate="G$1" x="88.9" y="-33.02" rot="R270"/>
+<instance part="RS232" gate="G$1" x="88.9" y="-33.02" rot="R270"/>
 <instance part="C13" gate="G$1" x="30.48" y="-45.72" rot="R90"/>
-<instance part="JP5" gate="A" x="-76.2" y="83.82"/>
+<instance part="ICSP" gate="A" x="-76.2" y="83.82"/>
 <instance part="GND11" gate="1" x="-63.5" y="78.74"/>
 <instance part="SUPPLY12" gate="G$1" x="-63.5" y="86.36"/>
-<instance part="U$3" gate="G$1" x="129.54" y="-33.02"/>
+<instance part="U5" gate="G$1" x="129.54" y="-33.02"/>
 <instance part="GND12" gate="1" x="127" y="-53.34"/>
 <instance part="SUPPLY13" gate="G$1" x="127" y="-15.24"/>
 <instance part="R2" gate="G$1" x="152.4" y="-22.86" rot="R90"/>
@@ -18652,34 +18652,34 @@ reset µC on new Connection</text>
 <instance part="T1" gate="G$1" x="-20.32" y="-25.4" rot="MR0"/>
 <instance part="SUPPLY15" gate="G$1" x="-22.86" y="-5.08"/>
 <instance part="GND14" gate="1" x="-22.86" y="-53.34"/>
-<instance part="JP6" gate="G$1" x="-20.32" y="-38.1" rot="R270"/>
-<instance part="S2" gate="1" x="-55.88" y="12.7" smashed="yes" rot="R270">
+<instance part="IROUT" gate="G$1" x="-20.32" y="-38.1" rot="R270"/>
+<instance part="LEFT" gate="1" x="-55.88" y="12.7" smashed="yes" rot="R270">
 <attribute name="NAME" x="-53.34" y="16.51" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-57.785" y="19.05" size="1.778" layer="96"/>
 </instance>
 <instance part="R5" gate="G$1" x="-50.8" y="2.54" rot="R270"/>
 <instance part="GND15" gate="1" x="-50.8" y="-5.08"/>
 <instance part="SUPPLY16" gate="G$1" x="-60.96" y="20.32"/>
-<instance part="S3" gate="1" x="-55.88" y="-30.48" smashed="yes" rot="R270">
+<instance part="TILTCW" gate="1" x="-55.88" y="-30.48" smashed="yes" rot="R270">
 <attribute name="NAME" x="-53.34" y="-26.67" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-57.785" y="-24.13" size="1.778" layer="96"/>
 </instance>
 <instance part="R6" gate="G$1" x="-50.8" y="-38.1" rot="R270"/>
 <instance part="SUPPLY17" gate="G$1" x="-60.96" y="-25.4"/>
-<instance part="S4" gate="1" x="-78.74" y="12.7" smashed="yes" rot="R270">
+<instance part="RIGHT" gate="1" x="-78.74" y="12.7" smashed="yes" rot="R270">
 <attribute name="NAME" x="-76.2" y="16.51" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-80.645" y="19.05" size="1.778" layer="96"/>
 </instance>
 <instance part="R7" gate="G$1" x="-73.66" y="2.54" rot="R270"/>
 <instance part="GND17" gate="1" x="-73.66" y="-5.08"/>
 <instance part="SUPPLY18" gate="G$1" x="-83.82" y="20.32"/>
-<instance part="S5" gate="1" x="-78.74" y="-30.48" smashed="yes" rot="R270">
+<instance part="TILTCCW" gate="1" x="-78.74" y="-30.48" smashed="yes" rot="R270">
 <attribute name="NAME" x="-76.2" y="-26.67" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-80.645" y="-24.13" size="1.778" layer="96"/>
 </instance>
 <instance part="R8" gate="G$1" x="-73.66" y="-38.1" rot="R270"/>
 <instance part="SUPPLY19" gate="G$1" x="-83.82" y="-25.4"/>
-<instance part="S6" gate="1" x="-101.6" y="12.7" smashed="yes" rot="R270">
+<instance part="HOMING" gate="1" x="-101.6" y="12.7" smashed="yes" rot="R270">
 <attribute name="NAME" x="-99.06" y="16.51" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-103.505" y="21.59" size="1.778" layer="96"/>
 </instance>
@@ -18694,7 +18694,7 @@ reset µC on new Connection</text>
 <instance part="R10" gate="G$1" x="-91.44" y="-22.86" rot="R270"/>
 <instance part="R11" gate="G$1" x="-106.68" y="-17.78" rot="R270"/>
 <instance part="SUPPLY21" gate="G$1" x="-106.68" y="-12.7"/>
-<instance part="JP7" gate="G$1" x="132.08" y="45.72" rot="MR90"/>
+<instance part="ENDSTOP" gate="G$1" x="132.08" y="45.72" rot="MR90"/>
 <instance part="SUPPLY22" gate="G$1" x="124.46" y="60.96"/>
 <instance part="R12" gate="G$1" x="124.46" y="55.88" rot="R270"/>
 <instance part="GND21" gate="1" x="124.46" y="33.02"/>
@@ -18821,13 +18821,13 @@ reset µC on new Connection</text>
 <junction x="-93.98" y="157.48"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="VMOT"/>
+<pinref part="U3" gate="G$1" pin="VMOT"/>
 <wire x1="30.48" y1="152.4" x2="35.56" y2="152.4" width="0.1524" layer="91"/>
 <pinref part="P+2" gate="1" pin="+24V"/>
 <wire x1="35.56" y1="152.4" x2="35.56" y2="157.48" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="VMOT"/>
+<pinref part="U4" gate="G$1" pin="VMOT"/>
 <wire x1="127" y1="152.4" x2="132.08" y2="152.4" width="0.1524" layer="91"/>
 <pinref part="P+3" gate="1" pin="+24V"/>
 <wire x1="132.08" y1="152.4" x2="132.08" y2="157.48" width="0.1524" layer="91"/>
@@ -18892,19 +18892,19 @@ reset µC on new Connection</text>
 <wire x1="111.76" y1="88.9" x2="111.76" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="S1" gate="1" pin="S1"/>
+<pinref part="RESET" gate="1" pin="S1"/>
 <pinref part="GND4" gate="1" pin="GND"/>
 <wire x1="-63.5" y1="53.34" x2="-63.5" y2="50.8" width="0.1524" layer="91"/>
-<pinref part="S1" gate="1" pin="S"/>
+<pinref part="RESET" gate="1" pin="S"/>
 <wire x1="-63.5" y1="53.34" x2="-63.5" y2="55.88" width="0.1524" layer="91"/>
 <junction x="-63.5" y="53.34"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="GND2"/>
+<pinref part="U3" gate="G$1" pin="GND2"/>
 <wire x1="30.48" y1="129.54" x2="35.56" y2="129.54" width="0.1524" layer="91"/>
 <pinref part="GND5" gate="1" pin="GND"/>
 <wire x1="35.56" y1="129.54" x2="35.56" y2="127" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND"/>
+<pinref part="U3" gate="G$1" pin="GND"/>
 <wire x1="30.48" y1="132.08" x2="35.56" y2="132.08" width="0.1524" layer="91"/>
 <wire x1="35.56" y1="132.08" x2="35.56" y2="129.54" width="0.1524" layer="91"/>
 <junction x="35.56" y="129.54"/>
@@ -18915,11 +18915,11 @@ reset µC on new Connection</text>
 <wire x1="50.8" y1="127" x2="50.8" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="GND2"/>
+<pinref part="U4" gate="G$1" pin="GND2"/>
 <wire x1="127" y1="129.54" x2="132.08" y2="129.54" width="0.1524" layer="91"/>
 <pinref part="GND7" gate="1" pin="GND"/>
 <wire x1="132.08" y1="129.54" x2="132.08" y2="127" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="GND"/>
+<pinref part="U4" gate="G$1" pin="GND"/>
 <wire x1="127" y1="132.08" x2="132.08" y2="132.08" width="0.1524" layer="91"/>
 <wire x1="132.08" y1="132.08" x2="132.08" y2="129.54" width="0.1524" layer="91"/>
 <junction x="132.08" y="129.54"/>
@@ -18934,12 +18934,12 @@ reset µC on new Connection</text>
 <pinref part="GND9" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="JP5" gate="A" pin="6"/>
+<pinref part="ICSP" gate="A" pin="6"/>
 <pinref part="GND11" gate="1" pin="GND"/>
 <wire x1="-71.12" y1="81.28" x2="-63.5" y2="81.28" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$3" gate="G$1" pin="GND"/>
+<pinref part="U5" gate="G$1" pin="GND"/>
 <pinref part="GND12" gate="1" pin="GND"/>
 <wire x1="127" y1="-50.8" x2="127" y2="-45.72" width="0.1524" layer="91"/>
 </segment>
@@ -18956,7 +18956,7 @@ reset µC on new Connection</text>
 <wire x1="-66.04" y1="121.92" x2="-50.8" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="JP6" gate="G$1" pin="2"/>
+<pinref part="IROUT" gate="G$1" pin="2"/>
 <pinref part="GND14" gate="1" pin="GND"/>
 <wire x1="-22.86" y1="-50.8" x2="-22.86" y2="-40.64" width="0.1524" layer="91"/>
 </segment>
@@ -18975,7 +18975,7 @@ reset µC on new Connection</text>
 <segment>
 <pinref part="GND21" gate="1" pin="GND"/>
 <wire x1="124.46" y1="35.56" x2="124.46" y2="43.18" width="0.1524" layer="91" style="longdash"/>
-<pinref part="JP7" gate="G$1" pin="1"/>
+<pinref part="ENDSTOP" gate="G$1" pin="1"/>
 <wire x1="129.54" y1="43.18" x2="124.46" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -19010,7 +19010,7 @@ reset µC on new Connection</text>
 <pinref part="GND10" gate="1" pin="GND"/>
 <wire x1="93.98" y1="-45.72" x2="93.98" y2="-17.78" width="0.1524" layer="91"/>
 <pinref part="C12" gate="G$1" pin="+"/>
-<pinref part="JP4" gate="G$1" pin="1"/>
+<pinref part="RS232" gate="G$1" pin="1"/>
 <wire x1="86.36" y1="-30.48" x2="81.28" y2="-30.48" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="-30.48" x2="81.28" y2="-17.78" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="-17.78" x2="81.28" y2="-17.78" width="0.1524" layer="91"/>
@@ -19074,12 +19074,12 @@ reset µC on new Connection</text>
 <wire x1="-22.86" y1="142.24" x2="-27.94" y2="142.24" width="0.1524" layer="91"/>
 <junction x="-27.94" y="142.24"/>
 <junction x="-27.94" y="139.7"/>
-<pinref part="SW1" gate="A" pin="4"/>
-<pinref part="SW1" gate="A" pin="5"/>
-<pinref part="SW1" gate="A" pin="6"/>
+<pinref part="MSMOT1" gate="A" pin="4"/>
+<pinref part="MSMOT1" gate="A" pin="5"/>
+<pinref part="MSMOT1" gate="A" pin="6"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="VDD"/>
+<pinref part="U3" gate="G$1" pin="VDD"/>
 <pinref part="SUPPLY6" gate="G$1" pin="5V"/>
 <wire x1="30.48" y1="149.86" x2="38.1" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="38.1" y1="149.86" x2="38.1" y2="157.48" width="0.1524" layer="91"/>
@@ -19094,12 +19094,12 @@ reset µC on new Connection</text>
 <wire x1="73.66" y1="142.24" x2="68.58" y2="142.24" width="0.1524" layer="91"/>
 <junction x="68.58" y="142.24"/>
 <junction x="68.58" y="139.7"/>
-<pinref part="SW2" gate="A" pin="4"/>
-<pinref part="SW2" gate="A" pin="5"/>
-<pinref part="SW2" gate="A" pin="6"/>
+<pinref part="MSMOT2" gate="A" pin="4"/>
+<pinref part="MSMOT2" gate="A" pin="5"/>
+<pinref part="MSMOT2" gate="A" pin="6"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="VDD"/>
+<pinref part="U4" gate="G$1" pin="VDD"/>
 <pinref part="SUPPLY8" gate="G$1" pin="5V"/>
 <wire x1="127" y1="149.86" x2="134.62" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="134.62" y1="149.86" x2="134.62" y2="157.48" width="0.1524" layer="91"/>
@@ -19114,7 +19114,7 @@ reset µC on new Connection</text>
 <wire x1="81.28" y1="-12.7" x2="81.28" y2="-5.08" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="JP5" gate="A" pin="2"/>
+<pinref part="ICSP" gate="A" pin="2"/>
 <pinref part="SUPPLY12" gate="G$1" pin="5V"/>
 <wire x1="-71.12" y1="86.36" x2="-63.5" y2="86.36" width="0.1524" layer="91"/>
 </segment>
@@ -19125,41 +19125,41 @@ reset µC on new Connection</text>
 </segment>
 <segment>
 <pinref part="SUPPLY16" gate="G$1" pin="5V"/>
-<pinref part="S2" gate="1" pin="P"/>
+<pinref part="LEFT" gate="1" pin="P"/>
 <wire x1="-60.96" y1="20.32" x2="-60.96" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="S2" gate="1" pin="P1"/>
+<pinref part="LEFT" gate="1" pin="P1"/>
 <wire x1="-60.96" y1="12.7" x2="-60.96" y2="10.16" width="0.1524" layer="91"/>
 <junction x="-60.96" y="12.7"/>
 </segment>
 <segment>
 <pinref part="SUPPLY17" gate="G$1" pin="5V"/>
-<pinref part="S3" gate="1" pin="P"/>
+<pinref part="TILTCW" gate="1" pin="P"/>
 <wire x1="-60.96" y1="-25.4" x2="-60.96" y2="-30.48" width="0.1524" layer="91"/>
-<pinref part="S3" gate="1" pin="P1"/>
+<pinref part="TILTCW" gate="1" pin="P1"/>
 <wire x1="-60.96" y1="-30.48" x2="-60.96" y2="-33.02" width="0.1524" layer="91"/>
 <junction x="-60.96" y="-30.48"/>
 </segment>
 <segment>
 <pinref part="SUPPLY18" gate="G$1" pin="5V"/>
-<pinref part="S4" gate="1" pin="P"/>
+<pinref part="RIGHT" gate="1" pin="P"/>
 <wire x1="-83.82" y1="20.32" x2="-83.82" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="S4" gate="1" pin="P1"/>
+<pinref part="RIGHT" gate="1" pin="P1"/>
 <wire x1="-83.82" y1="12.7" x2="-83.82" y2="10.16" width="0.1524" layer="91"/>
 <junction x="-83.82" y="12.7"/>
 </segment>
 <segment>
 <pinref part="SUPPLY19" gate="G$1" pin="5V"/>
-<pinref part="S5" gate="1" pin="P"/>
+<pinref part="TILTCCW" gate="1" pin="P"/>
 <wire x1="-83.82" y1="-25.4" x2="-83.82" y2="-30.48" width="0.1524" layer="91"/>
-<pinref part="S5" gate="1" pin="P1"/>
+<pinref part="TILTCCW" gate="1" pin="P1"/>
 <wire x1="-83.82" y1="-30.48" x2="-83.82" y2="-33.02" width="0.1524" layer="91"/>
 <junction x="-83.82" y="-30.48"/>
 </segment>
 <segment>
 <pinref part="SUPPLY20" gate="G$1" pin="5V"/>
-<pinref part="S6" gate="1" pin="P"/>
+<pinref part="HOMING" gate="1" pin="P"/>
 <wire x1="-106.68" y1="20.32" x2="-106.68" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="S6" gate="1" pin="P1"/>
+<pinref part="HOMING" gate="1" pin="P1"/>
 <wire x1="-106.68" y1="12.7" x2="-106.68" y2="10.16" width="0.1524" layer="91"/>
 <junction x="-106.68" y="12.7"/>
 </segment>
@@ -19188,12 +19188,12 @@ reset µC on new Connection</text>
 </net>
 <net name="RESET" class="0">
 <segment>
-<pinref part="S1" gate="1" pin="P1"/>
+<pinref part="RESET" gate="1" pin="P1"/>
 <wire x1="-86.36" y1="55.88" x2="-78.74" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="-78.74" y1="55.88" x2="-73.66" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="-73.66" y1="55.88" x2="-73.66" y2="53.34" width="0.1524" layer="91"/>
 <label x="-10.16" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="S1" gate="1" pin="P"/>
+<pinref part="RESET" gate="1" pin="P"/>
 <junction x="-73.66" y="55.88"/>
 <label x="-86.36" y="55.88" size="1.778" layer="95" rot="R180" xref="yes"/>
 <pinref part="R1" gate="G$1" pin="2"/>
@@ -19205,7 +19205,7 @@ reset µC on new Connection</text>
 <label x="25.4" y="-45.72" size="1.778" layer="95" rot="MR0" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP5" gate="A" pin="5"/>
+<pinref part="ICSP" gate="A" pin="5"/>
 <wire x1="-78.74" y1="81.28" x2="-86.36" y2="81.28" width="0.1524" layer="91"/>
 <label x="-86.36" y="81.28" size="1.778" layer="95" rot="MR0" xref="yes"/>
 </segment>
@@ -19216,117 +19216,117 @@ reset µC on new Connection</text>
 </net>
 <net name="N$1" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="RST"/>
+<pinref part="U3" gate="G$1" pin="RST"/>
 <wire x1="0" y1="144.78" x2="-7.62" y2="144.78" width="0.1524" layer="91"/>
 <wire x1="-7.62" y1="144.78" x2="-7.62" y2="147.32" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="SLP"/>
+<pinref part="U3" gate="G$1" pin="SLP"/>
 <wire x1="-7.62" y1="147.32" x2="0" y2="147.32" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$6" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="MS3"/>
-<pinref part="SW1" gate="A" pin="1"/>
+<pinref part="U3" gate="G$1" pin="MS3"/>
+<pinref part="MSMOT1" gate="A" pin="1"/>
 <wire x1="-7.62" y1="137.16" x2="0" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$7" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="MS2"/>
-<pinref part="SW1" gate="A" pin="2"/>
+<pinref part="U3" gate="G$1" pin="MS2"/>
+<pinref part="MSMOT1" gate="A" pin="2"/>
 <wire x1="-7.62" y1="139.7" x2="0" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$8" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="MS1"/>
-<pinref part="SW1" gate="A" pin="3"/>
+<pinref part="U3" gate="G$1" pin="MS1"/>
+<pinref part="MSMOT1" gate="A" pin="3"/>
 <wire x1="-7.62" y1="142.24" x2="0" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="A1"/>
-<pinref part="JP2" gate="G$1" pin="1"/>
+<pinref part="U3" gate="G$1" pin="A1"/>
+<pinref part="MOT1" gate="G$1" pin="1"/>
 <wire x1="38.1" y1="144.78" x2="30.48" y2="144.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$3" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="A2"/>
-<pinref part="JP2" gate="G$1" pin="2"/>
+<pinref part="U3" gate="G$1" pin="A2"/>
+<pinref part="MOT1" gate="G$1" pin="2"/>
 <wire x1="38.1" y1="142.24" x2="30.48" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$4" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="B1"/>
-<pinref part="JP2" gate="G$1" pin="3"/>
+<pinref part="U3" gate="G$1" pin="B1"/>
+<pinref part="MOT1" gate="G$1" pin="3"/>
 <wire x1="38.1" y1="139.7" x2="30.48" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$5" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="B2"/>
-<pinref part="JP2" gate="G$1" pin="4"/>
+<pinref part="U3" gate="G$1" pin="B2"/>
+<pinref part="MOT1" gate="G$1" pin="4"/>
 <wire x1="38.1" y1="137.16" x2="30.48" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$9" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="RST"/>
+<pinref part="U4" gate="G$1" pin="RST"/>
 <wire x1="96.52" y1="144.78" x2="88.9" y2="144.78" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="144.78" x2="88.9" y2="147.32" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="SLP"/>
+<pinref part="U4" gate="G$1" pin="SLP"/>
 <wire x1="88.9" y1="147.32" x2="96.52" y2="147.32" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$11" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="MS3"/>
-<pinref part="SW2" gate="A" pin="1"/>
+<pinref part="U4" gate="G$1" pin="MS3"/>
+<pinref part="MSMOT2" gate="A" pin="1"/>
 <wire x1="88.9" y1="137.16" x2="96.52" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$12" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="MS2"/>
-<pinref part="SW2" gate="A" pin="2"/>
+<pinref part="U4" gate="G$1" pin="MS2"/>
+<pinref part="MSMOT2" gate="A" pin="2"/>
 <wire x1="88.9" y1="139.7" x2="96.52" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$13" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="MS1"/>
-<pinref part="SW2" gate="A" pin="3"/>
+<pinref part="U4" gate="G$1" pin="MS1"/>
+<pinref part="MSMOT2" gate="A" pin="3"/>
 <wire x1="88.9" y1="142.24" x2="96.52" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$14" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="A1"/>
-<pinref part="JP3" gate="G$1" pin="1"/>
+<pinref part="U4" gate="G$1" pin="A1"/>
+<pinref part="MOT2" gate="G$1" pin="1"/>
 <wire x1="134.62" y1="144.78" x2="127" y2="144.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$15" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="A2"/>
-<pinref part="JP3" gate="G$1" pin="2"/>
+<pinref part="U4" gate="G$1" pin="A2"/>
+<pinref part="MOT2" gate="G$1" pin="2"/>
 <wire x1="134.62" y1="142.24" x2="127" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$16" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="B1"/>
-<pinref part="JP3" gate="G$1" pin="3"/>
+<pinref part="U4" gate="G$1" pin="B1"/>
+<pinref part="MOT2" gate="G$1" pin="3"/>
 <wire x1="134.62" y1="139.7" x2="127" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$17" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="B2"/>
-<pinref part="JP3" gate="G$1" pin="4"/>
+<pinref part="U4" gate="G$1" pin="B2"/>
+<pinref part="MOT2" gate="G$1" pin="4"/>
 <wire x1="134.62" y1="137.16" x2="127" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -19376,7 +19376,7 @@ reset µC on new Connection</text>
 </net>
 <net name="N$18" class="0">
 <segment>
-<pinref part="JP4" gate="G$1" pin="2"/>
+<pinref part="RS232" gate="G$1" pin="2"/>
 <wire x1="86.36" y1="-33.02" x2="78.74" y2="-33.02" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="-33.02" x2="78.74" y2="-30.48" width="0.1524" layer="91"/>
 <pinref part="U2" gate="G$1" pin="T1OUT"/>
@@ -19385,14 +19385,14 @@ reset µC on new Connection</text>
 </net>
 <net name="N$19" class="0">
 <segment>
-<pinref part="JP4" gate="G$1" pin="3"/>
+<pinref part="RS232" gate="G$1" pin="3"/>
 <pinref part="U2" gate="G$1" pin="R1IN"/>
 <wire x1="86.36" y1="-35.56" x2="71.12" y2="-35.56" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$26" class="0">
 <segment>
-<pinref part="JP4" gate="G$1" pin="4"/>
+<pinref part="RS232" gate="G$1" pin="4"/>
 <pinref part="U2" gate="G$1" pin="R2IN"/>
 <wire x1="86.36" y1="-38.1" x2="71.12" y2="-38.1" width="0.1524" layer="91"/>
 </segment>
@@ -19423,7 +19423,7 @@ reset µC on new Connection</text>
 <wire x1="40.64" y1="25.4" x2="45.72" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="JP5" gate="A" pin="1"/>
+<pinref part="ICSP" gate="A" pin="1"/>
 <wire x1="-104.14" y1="86.36" x2="-78.74" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -19433,7 +19433,7 @@ reset µC on new Connection</text>
 <wire x1="40.64" y1="22.86" x2="45.72" y2="22.86" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="JP5" gate="A" pin="3"/>
+<pinref part="ICSP" gate="A" pin="3"/>
 <wire x1="-104.14" y1="83.82" x2="-78.74" y2="83.82" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -19446,7 +19446,7 @@ reset µC on new Connection</text>
 </net>
 <net name="3.3V" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="VDD"/>
+<pinref part="U5" gate="G$1" pin="VDD"/>
 <pinref part="SUPPLY13" gate="G$1" pin="3.3V"/>
 <wire x1="127" y1="-15.24" x2="127" y2="-17.78" width="0.1524" layer="91"/>
 <wire x1="127" y1="-17.78" x2="127" y2="-20.32" width="0.1524" layer="91"/>
@@ -19465,7 +19465,7 @@ reset µC on new Connection</text>
 </net>
 <net name="ESPRX" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="RX"/>
+<pinref part="U5" gate="G$1" pin="RX"/>
 <wire x1="111.76" y1="-27.94" x2="106.68" y2="-27.94" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -19475,7 +19475,7 @@ reset µC on new Connection</text>
 </net>
 <net name="ESPTX" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="TX"/>
+<pinref part="U5" gate="G$1" pin="TX"/>
 <wire x1="111.76" y1="-30.48" x2="106.68" y2="-30.48" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -19485,7 +19485,7 @@ reset µC on new Connection</text>
 </net>
 <net name="N$27" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="CH_PD"/>
+<pinref part="U5" gate="G$1" pin="CH_PD"/>
 <pinref part="R2" gate="G$1" pin="1"/>
 <wire x1="144.78" y1="-30.48" x2="152.4" y2="-30.48" width="0.1524" layer="91"/>
 <wire x1="152.4" y1="-30.48" x2="152.4" y2="-27.94" width="0.1524" layer="91"/>
@@ -19508,15 +19508,15 @@ reset µC on new Connection</text>
 <net name="N$30" class="0">
 <segment>
 <pinref part="T1" gate="G$1" pin="E"/>
-<pinref part="JP6" gate="G$1" pin="1"/>
+<pinref part="IROUT" gate="G$1" pin="1"/>
 <wire x1="-22.86" y1="-30.48" x2="-22.86" y2="-38.1" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="LEFT" class="0">
 <segment>
-<pinref part="S2" gate="1" pin="S1"/>
+<pinref part="LEFT" gate="1" pin="S1"/>
 <pinref part="R5" gate="G$1" pin="1"/>
-<pinref part="S2" gate="1" pin="S"/>
+<pinref part="LEFT" gate="1" pin="S"/>
 <wire x1="-50.8" y1="12.7" x2="-50.8" y2="7.62" width="0.1524" layer="91"/>
 <junction x="-50.8" y="7.62"/>
 <wire x1="-43.18" y1="12.7" x2="-50.8" y2="12.7" width="0.1524" layer="91"/>
@@ -19530,9 +19530,9 @@ reset µC on new Connection</text>
 </net>
 <net name="TILTCW" class="0">
 <segment>
-<pinref part="S3" gate="1" pin="S1"/>
+<pinref part="TILTCW" gate="1" pin="S1"/>
 <pinref part="R6" gate="G$1" pin="1"/>
-<pinref part="S3" gate="1" pin="S"/>
+<pinref part="TILTCW" gate="1" pin="S"/>
 <wire x1="-50.8" y1="-30.48" x2="-50.8" y2="-33.02" width="0.1524" layer="91"/>
 <junction x="-50.8" y="-33.02"/>
 <wire x1="-43.18" y1="-30.48" x2="-50.8" y2="-30.48" width="0.1524" layer="91"/>
@@ -19547,9 +19547,9 @@ reset µC on new Connection</text>
 <segment>
 <wire x1="-43.18" y1="-17.78" x2="-68.58" y2="-17.78" width="0.1524" layer="91"/>
 <wire x1="-68.58" y1="-17.78" x2="-68.58" y2="-30.48" width="0.1524" layer="91"/>
-<pinref part="S5" gate="1" pin="S1"/>
+<pinref part="TILTCCW" gate="1" pin="S1"/>
 <pinref part="R8" gate="G$1" pin="1"/>
-<pinref part="S5" gate="1" pin="S"/>
+<pinref part="TILTCCW" gate="1" pin="S"/>
 <wire x1="-73.66" y1="-30.48" x2="-73.66" y2="-33.02" width="0.1524" layer="91"/>
 <junction x="-73.66" y="-33.02"/>
 <wire x1="-68.58" y1="-30.48" x2="-73.66" y2="-30.48" width="0.1524" layer="91"/>
@@ -19564,9 +19564,9 @@ reset µC on new Connection</text>
 <segment>
 <wire x1="-43.18" y1="-10.16" x2="-68.58" y2="-10.16" width="0.1524" layer="91"/>
 <wire x1="-68.58" y1="-10.16" x2="-68.58" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="S4" gate="1" pin="S1"/>
+<pinref part="RIGHT" gate="1" pin="S1"/>
 <pinref part="R7" gate="G$1" pin="1"/>
-<pinref part="S4" gate="1" pin="S"/>
+<pinref part="RIGHT" gate="1" pin="S"/>
 <wire x1="-73.66" y1="12.7" x2="-73.66" y2="7.62" width="0.1524" layer="91"/>
 <junction x="-73.66" y="7.62"/>
 <wire x1="-68.58" y1="12.7" x2="-73.66" y2="12.7" width="0.1524" layer="91"/>
@@ -19582,9 +19582,9 @@ reset µC on new Connection</text>
 <segment>
 <wire x1="-43.18" y1="-12.7" x2="-91.44" y2="-12.7" width="0.1524" layer="91"/>
 <wire x1="-91.44" y1="-12.7" x2="-91.44" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="S6" gate="1" pin="S1"/>
+<pinref part="HOMING" gate="1" pin="S1"/>
 <pinref part="R9" gate="G$1" pin="1"/>
-<pinref part="S6" gate="1" pin="S"/>
+<pinref part="HOMING" gate="1" pin="S"/>
 <wire x1="-96.52" y1="12.7" x2="-96.52" y2="7.62" width="0.1524" layer="91"/>
 <junction x="-96.52" y="7.62"/>
 <wire x1="-91.44" y1="12.7" x2="-96.52" y2="12.7" width="0.1524" layer="91"/>
@@ -19598,7 +19598,7 @@ reset µC on new Connection</text>
 <segment>
 <wire x1="-104.14" y1="93.98" x2="-60.96" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="-60.96" y1="93.98" x2="-60.96" y2="83.82" width="0.1524" layer="91"/>
-<pinref part="JP5" gate="A" pin="4"/>
+<pinref part="ICSP" gate="A" pin="4"/>
 <wire x1="-60.96" y1="83.82" x2="-71.12" y2="83.82" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -19638,7 +19638,7 @@ reset µC on new Connection</text>
 <segment>
 <pinref part="R12" gate="G$1" pin="2"/>
 <wire x1="124.46" y1="50.8" x2="124.46" y2="48.26" width="0.1524" layer="91" style="longdash"/>
-<pinref part="JP7" gate="G$1" pin="3"/>
+<pinref part="ENDSTOP" gate="G$1" pin="3"/>
 <wire x1="129.54" y1="48.26" x2="124.46" y2="48.26" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -19648,7 +19648,7 @@ reset µC on new Connection</text>
 <wire x1="101.6" y1="53.34" x2="116.84" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="116.84" y1="53.34" x2="116.84" y2="45.72" width="0.1524" layer="91"/>
 <wire x1="116.84" y1="45.72" x2="129.54" y2="45.72" width="0.1524" layer="91"/>
-<pinref part="JP7" gate="G$1" pin="2"/>
+<pinref part="ENDSTOP" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="N$37" class="0">
@@ -19697,7 +19697,7 @@ reset µC on new Connection</text>
 </net>
 <net name="STEP2" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="STEP"/>
+<pinref part="U4" gate="G$1" pin="STEP"/>
 <wire x1="96.52" y1="134.62" x2="93.98" y2="134.62" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="134.62" x2="93.98" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="127" x2="93.98" y2="129.54" width="0.1524" layer="91"/>
@@ -19709,7 +19709,7 @@ reset µC on new Connection</text>
 </net>
 <net name="DIR2" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="DIR"/>
+<pinref part="U4" gate="G$1" pin="DIR"/>
 <wire x1="96.52" y1="132.08" x2="96.52" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="127" x2="96.52" y2="129.54" width="0.1524" layer="91"/>
 </segment>
@@ -19720,7 +19720,7 @@ reset µC on new Connection</text>
 </net>
 <net name="STEP1" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="STEP"/>
+<pinref part="U3" gate="G$1" pin="STEP"/>
 <wire x1="0" y1="134.62" x2="-2.54" y2="134.62" width="0.1524" layer="91"/>
 <wire x1="-2.54" y1="134.62" x2="-2.54" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="-5.08" y1="127" x2="-2.54" y2="129.54" width="0.1524" layer="91"/>
@@ -19732,7 +19732,7 @@ reset µC on new Connection</text>
 </net>
 <net name="DIR1" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="DIR"/>
+<pinref part="U3" gate="G$1" pin="DIR"/>
 <wire x1="0" y1="132.08" x2="0" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="-2.54" y1="127" x2="0" y2="129.54" width="0.1524" layer="91"/>
 </segment>
