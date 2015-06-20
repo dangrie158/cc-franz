@@ -10,13 +10,17 @@ import UIKit
 
 class LiveController: UIViewController{
     
-    var timer:NSTimer? = NSTimer()
-    var counter:Int = 0
-    
-    @IBOutlet weak var timeElappsedTextfield: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let recording = Recording();
+//        for index in 1...5000{
+//            recording.addAction(Recording.Action(message: "hallo dani " + String(index), timeToNextMessage: 0.001 * Double(index)))
+//        }
+//        
+//        recording.play(on: CameraSlider.getInstance())
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -24,25 +28,17 @@ class LiveController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
-    func sendMessage(){
-        counter += 1
-        timeElappsedTextfield.text = String(counter)
+    @IBAction func movementSpeedChanged(sender: HorizontalSlider) {
+        let direction : CameraSlider.Direction = sender.value >= 0 ? .RIGHT : .LEFT
+        let speed = sender.value >= 0 ? sender.value : (sender.value * (-1))
+        CameraSlider.getInstance().move(direction, withSpeed: speed)
+    }
+    @IBAction func rotationSpeedChanged(sender: HorizontalSlider) {
+        let direction : CameraSlider.Direction = sender.value >= 0 ? .CW : .CCW
+        let speed = sender.value >= 0 ? sender.value : (sender.value * (-1))
+        CameraSlider.getInstance().rotate(direction, withSpeed: speed)
     }
     
-    @IBAction func moveLeftStart(sender: AnyObject) {
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("sendMessage"), userInfo: nil, repeats: true)
-    }
     
-    @IBAction func moveLeftStop(sender: AnyObject) {
-        if let z = timer?.valid{
-            timer!.invalidate()
-        }
-        timer = nil
-    }
-    
-    @IBOutlet weak var slider: HorizontalSlider!
-    @IBAction func sliderValueChanged(sender: AnyObject) {
-        println(slider.value)
-    }
     
 }

@@ -33,9 +33,9 @@ class RecordButton:UIButton{
         drawBackground(context, inArea: rect)
         switch currentState{
             case .RECORDING:
-                drawRec(context, inArea:rect)
-            case .STOPPED:
                 drawStop(context, inArea:rect)
+            case .STOPPED:
+                drawRec(context, inArea:rect)
         }
     }
     

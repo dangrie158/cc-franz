@@ -165,10 +165,28 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     func move(direction: Direction, withSpeed speed: Float){
+        // the basic string is build as follows: 
+        // "AXIS DIRECTION" + "DIRECTION SIGN" + "SPEED"
+        // example: "M-10" --> move left with the speed of 10
+        
+        // define axis as "M" for move or "R" for rotation
+        let axis = direction == .LEFT || direction == .RIGHT ? "M" : "R"
+        // define direction sign as "+" or "-" depending on LEFT/CCW or RIGHT/CW
+        let directionSign = direction == .LEFT || direction == .CCW ? "-" : "+"
+        // use 255 different speed values
+        let speedValue:Int = Int(speed*255)
+        // build message
+        let message:String = axis + directionSign + speedValue.description
+        // send message
+        wsConnection?.send(message)
     }
     
     func rotate(direction: Direction, withSpeed speed: Float){
         move(direction, withSpeed: speed)
+    }
+    
+    func sendRawMessage(message: String){
+        wsConnection?.send(message)
     }
     
 }
