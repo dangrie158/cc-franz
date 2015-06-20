@@ -99,5 +99,18 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-#Node.js
+# gccC Build Binaries
+.dep/
+*.lst
+*.eep
+*.elf
+*.hex
+*.lss
+*.lst
+*.map
+*.o
+*.sym
+*.dru
+
+#node.js
 */node_modules/*
