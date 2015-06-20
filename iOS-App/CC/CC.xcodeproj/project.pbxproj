@@ -26,7 +26,15 @@
 		655A495A1B3434C100D03E80 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A49591B3434C100D03E80 /* TabViewController.swift */; };
 		655A495D1B3448BF00D03E80 /* ConnectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A495B1B3448BF00D03E80 /* ConnectionScreen.swift */; };
 		655A495E1B3448BF00D03E80 /* ConnectionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 655A495C1B3448BF00D03E80 /* ConnectionScreen.xib */; };
-		6583D1381B009C2500BE3364 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6583D1371B009C2500BE3364 /* Launch Screen.xib */; };
+		65C673CC1B35CADD00351917 /* FBBitmapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673BE1B35CADD00351917 /* FBBitmapFont.m */; };
+		65C673CD1B35CADD00351917 /* FBBitmapFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673C01B35CADD00351917 /* FBBitmapFontView.m */; };
+		65C673CE1B35CADD00351917 /* FBFontSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673C21B35CADD00351917 /* FBFontSymbol.m */; };
+		65C673CF1B35CADD00351917 /* FBLCDFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673C41B35CADD00351917 /* FBLCDFont.m */; };
+		65C673D01B35CADD00351917 /* FBLCDFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673C61B35CADD00351917 /* FBLCDFontView.m */; };
+		65C673D11B35CADD00351917 /* FBSquareFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673C81B35CADD00351917 /* FBSquareFont.m */; };
+		65C673D21B35CADD00351917 /* FBSquareFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673CA1B35CADD00351917 /* FBSquareFontView.m */; };
+		65C673D31B35CADD00351917 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 65C673CB1B35CADD00351917 /* LICENSE */; };
+		65C673D51B35D82B00351917 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C673D41B35D82B00351917 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +74,22 @@
 		655A49591B3434C100D03E80 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabViewController.swift; path = SocketRocket/TabViewController.swift; sourceTree = "<group>"; };
 		655A495B1B3448BF00D03E80 /* ConnectionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionScreen.swift; sourceTree = "<group>"; };
 		655A495C1B3448BF00D03E80 /* ConnectionScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectionScreen.xib; sourceTree = "<group>"; };
-		6583D1371B009C2500BE3364 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		65C673BD1B35CADC00351917 /* FBBitmapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBitmapFont.h; sourceTree = "<group>"; };
+		65C673BE1B35CADD00351917 /* FBBitmapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBBitmapFont.m; sourceTree = "<group>"; };
+		65C673BF1B35CADD00351917 /* FBBitmapFontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBitmapFontView.h; sourceTree = "<group>"; };
+		65C673C01B35CADD00351917 /* FBBitmapFontView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBBitmapFontView.m; sourceTree = "<group>"; };
+		65C673C11B35CADD00351917 /* FBFontSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFontSymbol.h; sourceTree = "<group>"; };
+		65C673C21B35CADD00351917 /* FBFontSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFontSymbol.m; sourceTree = "<group>"; };
+		65C673C31B35CADD00351917 /* FBLCDFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLCDFont.h; sourceTree = "<group>"; };
+		65C673C41B35CADD00351917 /* FBLCDFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLCDFont.m; sourceTree = "<group>"; };
+		65C673C51B35CADD00351917 /* FBLCDFontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLCDFontView.h; sourceTree = "<group>"; };
+		65C673C61B35CADD00351917 /* FBLCDFontView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLCDFontView.m; sourceTree = "<group>"; };
+		65C673C71B35CADD00351917 /* FBSquareFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSquareFont.h; sourceTree = "<group>"; };
+		65C673C81B35CADD00351917 /* FBSquareFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSquareFont.m; sourceTree = "<group>"; };
+		65C673C91B35CADD00351917 /* FBSquareFontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSquareFontView.h; sourceTree = "<group>"; };
+		65C673CA1B35CADD00351917 /* FBSquareFontView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSquareFontView.m; sourceTree = "<group>"; };
+		65C673CB1B35CADD00351917 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		65C673D41B35D82B00351917 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C673D51B35D82B00351917 /* QuartzCore.framework in Frameworks */,
 				482A0DB71AF79B20003F18AB /* libicucore.dylib in Frameworks */,
 				482A0DB51AF79B12003F18AB /* CFNetwork.framework in Frameworks */,
 				482A0DB31AF79B0D003F18AB /* Security.framework in Frameworks */,
@@ -94,7 +118,7 @@
 		481551771AEF769300509E02 = {
 			isa = PBXGroup;
 			children = (
-				6583D1371B009C2500BE3364 /* Launch Screen.xib */,
+				65C673D41B35D82B00351917 /* QuartzCore.framework */,
 				482A0DB61AF79B20003F18AB /* libicucore.dylib */,
 				482A0DB41AF79B12003F18AB /* CFNetwork.framework */,
 				482A0DB21AF79B0D003F18AB /* Security.framework */,
@@ -117,6 +141,7 @@
 		481551821AEF769400509E02 /* CC */ = {
 			isa = PBXGroup;
 			children = (
+				65C673BC1B35CADC00351917 /* LCDFont */,
 				482A0DB81AF79BB3003F18AB /* SocketRocket */,
 				481551851AEF769400509E02 /* AppDelegate.swift */,
 				48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */,
@@ -170,6 +195,28 @@
 				482A0DBB1AF79BB3003F18AB /* SRWebSocket.m */,
 			);
 			path = SocketRocket;
+			sourceTree = "<group>";
+		};
+		65C673BC1B35CADC00351917 /* LCDFont */ = {
+			isa = PBXGroup;
+			children = (
+				65C673BD1B35CADC00351917 /* FBBitmapFont.h */,
+				65C673BE1B35CADD00351917 /* FBBitmapFont.m */,
+				65C673BF1B35CADD00351917 /* FBBitmapFontView.h */,
+				65C673C01B35CADD00351917 /* FBBitmapFontView.m */,
+				65C673C11B35CADD00351917 /* FBFontSymbol.h */,
+				65C673C21B35CADD00351917 /* FBFontSymbol.m */,
+				65C673C31B35CADD00351917 /* FBLCDFont.h */,
+				65C673C41B35CADD00351917 /* FBLCDFont.m */,
+				65C673C51B35CADD00351917 /* FBLCDFontView.h */,
+				65C673C61B35CADD00351917 /* FBLCDFontView.m */,
+				65C673C71B35CADD00351917 /* FBSquareFont.h */,
+				65C673C81B35CADD00351917 /* FBSquareFont.m */,
+				65C673C91B35CADD00351917 /* FBSquareFontView.h */,
+				65C673CA1B35CADD00351917 /* FBSquareFontView.m */,
+				65C673CB1B35CADD00351917 /* LICENSE */,
+			);
+			path = LCDFont;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,9 +302,9 @@
 			files = (
 				4815518D1AEF769400509E02 /* Main.storyboard in Resources */,
 				48A4A3DB1B35A2F600AF10E6 /* Images.xcassets in Resources */,
-				6583D1381B009C2500BE3364 /* Launch Screen.xib in Resources */,
 				481551921AEF769400509E02 /* LaunchScreen.xib in Resources */,
 				655A495E1B3448BF00D03E80 /* ConnectionScreen.xib in Resources */,
+				65C673D31B35CADD00351917 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,12 +323,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				481551A81AEF8A0A00509E02 /* RecordButton.swift in Sources */,
+				65C673CC1B35CADD00351917 /* FBBitmapFont.m in Sources */,
 				4815518A1AEF769400509E02 /* ScriptController.swift in Sources */,
 				482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */,
+				65C673CF1B35CADD00351917 /* FBLCDFont.m in Sources */,
 				482A0DBC1AF79BB3003F18AB /* SRWebSocket.m in Sources */,
+				65C673CE1B35CADD00351917 /* FBFontSymbol.m in Sources */,
 				650CC2141B00C553009569A8 /* CameraSlider.swift in Sources */,
 				655A495A1B3434C100D03E80 /* TabViewController.swift in Sources */,
+				65C673D11B35CADD00351917 /* FBSquareFont.m in Sources */,
 				655A495D1B3448BF00D03E80 /* ConnectionScreen.swift in Sources */,
+				65C673CD1B35CADD00351917 /* FBBitmapFontView.m in Sources */,
+				65C673D01B35CADD00351917 /* FBLCDFontView.m in Sources */,
+				65C673D21B35CADD00351917 /* FBSquareFontView.m in Sources */,
 				481551861AEF769400509E02 /* AppDelegate.swift in Sources */,
 				481551881AEF769400509E02 /* LiveController.swift in Sources */,
 				48B6FE5B1B35A23A0032A005 /* Recording.swift in Sources */,

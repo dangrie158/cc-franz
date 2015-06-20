@@ -10,16 +10,11 @@ import UIKit
 
 class LiveController: UIViewController{
     
+    @IBOutlet weak var recordTimeView: FBLCDFontView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let recording = Recording();
-//        for index in 1...5000{
-//            recording.addAction(Recording.Action(message: "hallo dani " + String(index), timeToNextMessage: 0.001 * Double(index)))
-//        }
-//        
-//        recording.play(on: CameraSlider.getInstance())
-        
+        recordTimeView.text = "01:20"
         
     }
     
