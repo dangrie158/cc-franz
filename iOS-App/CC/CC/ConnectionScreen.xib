@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E36b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConnectionScreen" customModule="CC" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eyr-s1-sXi">
+                    <rect key="frame" x="290" y="290" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="HTP-rd-qD9"/>
+                        <constraint firstAttribute="height" constant="20" id="gMI-zC-afI"/>
+                    </constraints>
+                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lookin' fo connect'n..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAG-GY-zxX">
+                    <rect key="frame" x="200" y="330" width="200" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="kAz-ut-0fU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.49999999999999961"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="jAG-GY-zxX" secondAttribute="centerX" constant="279" id="0pO-4Z-xfI"/>
+                <constraint firstAttribute="centerY" secondItem="jAG-GY-zxX" secondAttribute="centerY" id="6P1-FI-2Tu"/>
+                <constraint firstAttribute="centerX" secondItem="eyr-s1-sXi" secondAttribute="centerX" id="CMj-Ie-9FC"/>
+                <constraint firstAttribute="centerX" secondItem="jAG-GY-zxX" secondAttribute="centerX" id="Hyg-Br-JWx"/>
+                <constraint firstItem="jAG-GY-zxX" firstAttribute="top" secondItem="eyr-s1-sXi" secondAttribute="bottom" constant="20" id="VTB-EY-ZbL"/>
+                <constraint firstAttribute="centerY" secondItem="eyr-s1-sXi" secondAttribute="centerY" id="YRy-Rp-5wH"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="0pO-4Z-xfI"/>
+                    <exclude reference="6P1-FI-2Tu"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>
