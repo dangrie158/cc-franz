@@ -1,4 +1,3 @@
-#define F_CPU 16000000
 #include <stdbool.h>
 
 #include <util/delay.h>
@@ -12,7 +11,7 @@
 volatile uint8_t uartStringComplete = 0;
 volatile uint8_t uartStringCount = 0;
 volatile char uartString[UART_MAXSTRLEN + 1] = "";
-ISR(USART_RXC_vect){
+ISR(USART_RX_vect){
     unsigned char nextChar;
     
     //read buffer
@@ -43,8 +42,10 @@ void GpioInit(){
     DDRB |= (1 << PB2); // set status LED as output
     DDRB &= ~(1 << PB3); // set HOMING as input
 
-    DDRC |= (1 << PC1); // set DIR as output
-    DDRC |= (1 << PC2); // set STEP as output
+    DDRC |= (1 << PC3); // set DIR1 as output
+    DDRC |= (1 << PC4); // set STEP1 as output
+    DDRC |= (1 << PC1); // set DIR2 as output
+    DDRC |= (1 << PC2); // set STEP2 as output
     DDRC &= ~(1 << PC5); // set ENDSTOP as input
 
     DDRD |= (1 << PD3); // set TXD as output
@@ -65,11 +66,17 @@ void UartInit(){
     UCSR0B |= (1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0);  // enable UART RX, TX und RX interrupt
 }
 
-void doStep(){
+void doStepMove(){
     PORTC |= (1 << PC2);
     _delay_ms(1);
     PORTC &= ~(1 << PC2);
     _delay_ms(5);
+}
+void doStepRotate(){
+    PORTC |= (1 << PC4);
+    _delay_ms(1);
+    PORTC &= ~(1 << PC4);
+    _delay_ms(5);   
 }
 
 void writeByte(uint8_t b){
@@ -107,15 +114,28 @@ int main (){
         if((PIND >> PD5) & 1){  // if left
             PORTC |= (1 << PC1);
             PORTB |= (1 << PB2);
-            doStep();
+            doStepMove();
             writeByte('J');
         }
         else if((PIND >> PD7) & 1){ // if right
             PORTC &= ~(1 << PC1);
             PORTB |= (1 << PB2);
-            doStep();
+            doStepMove();
             writeByte('J');
-        }else if((PINB >> PB3) & 1){    // if homing
+        }
+        else if((PIND >> PD6) & 1){  // if ccw
+            PORTC |= (1 << PC3);
+            PORTB |= (1 << PB2);
+            doStepRotate();
+            writeByte('J');
+        }
+        else if((PINB >> PB1) & 1){  // if cw
+            PORTC &= ~(1 << PC3);
+            PORTB |= (1 << PB2);
+            doStepRotate();
+            writeByte('J');
+        }
+        else if((PINB >> PB3) & 1){    // if homing
             PORTB |= (1 << PB2); // LED
             PORTB |= (1 << PB0); // IR
         }else if(PINC >> PC5){
