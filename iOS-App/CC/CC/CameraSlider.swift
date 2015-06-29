@@ -23,6 +23,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     var shouldReconnect = true
+    var stepCoolDown = false
     
     /***********************
     *** Helper Functions ***
@@ -55,7 +56,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     /*******************************
     * instance methods / variables *
     ********************************/
-    private let controlAdress = "85.214.213.194:8080"
+    private let controlAdress = "192.168.4.1:8080"
     private var currentConnectionState:State = .DISCONNECTED
     
     private var connectedCallback : ((SRWebSocket) -> Void)? = nil;
@@ -75,12 +76,13 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
+        println("connectededed")
         setState(.CONNECTED)
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         setState(.DISCONNECTED)
-        
+        println(reason)
         if shouldReconnect {
             delay(1) {
                 self.socketConnect()
@@ -90,6 +92,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
         setState(.DISCONNECTED)
+        println("dis")
         if shouldReconnect {
             delay(1) {
                 self.socketConnect()
@@ -102,6 +105,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     //it will automatically re-attempt
     //to connect
     func startConnecting() {
+        println("starting")
         socketConnect()
     }
     
@@ -178,7 +182,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         // build message
         let message:String = axis + directionSign + speedValue.description
         // send message
-        wsConnection?.send(message)
+        sendRawMessage(message)
     }
     
     func rotate(direction: Direction, withSpeed speed: Float){
@@ -186,7 +190,15 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     func sendRawMessage(message: String){
-        wsConnection?.send(message)
+        if(!stepCoolDown){
+            wsConnection?.send(message)
+            println(message)
+            stepCoolDown = true;
+            delay(0.1){
+                self.stepCoolDown = false
+            }
+        }
+        
     }
     
 }

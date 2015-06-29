@@ -467,13 +467,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Grie�haber (J9QRGT2U8A)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Grie�haber (J9QRGT2U8A)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Manuel Wenner (4L6Y7GCJB8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Manuel Wenner (4L6Y7GCJB8)";
 				INFOPLIST_FILE = CC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e6b6f007-9347-44bc-946d-ab1df73a4d12";
+				PROVISIONING_PROFILE = "9529b5ad-5255-48b4-9452-ba99ffa5f863";
 				SWIFT_OBJC_BRIDGING_HEADER = CC/BridgingHeader.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -483,13 +483,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Grie�haber (J9QRGT2U8A)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Grie�haber (J9QRGT2U8A)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Manuel Wenner (4L6Y7GCJB8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Manuel Wenner (4L6Y7GCJB8)";
 				INFOPLIST_FILE = CC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e6b6f007-9347-44bc-946d-ab1df73a4d12";
+				PROVISIONING_PROFILE = "9529b5ad-5255-48b4-9452-ba99ffa5f863";
 				SWIFT_OBJC_BRIDGING_HEADER = CC/BridgingHeader.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

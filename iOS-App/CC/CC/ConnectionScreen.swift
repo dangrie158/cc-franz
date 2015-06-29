@@ -12,6 +12,8 @@ class ConnectionScreen: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        println("conscreen")
+        CameraSlider.getInstance().startConnecting()
 
         // Do any additional setup after loading the view.
     }
