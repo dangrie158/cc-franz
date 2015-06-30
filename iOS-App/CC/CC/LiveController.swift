@@ -10,13 +10,12 @@ import UIKit
 
 class LiveController: UIViewController{
     
-    var timer:NSTimer? = NSTimer()
-    var counter:Int = 0
-    
-    @IBOutlet weak var timeElappsedTextfield: UITextField!
-    
+    @IBOutlet weak var recordTimeView: FBLCDFontView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        recordTimeView.text = "01:20"
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -24,25 +23,28 @@ class LiveController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
-    func sendMessage(){
-        counter += 1
-        timeElappsedTextfield.text = String(counter)
+    @IBAction func movementSpeedRelease(sender: HorizontalSlider) {
+        let direction:CameraSlider.Direction = .LEFT
+        CameraSlider.getInstance().move(direction, withSpeed: 0.0)
     }
     
-    @IBAction func moveLeftStart(sender: AnyObject) {
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("sendMessage"), userInfo: nil, repeats: true)
+    @IBAction func moventSpeedReleaseOutside(sender: HorizontalSlider) {
+        self.movementSpeedRelease(sender)
     }
     
-    @IBAction func moveLeftStop(sender: AnyObject) {
-        if let z = timer?.valid{
-            timer!.invalidate()
-        }
-        timer = nil
+    
+    
+    @IBAction func movementSpeedChanged(sender: HorizontalSlider) {
+        let direction : CameraSlider.Direction = sender.value >= 0 ? .RIGHT : .LEFT
+        let speed = sender.value >= 0 ? sender.value : (sender.value * (-1))
+        CameraSlider.getInstance().move(direction, withSpeed: speed)
+    }
+    @IBAction func rotationSpeedChanged(sender: HorizontalSlider) {
+        let direction : CameraSlider.Direction = sender.value >= 0 ? .CW : .CCW
+        let speed = sender.value >= 0 ? sender.value : (sender.value * (-1))
+        CameraSlider.getInstance().rotate(direction, withSpeed: speed)
     }
     
-    @IBOutlet weak var slider: HorizontalSlider!
-    @IBAction func sliderValueChanged(sender: AnyObject) {
-        println(slider.value)
-    }
+    
     
 }

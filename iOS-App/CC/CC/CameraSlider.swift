@@ -22,6 +22,22 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         case CW
     }
     
+    var shouldReconnect = true
+    var stepCoolDown = false
+    var lastMessage = "";
+    
+    /***********************
+    *** Helper Functions ***
+    ***********************/
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
     /***********************
     * ConnectionManagement *
     ***********************/
@@ -41,7 +57,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     /*******************************
     * instance methods / variables *
     ********************************/
-    private let controlAdress = "85.214.213.194:8080"
+    private let controlAdress = "192.168.4.1:8080"
     private var currentConnectionState:State = .DISCONNECTED
     
     private var connectedCallback : ((SRWebSocket) -> Void)? = nil;
@@ -51,40 +67,73 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     
     override init(){
         super.init()
-        socketConnect()
     }
 
     /***********************
     * ConnectionManagement *
     ***********************/
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        println("Message: \(message)")
+        print("Message: \(message)")
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        currentConnectionState = .CONNECTED
+        print("connectededed")
+        setState(.CONNECTED)
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        currentConnectionState = .DISCONNECTED
+        setState(.DISCONNECTED)
+        print(reason)
+        if shouldReconnect {
+            delay(1) {
+                self.socketConnect()
+            }
+        }
     }
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
-        currentConnectionState = .DISCONNECTED
+        setState(.DISCONNECTED)
+        print("dis")
+        if shouldReconnect {
+            delay(1) {
+                self.socketConnect()
+            }
+        }
+    }
+    
+    //start the connection attempt loop
+    //if the connection fails,
+    //it will automatically re-attempt
+    //to connect
+    func startConnecting() {
+        print("starting")
+        socketConnect()
+    }
+    
+    func stopConnecting(){
+        self.shouldReconnect = false
+        wsConnection!.close()
     }
     
     func socketConnect() {
-        currentConnectionState = .CONNECTING
+        setState(.CONNECTING)
+        if wsConnection != nil{
+            wsConnection!.close()
+            wsConnection?.delegate = nil
+            wsConnection = nil
+        }
+        
         wsConnection = SRWebSocket(URL: NSURL(scheme: "ws", host: controlAdress, path: "/"))
         wsConnection!.delegate = self
         wsConnection!.open()
     }
     
-    func addOnConnectCallback( callback:(SRWebSocket)->Void ){
+    func onConnect( callback:(SRWebSocket)->Void ){
         connectedCallback = callback
     }
     
-    func addOnDisconnectCallback( callback:()->Void ){
+    func onDisconnect( callback:()->Void ){
+        print("ON DISCONNECT")
         disconnectedCallback = callback
     }
     
@@ -92,13 +141,11 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         let oldState = currentConnectionState
         switch newState {
         case .DISCONNECTED:
-            if oldState == State.CONNECTED && disconnectedCallback != nil {
+            if oldState != State.DISCONNECTED && oldState != State.CONNECTING && disconnectedCallback != nil{
                 disconnectedCallback!()
             }
         case .CONNECTING:
-            if oldState != State.DISCONNECTED && disconnectedCallback != nil {
-                disconnectedCallback!()
-            }
+            break
         case .CONNECTED:
             if oldState != State.CONNECTED && connectedCallback != nil {
                 connectedCallback!(wsConnection!)
@@ -123,10 +170,41 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     func move(direction: Direction, withSpeed speed: Float){
+        // the basic string is build as follows: 
+        // "AXIS DIRECTION" + "DIRECTION SIGN" + "SPEED"
+        // example: "M-10" --> move left with the speed of 10
+        
+        // define axis as "M" for move or "R" for rotation
+        let axis = direction == .LEFT || direction == .RIGHT ? "M" : "R"
+        // define direction sign as "+" or "-" depending on LEFT/CCW or RIGHT/CW
+        let directionSign = speed == 0 ? "" : (direction == .LEFT || direction == .CCW ? "-" : "+")
+        // use 255 different speed values
+        let speedValue:Int = Int(speed*255)
+        // build message
+        let message:String = axis + directionSign + speedValue.description
+        // send message
+        sendRawMessage(message)
     }
     
     func rotate(direction: Direction, withSpeed speed: Float){
         move(direction, withSpeed: speed)
+    }
+    
+    
+    func sendRawMessage(message: String){
+        if(!stepCoolDown){
+            wsConnection?.send(message)
+            print(message)
+            stepCoolDown = true;
+            delay(0.2){
+                self.stepCoolDown = false
+                self.wsConnection?.send(self.lastMessage)
+            }
+        }
+        else{
+            lastMessage = message;
+        }
+        
     }
     
 }

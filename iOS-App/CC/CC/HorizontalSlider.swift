@@ -25,8 +25,8 @@ class HorizontalSlider:UISlider{
         self.minimumValue = -1.0
         self.maximumValue = 1.0
         self.value = 0.0
-        self.minimumTrackTintColor = UIColor.greenColor()
-        self.maximumTrackTintColor = UIColor.greenColor()
+        self.minimumTrackTintColor = self.tintColor
+        self.maximumTrackTintColor = self.tintColor
         self.addTarget(self, action: Selector("stopSliding") , forControlEvents: UIControlEvents.TouchUpInside)
         self.addTarget(self, action: Selector("stopSliding") , forControlEvents: UIControlEvents.TouchUpOutside)
     }
