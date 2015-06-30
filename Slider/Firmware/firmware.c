@@ -85,15 +85,21 @@ void timerElapsed(){
     counterP++;
 
     if(counterM  >= speedM && speedM != 0){
-
         counterM = 0;
-        moveM = true;
+        //set move pin high, to perform a step
+        PORTC |= (1 << PC2);
+    }else{
+        //set step pin low again to be ready for the next step
+        PORTC &= ~(1 << PC2);
     }
 
     if(counterP >= speedP && speedP != 0){
-
         counterP = 0;
-        moveP = true;
+        //set rotate pin high to do a step
+        PORTC |= (1 << PC4);
+    }else{
+        //set step pin low again to be ready for the next step
+        PORTC &= ~(1 << PC4);
     }
 }
 
@@ -113,17 +119,6 @@ int main (){
     //debugWriteByte('I');
     
     while(true){
-
-        if(moveM){
-            moveM = false;
-            doStepMove();
-        }
-
-        if(moveP){
-            moveP = false;
-            doStepRotate();
-        }
-
         if((PIND >> PD5) & 1){  // if left
             PORTC |= (1 << PC1);
             PORTB |= (1 << PB2);
