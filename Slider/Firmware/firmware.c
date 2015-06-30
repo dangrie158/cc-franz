@@ -169,20 +169,21 @@ int main (){
              if(line[0] == 'M'){
                 if(line[1] == '+'){
                     PORTC &= ~(1 << PC1);
-                    speedM = ((1.0f / atoi(line + 2)) * 255);
+
+                    speedM = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
                 }else if(line[1] == '-'){
                     PORTC |= (1 << PC1);
-                    speedM = ((1.0f / atoi(line + 2)) * 255);
+                    speedM = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
                 }else if(line[1] == '0'){
                     speedM = 0;
                 }
              }else if(line[0] == 'R'){
                 if(line[1] == '+'){
                     PORTC &= ~(1 << PC3);
-                    speedP = ((1.0f / atoi(line + 2)) * 255);
+                    speedP = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
                 }else if(line[1] == '-'){
                     PORTC |= (1 << PC3);
-                    speedP = ((1.0f / atoi(line + 2)) * 255);
+                    speedP = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
                 }else if(line[1] == '0'){
                     speedP = 0;
                 }
