@@ -23,6 +23,17 @@ class LiveController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func movementSpeedRelease(sender: HorizontalSlider) {
+        let direction:CameraSlider.Direction = .LEFT
+        CameraSlider.getInstance().move(direction, withSpeed: 0.0)
+    }
+    
+    @IBAction func moventSpeedReleaseOutside(sender: HorizontalSlider) {
+        self.movementSpeedRelease(sender)
+    }
+    
+    
+    
     @IBAction func movementSpeedChanged(sender: HorizontalSlider) {
         let direction : CameraSlider.Direction = sender.value >= 0 ? .RIGHT : .LEFT
         let speed = sender.value >= 0 ? sender.value : (sender.value * (-1))

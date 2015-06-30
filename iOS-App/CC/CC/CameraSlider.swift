@@ -24,6 +24,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     
     var shouldReconnect = true
     var stepCoolDown = false
+    var lastMessage = "";
     
     /***********************
     *** Helper Functions ***
@@ -72,17 +73,17 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     * ConnectionManagement *
     ***********************/
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        println("Message: \(message)")
+        print("Message: \(message)")
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        println("connectededed")
+        print("connectededed")
         setState(.CONNECTED)
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         setState(.DISCONNECTED)
-        println(reason)
+        print(reason)
         if shouldReconnect {
             delay(1) {
                 self.socketConnect()
@@ -92,7 +93,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
         setState(.DISCONNECTED)
-        println("dis")
+        print("dis")
         if shouldReconnect {
             delay(1) {
                 self.socketConnect()
@@ -105,7 +106,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     //it will automatically re-attempt
     //to connect
     func startConnecting() {
-        println("starting")
+        print("starting")
         socketConnect()
     }
     
@@ -132,7 +133,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     func onDisconnect( callback:()->Void ){
-        println("ON DISCONNECT")
+        print("ON DISCONNECT")
         disconnectedCallback = callback
     }
     
@@ -176,7 +177,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         // define axis as "M" for move or "R" for rotation
         let axis = direction == .LEFT || direction == .RIGHT ? "M" : "R"
         // define direction sign as "+" or "-" depending on LEFT/CCW or RIGHT/CW
-        let directionSign = direction == .LEFT || direction == .CCW ? "-" : "+"
+        let directionSign = speed == 0 ? "" : (direction == .LEFT || direction == .CCW ? "-" : "+")
         // use 255 different speed values
         let speedValue:Int = Int(speed*255)
         // build message
@@ -189,14 +190,19 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         move(direction, withSpeed: speed)
     }
     
+    
     func sendRawMessage(message: String){
         if(!stepCoolDown){
             wsConnection?.send(message)
-            println(message)
+            print(message)
             stepCoolDown = true;
-            delay(0.1){
+            delay(0.2){
                 self.stepCoolDown = false
+                self.wsConnection?.send(self.lastMessage)
             }
+        }
+        else{
+            lastMessage = message;
         }
         
     }

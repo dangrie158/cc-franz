@@ -72,19 +72,19 @@ class RecordButton:UIButton{
     }
     
     func drawBackground(context:CGContext, inArea rect:CGRect){
-        var borderRect:CGRect = CGRectMake(0, 0, rect.width, rect.height);
+        let borderRect:CGRect = CGRectMake(0, 0, rect.width, rect.height);
         CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 1.0);
         CGContextFillEllipseInRect (context, borderRect);
     }
     
     func drawRec(context:CGContext, inArea rect:CGRect){
-        var borderRect:CGRect = CGRectMake((rect.width/2)-(rect.width/8), (rect.height/2)-(rect.width/8), rect.width/4, rect.height/4);
+        let borderRect:CGRect = CGRectMake((rect.width/2)-(rect.width/8), (rect.height/2)-(rect.width/8), rect.width/4, rect.height/4);
         CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
         CGContextFillEllipseInRect (context, borderRect);
     }
     
     func drawStop(context:CGContext, inArea rect:CGRect){
-        var borderRect:CGRect = CGRectMake((rect.width/2)-(rect.width/8), (rect.height/2)-(rect.width/8), rect.width/4, rect.height/4);
+        let borderRect:CGRect = CGRectMake((rect.width/2)-(rect.width/8), (rect.height/2)-(rect.width/8), rect.width/4, rect.height/4);
         CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
         CGContextFillRect(context, borderRect);
     }
