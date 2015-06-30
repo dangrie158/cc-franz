@@ -3,8 +3,11 @@ var WebSocketServer = require('ws').Server
 
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
-    ws.send(message);
+	console.log("Message! >> " + message);
+	ws.send(message);
   });
   console.log("connected");
   ws.send('server hello');
 });
+
+console.log("init");

@@ -2,17 +2,41 @@
 #define __HIDJOYSTICKRPTPARSER_H__
 
 #include <hid.h>
+#include <string.h>
+#include <stdlib.h>
+
+extern "C"
+{
+    #include "utils.h"    
+}
 
 struct GamePadEventData {
         uint8_t X, Y, Z1, Z2, Rz;
 };
 
 class JoystickEvents {
+
+        char rotateCommand[7];
+        char moveCommand[7];
+        char moveDir = '0';
+        char rotateDir = '0';
+        bool lPressed = false;
+        bool rPressed = false;
+        bool resetted = true;
+        bool dirtyRotate = false;
+        bool dirtyMove = false;
+        uint8_t rotateSpeed = 0;
+        uint8_t moveSpeed = 0;
+
 public:
+        JoystickEvents();
+
         virtual void OnGamePadChanged(const GamePadEventData *evt);
         virtual void OnHatSwitch(uint8_t hat);
         virtual void OnButtonUp(uint8_t but_id);
         virtual void OnButtonDn(uint8_t but_id);
+        void GetMoveCommand();
+        void GetRotateCommand();
 };
 
 #define RPT_GEMEPAD_LEN		5
