@@ -179,9 +179,9 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         // define direction sign as "+" or "-" depending on LEFT/CCW or RIGHT/CW
         let directionSign = speed == 0 ? "" : (direction == .LEFT || direction == .CCW ? "-" : "+")
         // use 255 different speed values
-        let speedValue:Int = Int(speed*255)
+        let speedValue:String = String(Int(speed*255), radix: 16)
         // build message
-        let message:String = axis + directionSign + speedValue.description
+        let message:String = axis + directionSign + speedValue
         // send message
         sendRawMessage(message)
     }
