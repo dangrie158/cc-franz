@@ -62,7 +62,7 @@ TARGET = firmware
 OBJDIR = .
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c
+SRC = $(TARGET).c uart.c timer.c
 
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC = 

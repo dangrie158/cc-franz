@@ -115,16 +115,16 @@ uint8_t HIDUniversal::Init(uint8_t parent, uint8_t port, bool lowspeed) {
         AddressPool &addrPool = pUsb->GetAddressPool();
 
         //USBTRACE("HU Init\r\n");
-        writeByte('I');
+        uart_writeByte('I');
         if(bAddress)
                 return USB_ERROR_CLASS_INSTANCE_ALREADY_IN_USE;
 
         // Get pointer to pseudo device with address 0 assigned
         p = addrPool.GetUsbDevicePtr(0);
-        writeByte('N');
+        uart_writeByte('N');
         if(!p)
                 return USB_ERROR_ADDRESS_NOT_FOUND_IN_POOL;
-        writeByte('I');
+        uart_writeByte('I');
         if(!p->epinfo) {
                 //USBTRACE("epinfo\r\n");
                 return USB_ERROR_EPINFO_IS_NULL;
@@ -369,7 +369,6 @@ void HIDUniversal::SaveBuffer(uint8_t len, uint8_t *src, uint8_t *dest) {
 
 uint8_t HIDUniversal::Poll()
 {
-        //writeByte('P');
         uint8_t rcode = 0;
 
         if(!bPollEnable)

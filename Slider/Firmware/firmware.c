@@ -1,36 +1,14 @@
 #include <stdbool.h>
+#include <stdlib.h> 
 
 #include <util/delay.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <string.h>
+#include "uart.h"
+#include "timer.h"
 
 #include "constants.h"
-
-
-
-volatile uint8_t uartStringComplete = 0;
-volatile uint8_t uartStringCount = 0;
-volatile char uartString[UART_MAXSTRLEN + 1] = "";
-ISR(USART_RX_vect){
-    unsigned char nextChar;
-    
-    //read buffer
-    nextChar = UDR0;
-    if( uartStringComplete == false ) {// drop everything to avoid corruption
-                                    //until the client is ready with the string
-            
-        if( nextChar != '\n' &&
-         nextChar != '\r' &&
-         uartStringCount < UART_MAXSTRLEN ) {
-            uartString[uartStringCount] = nextChar;
-            uartStringCount++;
-        }
-        else {
-            uartString[uartStringCount] = '\0';
-            uartStringComplete = true;
-        }
-    }
-}
 
 void GpioInit(){
     DDRB = 0;
@@ -57,29 +35,20 @@ void GpioInit(){
     PORTD &= ~(1 << PD3); //save set TXD to low
 }
 
-void UartInit(){
-    DDRD &= ~(1<<PD0);
-    PORTD |= (1<<PD0);
-    UBRR0H = UBRR_VAL >> 8;
-    UBRR0L = UBRR_VAL & 0xFF;
-    UCSR0C = (1<<UCSZ01)|(1<<UCSZ00); // async 8N1
-    UCSR0B |= (1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0);  // enable UART RX, TX und RX interrupt
-}
-
 void doStepMove(){
     PORTC |= (1 << PC2);
     _delay_ms(1);
     PORTC &= ~(1 << PC2);
-    _delay_ms(5);
+    _delay_ms(1);
 }
 void doStepRotate(){
     PORTC |= (1 << PC4);
     _delay_ms(1);
     PORTC &= ~(1 << PC4);
-    _delay_ms(5);   
+    _delay_ms(1);   
 }
 
-void writeByte(uint8_t b){
+void debugWriteByte(uint8_t b){
 
     //START BIT
     PORTD &= ~( 1 << PD3 ); // START BIT IS HIGH
@@ -101,44 +70,85 @@ void writeByte(uint8_t b){
 
     //STOP BIT 
     PORTD |= ( 1 << PD3 ); //STOP BIT IS LOW
-    _delay_us(104);         // TIME BETWEEN BYTES SENT
+    _delay_us(208);         // TIME BETWEEN BYTES SENT
 }
 
+volatile uint8_t speedM = 0; 
+volatile uint8_t speedP = 0;
+volatile bool moveM = false;
+volatile bool moveP = false;
+volatile uint8_t counterM = 0;
+volatile uint8_t counterP = 0;
+
+void timerElapsed(){
+    counterM++;
+    counterP++;
+
+    if(counterM  >= speedM && speedM != 0){
+        counterM = 0;
+        //set move pin high, to perform a step
+        PORTC |= (1 << PC2);
+    }else{
+        //set step pin low again to be ready for the next step
+        PORTC &= ~(1 << PC2);
+    }
+
+    if(counterP >= speedP && speedP != 0){
+        counterP = 0;
+        //set rotate pin high to do a step
+        PORTC |= (1 << PC4);
+    }else{
+        //set step pin low again to be ready for the next step
+        PORTC &= ~(1 << PC4);
+    }
+}
+
+
+
 int main (){
+
+    bool running = false;
+    uint8_t totalSteps = 0;
+
     GpioInit();
 
-    UartInit();
+    uartInit();
+
+    timerInit(timerElapsed);
+
+    //debugWriteByte('I');
     
     while(true){
-
         if((PIND >> PD5) & 1){  // if left
             PORTC |= (1 << PC1);
             PORTB |= (1 << PB2);
             doStepMove();
-            writeByte('J');
+            debugWriteByte('J');
         }
         else if((PIND >> PD7) & 1){ // if right
             PORTC &= ~(1 << PC1);
             PORTB |= (1 << PB2);
             doStepMove();
-            writeByte('J');
+            debugWriteByte('J');
         }
         else if((PIND >> PD6) & 1){  // if ccw
             PORTC |= (1 << PC3);
             PORTB |= (1 << PB2);
             doStepRotate();
-            writeByte('J');
+            debugWriteByte('J');
         }
         else if((PINB >> PB1) & 1){  // if cw
             PORTC &= ~(1 << PC3);
             PORTB |= (1 << PB2);
             doStepRotate();
-            writeByte('J');
+            debugWriteByte('J');
         }
         else if((PINB >> PB3) & 1){    // if homing
             PORTB |= (1 << PB2); // LED
             PORTB |= (1 << PB0); // IR
-        }else if(PINC >> PC5){
+            running = true;
+
+        }else if(PINC >> PC5){  //endstop
             PORTB |= (1 << PB2); // LED
 
         }
@@ -147,11 +157,53 @@ int main (){
             PORTB &= ~(1 << PB2);
         }
 
-        if(uartStringComplete){
-            for(uint8_t i=0; i<uartStringCount; i++){
-                writeByte(uartString[i]);
+         if(uartAvailable()){
+            char line[RX_BUFF];
+             uartReadLine(line);
+            for(int i=0; i < strlen(line); i++){
+                debugWriteByte(line[i]);
             }
-            uartStringComplete = false;
+            debugWriteByte('\n');
+            debugWriteByte('\r');
+
+             if(line[0] == 'M'){
+                if(line[1] == '+'){
+                    PORTC &= ~(1 << PC1);
+
+                    speedM = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                }else if(line[1] == '-'){
+                    PORTC |= (1 << PC1);
+                    speedM = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                }else if(line[1] == '0'){
+                    speedM = 0;
+                }
+             }else if(line[0] == 'R'){
+                if(line[1] == '+'){
+                    PORTC &= ~(1 << PC3);
+                    speedP = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                }else if(line[1] == '-'){
+                    PORTC |= (1 << PC3);
+                    speedP = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                }else if(line[1] == '0'){
+                    speedP = 0;
+                }
+             }
+         }
+
+        if(running){
+            PORTB |= (1 << PB2); // LED
+            PORTC |= (1 << PC1); //DIR2
+            PORTC &= ~(1 << PC3); //DIR1
+
+            if(totalSteps % 12 == 0){
+                doStepRotate();
+            }
+
+            doStepMove();
+
+            totalSteps++;
+
+            _delay_ms(100);
         }
     }
 

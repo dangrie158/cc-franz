@@ -1,2 +1,2 @@
 # cc-franz
-A iPad and PS3 Controllable Camera Slider with 2 Axis
+A iPad and USB HID Gamepad controllable Camera Slider with 2 Axis

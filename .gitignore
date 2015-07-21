@@ -4,7 +4,11 @@
 *.obj
 *.elf
 
+*/*.sublime-workspace
+*/*.sublime-project
+*.sublime*
 #Eagle Files
+
 *.l#*
 *.s#*
 *.b#*
