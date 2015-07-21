@@ -10,6 +10,8 @@
 
 #include "constants.h"
 
+#define __LOGARITHMIC_SPEED__ 1
+
 void GpioInit(){
     DDRB = 0;
     DDRC = 0;
@@ -169,21 +171,36 @@ int main (){
              if(line[0] == 'M'){
                 if(line[1] == '+'){
                     PORTC &= ~(1 << PC1);
-
-                    speedM = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                    #if __LOGARITHMIC_SPEED__
+                        speedM = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                    #else
+                        speedM = 255 - strtol(line + 2, NULL, 16);
+                    #endif
                 }else if(line[1] == '-'){
                     PORTC |= (1 << PC1);
-                    speedM = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                    #if __LOGARITHMIC_SPEED__
+                        speedM = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                    #else
+                        speedM = 255 - strtol(line + 2, NULL, 16);
+                    #endif
                 }else if(line[1] == '0'){
                     speedM = 0;
                 }
              }else if(line[0] == 'R'){
                 if(line[1] == '+'){
                     PORTC &= ~(1 << PC3);
-                    speedP = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                    #if __LOGARITHMIC_SPEED__
+                        speedP = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                    #else
+                        speedP = 255 - strtol(line + 2, NULL, 16);
+                    #endif
                 }else if(line[1] == '-'){
                     PORTC |= (1 << PC3);
-                    speedP = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                    #if __LOGARITHMIC_SPEED__
+                        speedP = ((1.0f / strtol(line + 2, NULL, 16)) * 255);
+                    #else
+                        speedP = 255 - strtol(line + 2, NULL, 16);
+                    #endif
                 }else if(line[1] == '0'){
                     speedP = 0;
                 }
