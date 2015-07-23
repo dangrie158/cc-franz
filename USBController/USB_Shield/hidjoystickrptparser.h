@@ -10,10 +10,12 @@ extern "C"
     #include "utils.h"    
 }
 
+// Kind of Data that come from the HID gamepad
 struct GamePadEventData {
         uint8_t X, Y, Z1, Z2, Rz;
 };
 
+// Kind of Events that can occure for the USBController
 class JoystickEvents {
 
         char rotateCommand[7];
@@ -31,12 +33,15 @@ class JoystickEvents {
 public:
         JoystickEvents();
 
+        // events when the gamepad state changes
         virtual void OnGamePadChanged(const GamePadEventData *evt);
         virtual void OnHatSwitch(uint8_t hat);
         virtual void OnButtonUp(uint8_t but_id);
         virtual void OnButtonDn(uint8_t but_id);
-        void GetMoveCommand();
-        void GetRotateCommand();
+
+        // Functions that enable the parser to send the current command
+        void SendMoveCommand();
+        void SendRotateCommand();
 };
 
 #define RPT_GEMEPAD_LEN		5

@@ -20,6 +20,7 @@ extern "C"
     #include "wiring_private.h"
 }
 
+// main entry routine
 int main(void)
 {
     // Init Timing and UART
@@ -35,15 +36,17 @@ int main(void)
     JoystickReportParser Joy(&JoyEvents);
     Usb.Init();
     _delay_ms(200);
+    // Joy is the report structure that gets the USB events when actions are performed
+    // and sets the correct move or rotate command respectively the current pressed buttons
     Hid.SetReportParser(0, &Joy);
     uart_writeString("USB initialized.\r\n");
 
-    // main loop, check USB events and send move / rotate commands through UART
+    // endless loop, check USB events and send move / rotate commands through UART
     while(1)
     {
     	Usb.Task();
-        JoyEvents.GetMoveCommand();
-        JoyEvents.GetRotateCommand();
+        JoyEvents.SendMoveCommand();
+        JoyEvents.SendRotateCommand();
     }
 
 }
