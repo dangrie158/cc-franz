@@ -7,7 +7,7 @@
 #include "user_interface.h"
 
 //Missing function prototypes in include folders. Gcc will warn on these if we don't define 'em anywhere.
-//MOST OF THESE ARE GUESSED! but they seem to swork and shut up the compiler.
+//MOST OF THESE ARE GUESSED! but they seem to work and shut up the compiler.
 typedef struct espconn espconn;
 
 int atoi(const char *nptr);

@@ -1,6 +1,7 @@
 #include "hidjoystickrptparser.h"
 
-
+// Initialize the Events with a command that does nothing
+// No Rotation and No Translation: R000,M000
 JoystickEvents::JoystickEvents()
 {
     strcpy(rotateCommand, "R000\r\n");
@@ -15,6 +16,7 @@ oldButtons(0) {
                 oldPad[i] = 0xD;
 }
 
+// Parse HID Data to the respectively correct events
 void JoystickReportParser::Parse(HID *hid, bool is_rpt_id, uint8_t len, uint8_t *buf) {
         bool match = true;
 
@@ -60,6 +62,8 @@ void JoystickReportParser::Parse(HID *hid, bool is_rpt_id, uint8_t len, uint8_t 
         }
 }
 
+// Called when the stearing cross on the gamepad is changed
+// that means the user wants to move in one direction
 void JoystickEvents::OnGamePadChanged(const GamePadEventData *evt) {
         
         dirtyMove = true;
@@ -96,9 +100,12 @@ void JoystickEvents::OnGamePadChanged(const GamePadEventData *evt) {
         resetted = false;
 }
 
-// Not used in this implementation
+// These Buttons are not used in this implementation
+// and not available in the given hardware configuration
+// So this method is only here to satisfy the interface
 void JoystickEvents::OnHatSwitch(uint8_t hat) {}
 
+// Change values when a button is released
 void JoystickEvents::OnButtonUp(uint8_t but_id) {
 
         dirtyMove = true;
@@ -117,6 +124,7 @@ void JoystickEvents::OnButtonUp(uint8_t but_id) {
         }
 }
 
+// Change values when a button is pressed
 void JoystickEvents::OnButtonDn(uint8_t but_id) {
 
         dirtyMove = true;
@@ -184,7 +192,8 @@ void JoystickEvents::OnButtonDn(uint8_t but_id) {
         }
 }
 
-void JoystickEvents::GetMoveCommand() {
+// Function enables the parser to send the current move command
+void JoystickEvents::SendMoveCommand() {
 
     if(dirtyMove)
     {
@@ -226,6 +235,7 @@ void JoystickEvents::GetMoveCommand() {
     }
 }
 
+// Function enables the parser to send the current rotate command
 void JoystickEvents::GetRotateCommand() {
 
     if(dirtyRotate)
