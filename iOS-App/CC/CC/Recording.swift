@@ -6,7 +6,10 @@
 //  Copyright (c) 2015 Tobias Schneider. All rights reserved.
 //
 
-class Recording{
+import CoreData
+
+class Recording : NSManagedObject{
+    
 
     class Action{
         private var message: String
@@ -19,12 +22,14 @@ class Recording{
     }
     
     var name: String = ""
-    var actions = [Action]()
+    private var actions = [Action]()
+    private var lastActionTime = NSDate()
+    let startTime = NSDate()
     
     /***********************
     *** Helper Functions ***
     ***********************/
-    func delay(delay:Double, closure:()->()) {
+    private func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time(
                 DISPATCH_TIME_NOW,
@@ -36,10 +41,44 @@ class Recording{
     /***********************
     **** Main Functions ****
     ***********************/
+    
+    init(){
+        super(entity: entity!,
+            insertIntoManagedObjectContext:managedContext)
+        self.name = (self.valueForKey("name") as? String)!
+    }
+    
+    init(withName name: String){
+        super.init()
+        self.name = name;
+    }
+    
+    /**
+     * add a precomposed action element to the recoding
+     */
     func addAction(action: Action){
+        //also set the time since the last message here
+        //so we can use both addAction function interchangeably
+        lastActionTime = NSDate()
         actions.append(action)
     }
-    // play recording via camera slider
+    
+    /**
+     * add an Action to the recording and automatically set
+     * the sime interval since the last action was added
+     */
+    func addAction(withStringAction action: String){
+        //calculate the time since the last action occurred
+        let timeOfAction = NSDate()
+        let timeSinceLastAction = timeOfAction.timeIntervalSinceDate(lastActionTime)
+        let newAction = Action(message: action, timeToNextMessage: timeSinceLastAction)
+        
+        self.addAction(newAction)
+    }
+    
+    /**
+     * play recording via camera slider
+     */
     func play(on receiver: CameraSlider, actionIndex: Int = 0){
         if(actionIndex >= actions.count){
             return
@@ -53,6 +92,13 @@ class Recording{
             // recursively call fuction
             self.play(on: receiver, actionIndex: actionIndex+1)
         }
+    }
+    
+    /**
+     * save the recording to the store
+     */
+    func save(){
+        print(self.name)
     }
 
 }

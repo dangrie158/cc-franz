@@ -15,7 +15,7 @@ class HorizontalSlider:UISlider{
         super.init(frame: frame)
         setupSlider()
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupSlider()
     }
