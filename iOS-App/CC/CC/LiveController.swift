@@ -7,23 +7,32 @@
 //
 
 import UIKit
+import CoreData
 
-class LiveController: UIViewController{
+class LiveController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     /*******************************
     * instance methods / variables *
     ********************************/
     var updateRecordTimeTimer:NSTimer? = nil;
     var currentRecording:Recording? = nil
+    var recordings = [NSManagedObject]()
+    var managedContext : NSManagedObjectContext? = nil
     
     /*******************************
     *             outlets          *
     ********************************/
     @IBOutlet weak var recordButton: RecordButton!
     @IBOutlet weak var recordTimeView: FBLCDFontView!
+    @IBOutlet weak var recordingsListView: UITableView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "\"The List\""
+        recordingsListView.registerClass(UITableViewCell.self,
+            forCellReuseIdentifier: "Cell")
         
         self.recordTimeView.text = "00:00"
         
@@ -38,7 +47,7 @@ class LiveController: UIViewController{
                 print("Tried to record while already recoring, ignoring")
             }
             
-            self.updateRecordTimeTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("updateRecordTimer"), userInfo: nil, repeats: true)
+            self.updateRecordTimeTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("updateRecordTimer"), userInfo: nil, repeats: true)
             
             //reset the time
             self.recordTimeView.text = "00:00"
@@ -56,6 +65,27 @@ class LiveController: UIViewController{
         }
         
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        // initialized globally
+        self.managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName:"Recording")
+        fetchRequest.relationshipKeyPathsForPrefetching = ["actions"]
+        var fetchedResults : [NSManagedObject]? = nil
+        
+        do{
+            try fetchedResults = self.managedContext!.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+        }
+        catch{
+            print("Failed to load recordings from database.")
+        }
+        
+        self.recordings = fetchedResults!
+    }
+
     
     func updateRecordTimer() {
         let interval = NSDate().timeIntervalSinceDate((self.currentRecording?.startTime)!)
@@ -79,7 +109,9 @@ class LiveController: UIViewController{
                 recording.name = (newNameField?.text)!
             }
             
-            recording.save();
+            let managedObject = recording.save(self.managedContext)
+            self.recordings.append(managedObject)
+            self.recordingsListView.reloadData()
         }
         
         let alert = UIAlertController(title: "Save As", message: "Please enter the recordings name", preferredStyle: UIAlertControllerStyle.Alert)
@@ -98,6 +130,58 @@ class LiveController: UIViewController{
             
         //show the view controller
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    /*******************************
+    *       table view protocol    *
+    ********************************/
+
+    func tableView(tableView: UITableView,
+        numberOfRowsInSection section: Int) -> Int {
+            return recordings.count
+    }
+    
+    func tableView(tableView: UITableView,
+        cellForRowAtIndexPath
+        indexPath: NSIndexPath) -> UITableViewCell {
+            
+            let cell =
+            tableView.dequeueReusableCellWithIdentifier("Cell")
+                as UITableViewCell?
+            
+            let recording = recordings[indexPath.row]
+            cell!.textLabel!.text = recording.valueForKey("name") as? String
+            
+            return cell!
+    }
+    /**
+    * set the tableView as editable
+    */
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    /**
+    * delete table rows
+    */
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            // remove the deleted item from the model
+            self.managedContext!.deleteObject(recordings[indexPath.row] as NSManagedObject)
+            do{
+                try self.managedContext!.save()
+            }
+            catch{
+                print("Could not save")
+            }
+            recordings.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedRecording = recordings[indexPath.row]
+        Recording.getFromManagedObject(selectedRecording).play(on: CameraSlider.getInstance())
     }
     
     override func didReceiveMemoryWarning() {

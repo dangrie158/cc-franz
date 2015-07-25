@@ -29,7 +29,7 @@ class RecordButton:UIButton{
         super.init(frame: frame)
         setupRecordButton()
     }
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupRecordButton()
     }

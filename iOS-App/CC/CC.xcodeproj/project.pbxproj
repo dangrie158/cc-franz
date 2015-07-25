@@ -22,6 +22,7 @@
 		482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */; };
 		48A4A3DB1B35A2F600AF10E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */; };
 		48B6FE5B1B35A23A0032A005 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B6FE5A1B35A23A0032A005 /* Recording.swift */; };
+		48EC42A71B63AA5B0063FAB0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EC42A61B63AA5B0063FAB0 /* CoreData.framework */; };
 		650CC2141B00C553009569A8 /* CameraSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CC2131B00C553009569A8 /* CameraSlider.swift */; };
 		655A495A1B3434C100D03E80 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A49591B3434C100D03E80 /* TabViewController.swift */; };
 		655A495D1B3448BF00D03E80 /* ConnectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A495B1B3448BF00D03E80 /* ConnectionScreen.swift */; };
@@ -71,6 +72,7 @@
 		482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSlider.swift; sourceTree = "<group>"; };
 		48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SocketRocket/Images.xcassets; sourceTree = "<group>"; };
 		48B6FE5A1B35A23A0032A005 /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		48EC42A61B63AA5B0063FAB0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		650CC2131B00C553009569A8 /* CameraSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraSlider.swift; sourceTree = "<group>"; };
 		655A49591B3434C100D03E80 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabViewController.swift; path = SocketRocket/TabViewController.swift; sourceTree = "<group>"; };
 		655A495B1B3448BF00D03E80 /* ConnectionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionScreen.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48EC42A71B63AA5B0063FAB0 /* CoreData.framework in Frameworks */,
 				65C673D51B35D82B00351917 /* QuartzCore.framework in Frameworks */,
 				482A0DB71AF79B20003F18AB /* libicucore.dylib in Frameworks */,
 				482A0DB51AF79B12003F18AB /* CFNetwork.framework in Frameworks */,
@@ -120,6 +123,7 @@
 		481551771AEF769300509E02 = {
 			isa = PBXGroup;
 			children = (
+				48EC42A61B63AA5B0063FAB0 /* CoreData.framework */,
 				65C673D41B35D82B00351917 /* QuartzCore.framework */,
 				482A0DB61AF79B20003F18AB /* libicucore.dylib */,
 				482A0DB41AF79B12003F18AB /* CFNetwork.framework */,

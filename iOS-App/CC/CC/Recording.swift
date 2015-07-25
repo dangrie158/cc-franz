@@ -8,18 +8,19 @@
 
 import CoreData
 
-class Recording : NSManagedObject{
+class Action{
+    private var message: String
+    private var timeToNextMessage: Double
+    
+    init(message: String, timeToNextMessage: Double){
+        self.message = message
+        self.timeToNextMessage = timeToNextMessage
+    }
+}
+class Recording{
     
 
-    class Action{
-        private var message: String
-        private var timeToNextMessage: Double
-        
-        init(message: String, timeToNextMessage: Double){
-            self.message = message
-            self.timeToNextMessage = timeToNextMessage
-        }
-    }
+    
     
     var name: String = ""
     private var actions = [Action]()
@@ -42,14 +43,7 @@ class Recording : NSManagedObject{
     **** Main Functions ****
     ***********************/
     
-    init(){
-        super(entity: entity!,
-            insertIntoManagedObjectContext:managedContext)
-        self.name = (self.valueForKey("name") as? String)!
-    }
-    
     init(withName name: String){
-        super.init()
         self.name = name;
     }
     
@@ -95,10 +89,63 @@ class Recording : NSManagedObject{
     }
     
     /**
-     * save the recording to the store
+     * save the recording to the store and return the managed object of the recording
      */
-    func save(){
-        print(self.name)
+    
+    func save(managedContext : NSManagedObjectContext!) -> NSManagedObject{
+
+        let recordingEntity =  NSEntityDescription.entityForName("Recording",
+            inManagedObjectContext:
+            managedContext)
+        
+        let actionEntity = NSEntityDescription.entityForName("Action", inManagedObjectContext: managedContext)
+        // create new managedObject to save the recording
+        let recording = NSManagedObject(entity: recordingEntity!,
+            insertIntoManagedObjectContext:managedContext)
+        // set the name of the recording
+        recording.setValue(self.name, forKey: "name")
+        var actionSet = recording.valueForKeyPath("actions") as! NSOrderedSet
+        // get mutable copy to modify
+        let actionItems = actionSet.mutableCopy() as! NSMutableOrderedSet
+        // fill in the action entities
+        for action in self.actions{
+            let managedAction = NSManagedObject(entity: actionEntity!, insertIntoManagedObjectContext: managedContext)
+            managedAction.setValue(action.message, forKey: "message")
+            managedAction.setValue(action.timeToNextMessage, forKey: "timeToNextAction")
+            
+            actionItems.addObject(managedAction)
+        }
+        // set the relationship between the recording and the actions
+        actionSet = actionItems.copy() as! NSOrderedSet
+        recording.setValue(actionSet, forKeyPath: "actions")
+        // save the new state of the managedContext
+        do{
+            try managedContext.save()
+        }
+        catch{
+            print("Could not save")
+        }
+        
+        return recording
+    }
+    
+    /**
+    * create a new recording from a managedObject
+    */
+    static func getFromManagedObject(managedObject : NSManagedObject) -> Recording{
+        let name = managedObject.valueForKey("name") as! String
+        let recording = Recording(withName: name)
+        let actionSet = managedObject.valueForKeyPath("actions") as! NSOrderedSet
+        
+        // fill recording with the actions
+        for action in actionSet{
+            let message = action.valueForKey("message") as! String
+            let timeToNextAction = action.valueForKey("timeToNextAction") as! Double
+            let action = Action(message: message, timeToNextMessage: timeToNextAction)
+            recording.addAction(action)
+        }
+        
+        return recording
     }
 
 }
