@@ -22,9 +22,27 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         case CW
     }
     
+    enum RecordingError: ErrorType {
+        // the recording was already initialized
+        case AlreadyRecording
+    }
+    
+    /*******************************
+    * instance methods / variables *
+    ********************************/
     var shouldReconnect = true
     var stepCoolDown = false
     var lastMessage = "";
+    
+    private let cooldownTime = 0.2
+    private let controlAdress = "85.214.213.194:8080"
+    private var currentConnectionState:State = .DISCONNECTED
+    
+    private var connectedCallback : ((SRWebSocket) -> Void)? = nil
+    private var disconnectedCallback : (() -> Void)? = nil
+    
+    private var wsConnection:SRWebSocket?
+    private var currentRecording:Recording?
     
     /***********************
     *** Helper Functions ***
@@ -53,17 +71,6 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     static func getInstance() -> CameraSlider {
         return instance;
     }
-    
-    /*******************************
-    * instance methods / variables *
-    ********************************/
-    private let controlAdress = "192.168.4.1:8080"
-    private var currentConnectionState:State = .DISCONNECTED
-    
-    private var connectedCallback : ((SRWebSocket) -> Void)? = nil;
-    private var disconnectedCallback : (() -> Void)? = nil;
-    
-    private var wsConnection:SRWebSocket?
     
     override init(){
         super.init()
@@ -183,7 +190,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         // build message
         let message:String = axis + directionSign + speedValue.description
         // send message
-        sendRawMessage(message)
+        sendCooledDownMessage(message)
     }
     
     func rotate(direction: Direction, withSpeed speed: Float){
@@ -191,20 +198,59 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     
-    func sendRawMessage(message: String){
+    func sendCooledDownMessage(message: String){
         if(!stepCoolDown){
-            wsConnection?.send(message)
+            self.sendRawMessage(message)
             print(message)
             stepCoolDown = true;
-            delay(0.2){
+            delay(self.cooldownTime){
                 self.stepCoolDown = false
-                self.wsConnection?.send(self.lastMessage)
+                self.sendRawMessage(message)
             }
         }
         else{
             lastMessage = message;
         }
+    }
+    
+    func sendRawMessage(message: String){
+        if(self.currentRecording != nil){
+            self.currentRecording?.addAction(withStringAction: message)
+        }
+        wsConnection?.send(message)
+    }
+    
+    
+    /***********************
+    *  recording handling  *
+    ***********************/
+    /**
+     * start a new recording with a given name
+     * you can get the recording after stopping it 
+     * with stopRecording
+     */
+    func startNewRecording(withName name:String) throws{
+        try self.startRecording(on: Recording(withName: name))
+    }
+    
+    /**
+     * start recording on a already created recording
+     */
+    func startRecording(on recording: Recording) throws{
+        if(self.currentRecording != nil){
+            throw RecordingError.AlreadyRecording
+        }
+        self.currentRecording = recording
+    }
+    
+    /**
+     * stop recording and return the finished recording
+     */
+    func stopRecording() -> Recording{
+        let currentRecording = self.currentRecording!
+        self.currentRecording = nil
         
+        return currentRecording
     }
     
 }

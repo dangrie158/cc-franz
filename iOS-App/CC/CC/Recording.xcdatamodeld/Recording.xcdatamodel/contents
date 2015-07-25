@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8154.4" systemVersion="15A215h" minimumToolsVersion="Xcode 7.0">
+    <entity name="Action" representedClassName="Action" syncable="YES">
+        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeToNextAction" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <entity name="Recording" representedClassName="Recording" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="actions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Action" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Recording" positionX="-207" positionY="-117" width="128" height="73"/>
+        <element name="Action" positionX="-54" positionY="0" width="128" height="73"/>
+    </elements>
+</model>

@@ -11,7 +11,13 @@ import UIKit
 
 
 class RecordButton:UIButton{
+    
+    /*******************************
+    * instance methods / variables *
+    ********************************/
     var currentState:State = .STOPPED
+    private var startListener : (() -> Void)? = nil
+    private var stopListener : (() -> Void)? = nil
     
     // recording button states
     enum State{
@@ -23,7 +29,7 @@ class RecordButton:UIButton{
         super.init(frame: frame)
         setupRecordButton()
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupRecordButton()
     }
@@ -46,19 +52,27 @@ class RecordButton:UIButton{
         self.addTarget(self, action: Selector("click"), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
-    // stop recording
-    func pressStop(){
-        
+    func setStartListener(callback:()->Void){
+        self.startListener = callback
     }
     
-    // start recording
-    func pressStart(){
-        
+    func setStopListener(callback:()->Void ){
+        self.stopListener = callback
     }
     
     // change the record button states
     func setState(state:State){
         currentState = state
+        switch(currentState){
+        case .RECORDING:
+            if(self.startListener != nil){
+                self.startListener!()
+            }
+        case .STOPPED:
+            if(self.stopListener != nil){
+                self.stopListener!()
+            }
+        }
         self.setNeedsDisplay()
     }
     

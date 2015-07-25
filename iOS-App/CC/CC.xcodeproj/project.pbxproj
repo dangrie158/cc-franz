@@ -26,6 +26,7 @@
 		655A495A1B3434C100D03E80 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A49591B3434C100D03E80 /* TabViewController.swift */; };
 		655A495D1B3448BF00D03E80 /* ConnectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A495B1B3448BF00D03E80 /* ConnectionScreen.swift */; };
 		655A495E1B3448BF00D03E80 /* ConnectionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 655A495C1B3448BF00D03E80 /* ConnectionScreen.xib */; };
+		65C241C81B5E804E003CF7EE /* Recording.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65C241C61B5E804E003CF7EE /* Recording.xcdatamodeld */; };
 		65C673CC1B35CADD00351917 /* FBBitmapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673BE1B35CADD00351917 /* FBBitmapFont.m */; };
 		65C673CD1B35CADD00351917 /* FBBitmapFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673C01B35CADD00351917 /* FBBitmapFontView.m */; };
 		65C673CE1B35CADD00351917 /* FBFontSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C673C21B35CADD00351917 /* FBFontSymbol.m */; };
@@ -74,6 +75,7 @@
 		655A49591B3434C100D03E80 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabViewController.swift; path = SocketRocket/TabViewController.swift; sourceTree = "<group>"; };
 		655A495B1B3448BF00D03E80 /* ConnectionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionScreen.swift; sourceTree = "<group>"; };
 		655A495C1B3448BF00D03E80 /* ConnectionScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectionScreen.xib; sourceTree = "<group>"; };
+		65C241C71B5E804E003CF7EE /* Recording.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Recording.xcdatamodel; sourceTree = "<group>"; };
 		65C673BD1B35CADC00351917 /* FBBitmapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBitmapFont.h; sourceTree = "<group>"; };
 		65C673BE1B35CADD00351917 /* FBBitmapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBBitmapFont.m; sourceTree = "<group>"; };
 		65C673BF1B35CADD00351917 /* FBBitmapFontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBitmapFontView.h; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */,
 				650CC2131B00C553009569A8 /* CameraSlider.swift */,
 				48B6FE5A1B35A23A0032A005 /* Recording.swift */,
+				65C241C61B5E804E003CF7EE /* Recording.xcdatamodeld */,
 			);
 			path = CC;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				481551A81AEF8A0A00509E02 /* RecordButton.swift in Sources */,
 				65C673CC1B35CADD00351917 /* FBBitmapFont.m in Sources */,
 				4815518A1AEF769400509E02 /* ScriptController.swift in Sources */,
+				65C241C81B5E804E003CF7EE /* Recording.xcdatamodeld in Sources */,
 				482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */,
 				65C673CF1B35CADD00351917 /* FBLCDFont.m in Sources */,
 				482A0DBC1AF79BB3003F18AB /* SRWebSocket.m in Sources */,
@@ -566,6 +570,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		65C241C61B5E804E003CF7EE /* Recording.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				65C241C71B5E804E003CF7EE /* Recording.xcdatamodel */,
+			);
+			currentVersion = 65C241C71B5E804E003CF7EE /* Recording.xcdatamodel */;
+			path = Recording.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 481551781AEF769300509E02 /* Project object */;
 }
