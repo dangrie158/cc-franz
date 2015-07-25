@@ -10,7 +10,7 @@
 
 #define CONN_TIMEOUT 60*60*12
 
-/* from IEEE RFC6455 sec 5.2
+/* from IEEE RFC6455 sec 5.2, 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-------+-+-------------+-------------------------------+
@@ -55,20 +55,29 @@
 #define CLOSE_MESSAGE {FLAG_FIN | OPCODE_CLOSE, IS_MASKED /* + payload = 0*/, 0 /* + masking key*/}
 #define CLOSE_MESSAGE_LENGTH 3
 
+// All Data that define a connection for Websocket
+// and also a reference to the basic http connection structure
 typedef struct WSConnection WSConnection;
-typedef void (*WSOnConnection) ();
-typedef void (*WSOnDisconnection) ();
-typedef void (*WSOnReconnection) (int err);
-
-
 struct WSConnection {
-	bool ws_connected;
-	bool tcp_connected;
-	uint8_t status;
-	struct espconn* connection;
+    bool ws_connected;
+    bool tcp_connected;
+    uint8_t status;
+    struct espconn* connection;
 };
 
+// WebSocket on Connection Callback
+typedef void (*WSOnConnection) ();
+
+// WebSocket on Disconnection Callback
+typedef void (*WSOnDisconnection) ();
+
+// Websocket on Reconnection Callback
+typedef void (*WSOnReconnection) (int err);
+
+// Init Function for WebSockets
 int8_t ICACHE_FLASH_ATTR websocketdInit(int port, WSOnConnection onConnection, WSOnDisconnection onDisconnection, WSOnReconnection onReconnection);
+
+// Function to send a WebSocket Message
 void ICACHE_FLASH_ATTR sendWsMessage(char a, char b, char c, char d);
 
 #endif //WEBSOCKETD_H
