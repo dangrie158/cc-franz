@@ -22,6 +22,8 @@
 		482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */; };
 		48A4A3DB1B35A2F600AF10E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */; };
 		48B6FE5B1B35A23A0032A005 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B6FE5A1B35A23A0032A005 /* Recording.swift */; };
+		48D98C1B1B65027000CA37EA /* Playback.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48D98C1A1B65027000CA37EA /* Playback.xib */; };
+		48D98C1D1B65043C00CA37EA /* Playback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D98C1C1B65043C00CA37EA /* Playback.swift */; };
 		48EC42A71B63AA5B0063FAB0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EC42A61B63AA5B0063FAB0 /* CoreData.framework */; };
 		650CC2141B00C553009569A8 /* CameraSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CC2131B00C553009569A8 /* CameraSlider.swift */; };
 		655A495A1B3434C100D03E80 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A49591B3434C100D03E80 /* TabViewController.swift */; };
@@ -72,6 +74,8 @@
 		482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSlider.swift; sourceTree = "<group>"; };
 		48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SocketRocket/Images.xcassets; sourceTree = "<group>"; };
 		48B6FE5A1B35A23A0032A005 /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		48D98C1A1B65027000CA37EA /* Playback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Playback.xib; sourceTree = "<group>"; };
+		48D98C1C1B65043C00CA37EA /* Playback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playback.swift; sourceTree = "<group>"; };
 		48EC42A61B63AA5B0063FAB0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		650CC2131B00C553009569A8 /* CameraSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraSlider.swift; sourceTree = "<group>"; };
 		655A49591B3434C100D03E80 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabViewController.swift; path = SocketRocket/TabViewController.swift; sourceTree = "<group>"; };
@@ -153,7 +157,9 @@
 				48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */,
 				655A49591B3434C100D03E80 /* TabViewController.swift */,
 				655A495B1B3448BF00D03E80 /* ConnectionScreen.swift */,
+				48D98C1C1B65043C00CA37EA /* Playback.swift */,
 				655A495C1B3448BF00D03E80 /* ConnectionScreen.xib */,
+				48D98C1A1B65027000CA37EA /* Playback.xib */,
 				481551871AEF769400509E02 /* LiveController.swift */,
 				481551891AEF769400509E02 /* ScriptController.swift */,
 				4815518B1AEF769400509E02 /* Main.storyboard */,
@@ -308,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48D98C1B1B65027000CA37EA /* Playback.xib in Resources */,
 				4815518D1AEF769400509E02 /* Main.storyboard in Resources */,
 				48A4A3DB1B35A2F600AF10E6 /* Images.xcassets in Resources */,
 				481551921AEF769400509E02 /* LaunchScreen.xib in Resources */,
@@ -339,6 +346,7 @@
 				482A0DBC1AF79BB3003F18AB /* SRWebSocket.m in Sources */,
 				65C673CE1B35CADD00351917 /* FBFontSymbol.m in Sources */,
 				650CC2141B00C553009569A8 /* CameraSlider.swift in Sources */,
+				48D98C1D1B65043C00CA37EA /* Playback.swift in Sources */,
 				655A495A1B3434C100D03E80 /* TabViewController.swift in Sources */,
 				65C673D11B35CADD00351917 /* FBSquareFont.m in Sources */,
 				655A495D1B3448BF00D03E80 /* ConnectionScreen.swift in Sources */,

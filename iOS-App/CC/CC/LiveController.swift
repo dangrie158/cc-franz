@@ -30,7 +30,6 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "\"The List\""
         recordingsListView.registerClass(UITableViewCell.self,
             forCellReuseIdentifier: "Cell")
         
@@ -89,7 +88,6 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func updateRecordTimer() {
         let interval = NSDate().timeIntervalSinceDate((self.currentRecording?.startTime)!)
-        print("test")
         if(interval < 60){
             self.recordTimeView.text = NSString(format: "%02d:%02d", Int(interval), Int(interval * 100) % 100) as String
         }else{
@@ -180,8 +178,16 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // get the recording object from the managed objects
         let selectedRecording = recordings[indexPath.row]
-        Recording.getFromManagedObject(selectedRecording).play(on: CameraSlider.getInstance())
+        let recording = Recording.getFromManagedObject(selectedRecording)
+        // create new playback view controller
+        let playbackScreenVC = Playback(nibName: "Playback", bundle: nil)
+        // show the view controller
+        playbackScreenVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        playbackScreenVC.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+        playbackScreenVC.setRecording(recording)
+        self.presentViewController(playbackScreenVC, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

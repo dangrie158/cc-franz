@@ -18,13 +18,26 @@ class Action{
     }
 }
 class Recording{
-    
-
-    
+    enum State{
+        case PLAYING
+        case PAUSED
+        case STOPPED
+    }
     
     var name: String = ""
+    var length : Double{
+        get{
+            var totalLength = 0.0
+            for action in self.actions{
+                totalLength += action.timeToNextMessage
+            }
+            return totalLength
+        }
+    }
     private var actions = [Action]()
     private var lastActionTime = NSDate()
+    private var currentActionIndex = 0
+    private var currentPlaybackState : State = .STOPPED
     let startTime = NSDate()
     
     /***********************
@@ -73,8 +86,11 @@ class Recording{
     /**
      * play recording via camera slider
      */
-    func play(on receiver: CameraSlider, actionIndex: Int = 0){
+    func play(on receiver: CameraSlider, actionIndex: Int = 0, onFinish : () -> ()){
+        self.currentPlaybackState = .PLAYING
+        // if we reach the last action call the callback and stop processing
         if(actionIndex >= actions.count){
+            onFinish()
             return
         }
         // get the current action from the actions array
@@ -84,8 +100,27 @@ class Recording{
         // wait until the next action happened while recording
         delay(currentAction.timeToNextMessage){
             // recursively call fuction
-            self.play(on: receiver, actionIndex: actionIndex+1)
+            if(self.currentPlaybackState == .PLAYING){
+                self.currentActionIndex = actionIndex+1
+                self.play(on: receiver, actionIndex: actionIndex+1, onFinish: onFinish)
+            }
         }
+    }
+    
+    /**
+    * pause recording via camera slider
+    */
+    func pause() -> Int{
+        self.currentPlaybackState = .PAUSED
+        return currentActionIndex
+    }
+    
+    /**
+    * stop recording via camera slider
+    */
+    func stop(){
+        self.currentPlaybackState = .STOPPED
+        currentActionIndex = 0
     }
     
     /**
