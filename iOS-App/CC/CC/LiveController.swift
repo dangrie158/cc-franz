@@ -25,7 +25,9 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var recordButton: RecordButton!
     @IBOutlet weak var recordTimeView: FBLCDFontView!
     @IBOutlet weak var recordingsListView: UITableView!
-
+    @IBOutlet weak var angularPositionView: FBLCDFontView!
+    @IBOutlet weak var linearPositionView: FBLCDFontView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,8 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
             forCellReuseIdentifier: "Cell")
         
         self.recordTimeView.text = "00:00"
+        self.angularPositionView.text = "360"
+        self.linearPositionView.text = "000"
         
         recordButton.setStartListener(){
             
@@ -134,24 +138,23 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     *       table view protocol    *
     ********************************/
 
-    func tableView(tableView: UITableView,
-        numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return recordings.count
     }
     
-    func tableView(tableView: UITableView,
-        cellForRowAtIndexPath
-        indexPath: NSIndexPath) -> UITableViewCell {
-            
-            let cell =
-            tableView.dequeueReusableCellWithIdentifier("Cell")
-                as UITableViewCell?
-            
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell?
             let recording = recordings[indexPath.row]
+            cell?.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 1.0)
+            cell?.textLabel?.textColor = UIColor.lightGrayColor()
+            cell?.preservesSuperviewLayoutMargins = false
+            cell?.layoutMargins = UIEdgeInsetsZero
+            cell?.separatorInset = UIEdgeInsetsZero
             cell!.textLabel!.text = recording.valueForKey("name") as? String
             
             return cell!
     }
+    
     /**
     * set the tableView as editable
     */
@@ -190,6 +193,7 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.presentViewController(playbackScreenVC, animated: true, completion: nil)
     }
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -217,6 +221,9 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
         CameraSlider.getInstance().rotate(direction, withSpeed: speed)
     }
     
-    
+    // hide the status bar for the whole view controller
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
     
 }

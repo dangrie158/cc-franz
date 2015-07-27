@@ -44,6 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
+//    func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+//        let tabBarController = self.window?.rootViewController as! UITabBarController
+//        let tabBar = tabBarController.tabBar as UITabBar
+//        tabBar.items[0].setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.whiteColor()] as NSDictionary?, forState: UIControlState.Selected)
+//        tabBar.barTintColor = UIColor.redColor()
+//        return super.application(application, willFinishLaunchingWithOptions: launchOptions)
+//    }
+    
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: NSURL = {

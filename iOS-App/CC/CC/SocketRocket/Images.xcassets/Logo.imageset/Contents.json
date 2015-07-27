@@ -10,8 +10,8 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "cc_logo.png"
+      "filename" : "cc_logo.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

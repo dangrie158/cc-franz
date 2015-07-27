@@ -20,6 +20,9 @@ class ScriptController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    // hide the status bar for the whole view controller
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 }
 

@@ -12,8 +12,8 @@
             <rect key="frame" x="0.0" y="0.0" width="1165" height="1079"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="sCS-vG-o22">
-                    <rect key="frame" x="-44" y="-104" width="717" height="730"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="sCS-vG-o22">
+                    <rect key="frame" x="209" y="166" width="748" height="748"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="B8P-UF-gTO"/>
@@ -34,7 +34,7 @@
                 </imageView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="sCS-vG-o22" secondAttribute="centerY" id="jVB-2v-elf"/>
                 <constraint firstItem="sCS-vG-o22" firstAttribute="width" secondItem="sCS-vG-o22" secondAttribute="height" multiplier="1:1" id="jlP-gZ-egy"/>

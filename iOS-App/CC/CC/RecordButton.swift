@@ -86,20 +86,20 @@ class RecordButton:UIButton{
     }
     
     func drawBackground(context:CGContext, inArea rect:CGRect){
-        let borderRect:CGRect = CGRectMake(0, 0, rect.width, rect.height);
-        CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 1.0);
-        CGContextFillEllipseInRect (context, borderRect);
+        let borderRect:CGRect = CGRectMake(0, 0, rect.width, rect.height)
+        CGContextSetRGBFillColor(context, 0.960784, 0.149019, 0.290196, 1.0)
+        CGContextFillEllipseInRect (context, borderRect)
     }
     
     func drawRec(context:CGContext, inArea rect:CGRect){
-        let borderRect:CGRect = CGRectMake((rect.width/2)-(rect.width/8), (rect.height/2)-(rect.width/8), rect.width/4, rect.height/4);
-        CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
-        CGContextFillEllipseInRect (context, borderRect);
+        let borderRect:CGRect = CGRectMake((rect.width/3), (rect.width/3), rect.width/3, rect.height/3)
+        CGContextSetRGBFillColor(context, 0.1529411, 0.1568627, 0.1333333, 1.0)
+        CGContextFillEllipseInRect (context, borderRect)
     }
     
     func drawStop(context:CGContext, inArea rect:CGRect){
-        let borderRect:CGRect = CGRectMake((rect.width/2)-(rect.width/8), (rect.height/2)-(rect.width/8), rect.width/4, rect.height/4);
-        CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
-        CGContextFillRect(context, borderRect);
+        let borderRect:CGRect = CGRectMake((rect.width/3), (rect.width/3), rect.width/3, rect.height/3)
+        CGContextSetRGBFillColor(context, 0.1529411, 0.1568627, 0.1333333, 1.0)
+        CGContextFillRect(context, borderRect)
     }
 }

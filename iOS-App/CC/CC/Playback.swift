@@ -55,20 +55,6 @@ class Playback: UIViewController, UIGestureRecognizerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func handleTapBehind(sender : UITapGestureRecognizer){
-        if(sender.state == UIGestureRecognizerState.Ended){
-            let rootView = self.view.window?.rootViewController?.view
-            let location = sender.locationInView(rootView)
-            // if touch was performed outside of frame --> dismiss the view
-            if(!self.view.pointInside(self.view.convertPoint(location, fromView: rootView), withEvent: nil)){
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    // unregister gesture listener otherwise we still get touches after view is dismissed
-                    self.view.window?.removeGestureRecognizer(sender)
-                })
-            }
-        }
-    }
-    
     // play button functionality
     @IBAction func playClicked(sender: AnyObject) {
         // disable the play button to avoid multiple playbacks
@@ -133,6 +119,20 @@ class Playback: UIViewController, UIGestureRecognizerDelegate {
     * UIGestureRecognizerDelegate methods *
     **************************************/
     
+    func handleTapBehind(sender : UITapGestureRecognizer){
+        if(sender.state == UIGestureRecognizerState.Ended){
+            let rootView = self.view.window?.rootViewController?.view
+            let location = sender.locationInView(rootView)
+            // if touch was performed outside of frame --> dismiss the view
+            if(!self.view.pointInside(self.view.convertPoint(location, fromView: rootView), withEvent: nil)){
+                // unregister gesture listener otherwise we still get touches after view is dismissed
+                self.view.window?.removeGestureRecognizer(sender)
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    // we cannot unregister the gesture lister here, because the windows has already been destroyed
+                })
+            }
+        }
+    }
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

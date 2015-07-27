@@ -23,6 +23,7 @@
                         <constraint firstAttribute="width" constant="20" id="HTP-rd-qD9"/>
                         <constraint firstAttribute="height" constant="20" id="gMI-zC-afI"/>
                     </constraints>
+                    <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lookin' fo connect'n..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAG-GY-zxX">
                     <rect key="frame" x="200" y="330" width="200" height="21"/>
@@ -31,12 +32,13 @@
                         <constraint firstAttribute="width" constant="200" id="kAz-ut-0fU"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" image="searching" translatesAutoresizingMaskIntoConstraints="NO" id="RgO-S7-rqu">
-                    <rect key="frame" x="191" y="32" width="238" height="238"/>
+                    <rect key="frame" x="215" y="79" width="191" height="191"/>
                     <animations/>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="byD-EU-c0d"/>
                         <constraint firstAttribute="width" secondItem="RgO-S7-rqu" secondAttribute="height" multiplier="1:1" id="pdm-Jd-mkF"/>
@@ -56,7 +58,8 @@
                 </imageView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.49999999999999961"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="jAG-GY-zxX" secondAttribute="centerX" constant="279" id="0pO-4Z-xfI"/>
@@ -80,6 +83,6 @@
         </view>
     </objects>
     <resources>
-        <image name="searching" width="238" height="156"/>
+        <image name="searching" width="191" height="176"/>
     </resources>
 </document>
