@@ -91,6 +91,8 @@ static NSMutableArray *symbols;
             [symbols addObject:[NSNumber numberWithInt:FBFontSymbolZ]];
         } else if ([c isEqualToString:@" "]) {
             [symbols addObject:[NSNumber numberWithInt:FBFontSymbolSpace]];
+        } else if ([c isEqualToString:@"-"]) {
+            [symbols addObject:[NSNumber numberWithInt:FBFontSymbolDash]];
         } else if ([c isEqualToString:@"!"]) {
             [symbols addObject:[NSNumber numberWithInt:FBFontSymbolExclamationMark]];
         } else if ([c isEqualToString:@":"]) {
