@@ -35,7 +35,10 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     var lastMessage = "";
     
     private let cooldownTime = 0.2
+    // node websocket
     private let controlAdress = "85.214.213.194:8080"
+    // physical websocket
+//    private let controlAdress = "192.168.4.1:8080"
     private var currentConnectionState:State = .DISCONNECTED
     
     private var connectedCallback : ((SRWebSocket) -> Void)? = nil

@@ -20,6 +20,8 @@
 		482A0DB71AF79B20003F18AB /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 482A0DB61AF79B20003F18AB /* libicucore.dylib */; };
 		482A0DBC1AF79BB3003F18AB /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 482A0DBB1AF79BB3003F18AB /* SRWebSocket.m */; };
 		482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */; };
+		486962791B80A93E00E4BD32 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486962781B80A93E00E4BD32 /* TimelineView.swift */; };
+		4869627F1B80BB7400E4BD32 /* TimelineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4869627E1B80BB7400E4BD32 /* TimelineItemView.swift */; };
 		48A4A3DB1B35A2F600AF10E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */; };
 		48B6FE5B1B35A23A0032A005 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B6FE5A1B35A23A0032A005 /* Recording.swift */; };
 		48D98C1B1B65027000CA37EA /* Playback.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48D98C1A1B65027000CA37EA /* Playback.xib */; };
@@ -72,6 +74,8 @@
 		482A0DBA1AF79BB3003F18AB /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		482A0DBB1AF79BB3003F18AB /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		482A0DBD1AF7AC99003F18AB /* HorizontalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSlider.swift; sourceTree = "<group>"; };
+		486962781B80A93E00E4BD32 /* TimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		4869627E1B80BB7400E4BD32 /* TimelineItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimelineItemView.swift; path = ../TimelineItemView.swift; sourceTree = "<group>"; };
 		48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SocketRocket/Images.xcassets; sourceTree = "<group>"; };
 		48B6FE5A1B35A23A0032A005 /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		48D98C1A1B65027000CA37EA /* Playback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Playback.xib; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 				65C673BC1B35CADC00351917 /* LCDFont */,
 				482A0DB81AF79BB3003F18AB /* SocketRocket */,
 				481551851AEF769400509E02 /* AppDelegate.swift */,
+				4869627E1B80BB7400E4BD32 /* TimelineItemView.swift */,
 				48A4A3DA1B35A2F600AF10E6 /* Images.xcassets */,
 				655A49591B3434C100D03E80 /* TabViewController.swift */,
 				655A495B1B3448BF00D03E80 /* ConnectionScreen.swift */,
@@ -163,6 +168,7 @@
 				481551871AEF769400509E02 /* LiveController.swift */,
 				481551891AEF769400509E02 /* ScriptController.swift */,
 				4815518B1AEF769400509E02 /* Main.storyboard */,
+				486962781B80A93E00E4BD32 /* TimelineView.swift */,
 				481551901AEF769400509E02 /* LaunchScreen.xib */,
 				481551831AEF769400509E02 /* Supporting Files */,
 				481551A71AEF8A0A00509E02 /* RecordButton.swift */,
@@ -340,6 +346,8 @@
 				481551A81AEF8A0A00509E02 /* RecordButton.swift in Sources */,
 				65C673CC1B35CADD00351917 /* FBBitmapFont.m in Sources */,
 				4815518A1AEF769400509E02 /* ScriptController.swift in Sources */,
+				4869627F1B80BB7400E4BD32 /* TimelineItemView.swift in Sources */,
+				486962791B80A93E00E4BD32 /* TimelineView.swift in Sources */,
 				65C241C81B5E804E003CF7EE /* Recording.xcdatamodeld in Sources */,
 				482A0DBE1AF7AC99003F18AB /* HorizontalSlider.swift in Sources */,
 				65C673CF1B35CADD00351917 /* FBLCDFont.m in Sources */,

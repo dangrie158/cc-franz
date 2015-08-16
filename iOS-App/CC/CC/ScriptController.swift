@@ -10,8 +10,14 @@ import UIKit
 
 class ScriptController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var linearScrollview: UIScrollView!
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let timelineViewFrame = CGRectMake(0.0, 0.0, linearScrollview.bounds.width, linearScrollview.frame.height)
+        let timelineView = TimelineView(frame: timelineViewFrame)
+        linearScrollview.addSubview(timelineView)
+        linearScrollview.contentSize = CGSize(width: linearScrollview.frame.width, height: timelineView.frame.height)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -24,5 +30,8 @@ class ScriptController: UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    
+
 }
 
