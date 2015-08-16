@@ -27,7 +27,8 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var recordingsListView: UITableView!
     @IBOutlet weak var angularPositionView: FBLCDFontView!
     @IBOutlet weak var linearPositionView: FBLCDFontView!
-    
+    @IBOutlet weak var linearSpeedView: FBLCDFontView!
+    @IBOutlet weak var angularSpeedView: FBLCDFontView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,9 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.recordTimeView.text = "00:00"
         self.angularPositionView.text = "360"
+        self.angularSpeedView.text = "00"
         self.linearPositionView.text = "000"
+        self.linearSpeedView.text = "00"
         
         recordButton.setStartListener(){
             
@@ -199,6 +202,9 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
     
+    /*******************************
+    *          slider actions      *
+    ********************************/
     @IBAction func movementSpeedRelease(sender: HorizontalSlider) {
         let direction:CameraSlider.Direction = .LEFT
         CameraSlider.getInstance().move(direction, withSpeed: 0.0)
@@ -208,22 +214,70 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.movementSpeedRelease(sender)
     }
     
-    
-    
     @IBAction func movementSpeedChanged(sender: HorizontalSlider) {
         let direction : CameraSlider.Direction = sender.value >= 0 ? .RIGHT : .LEFT
         let speed = sender.value >= 0 ? sender.value : (sender.value * (-1))
+        let speedText = calculateLinearSpeed(speed, to: direction)
+        linearSpeedView.text = speedText
         CameraSlider.getInstance().move(direction, withSpeed: speed)
     }
     @IBAction func rotationSpeedChanged(sender: HorizontalSlider) {
         let direction : CameraSlider.Direction = sender.value >= 0 ? .CW : .CCW
         let speed = sender.value >= 0 ? sender.value : (sender.value * (-1))
+        let speedText = calculateAngularSpeed(speed, to: direction)
+        angularSpeedView.text = speedText
         CameraSlider.getInstance().rotate(direction, withSpeed: speed)
     }
     
+    /*******************************
+    * homing and reference actions *
+    ********************************/
+    @IBAction func rereferenceLinear(sender: AnyObject) {
+        CameraSlider.getInstance().setZeroReference(.MOVEMENT)
+    }
+
+    @IBAction func homeLinear(sender: AnyObject) {
+        CameraSlider.getInstance().home(.MOVEMENT)
+    }
+
+    @IBAction func rerefRotation(sender: AnyObject) {
+        CameraSlider.getInstance().setZeroReference(.ROTATION)
+    }
+    
+    @IBAction func homeRotation(sender: AnyObject) {
+        CameraSlider.getInstance().home(.ROTATION)
+    }
+
     // hide the status bar for the whole view controller
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    /*******************************
+    *       speed references       *
+    ********************************/
+    func calculateLinearSpeed(speed: Float, to direction: CameraSlider.Direction) -> String{
+        let actualSpeed = speed * 40
+        var speedText = "";
+        if(direction == .RIGHT){
+            speedText = " " + NSString(format: "%02d", Int(actualSpeed)).description
+        }else{
+            speedText = "-" + NSString(format: "%02d", Int(actualSpeed)).description
+        }
+        
+        return speedText
+    }
+    
+    func calculateAngularSpeed(speed: Float, to direction: CameraSlider.Direction) -> String{
+        let actualSpeed = speed * 250
+        var speedText = "";
+        if(direction == .CW){
+            speedText = " " + NSString(format: "%03d", Int(actualSpeed)).description
+        }else{
+            speedText = "-" + NSString(format: "%03d", Int(actualSpeed)).description
+        }
+        
+        return speedText
     }
     
 }

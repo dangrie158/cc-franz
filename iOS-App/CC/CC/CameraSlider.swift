@@ -22,6 +22,11 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         case CW
     }
     
+    enum Axis{
+        case MOVEMENT
+        case ROTATION
+    }
+    
     enum RecordingError: ErrorType {
         // the recording was already initialized
         case AlreadyRecording
@@ -167,16 +172,23 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     /***********************
     *   Hardware Control   *
     ***********************/
-    func eStop(){
-        //handle eStop
+    
+    /**
+    * send a message to start homing of the slider
+    */
+    func home(axis: Axis){
+        let axisParameter = (axis == .MOVEMENT) ? "M" : "R"
+        let message = "H" + axisParameter;
+        self.sendRawMessage(message);
     }
     
-    func home(){
-        //handle homing
-    }
-    
-    func setSpeed(){
-        
+    /**
+    * reference a axis with a new zero position
+    */
+    func setZeroReference(axis: Axis){
+        let axisParameter = (axis == .MOVEMENT) ? "M" : "R"
+        let message = "Z" + axisParameter;
+        self.sendRawMessage(message);
     }
     
     func move(direction: Direction, withSpeed speed: Float){
@@ -208,7 +220,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
             stepCoolDown = true;
             delay(self.cooldownTime){
                 self.stepCoolDown = false
-                self.sendRawMessage(message)
+                self.sendRawMessage(self.lastMessage)
             }
         }
         else{
