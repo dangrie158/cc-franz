@@ -23,8 +23,6 @@ class TimelineItemView: UIView {
     
     
     func setup(){
-        self.frame.size.height = 120
-        self.frame.size.width = 50
         self.backgroundColor = UIColor.redColor()
     }
 

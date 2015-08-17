@@ -80,7 +80,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         return instance;
     }
     
-    override init(){
+    override private init(){
         super.init()
     }
 
@@ -191,7 +191,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         self.sendRawMessage(message);
     }
     
-    func move(direction: Direction, withSpeed speed: Float){
+    func move(direction: Direction, withSpeed speed: Float, forceSending: Bool = false){
         // the basic string is build as follows: 
         // "AXIS DIRECTION" + "DIRECTION SIGN" + "SPEED"
         // example: "M-10" --> move left with the speed of 10
@@ -205,18 +205,26 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         // build message
         let message:String = axis + directionSign + speedValue
         // send message
-        sendCooledDownMessage(message)
+        if forceSending {
+            sendRawMessage(message)
+        }
+        else {
+            sendCooledDownMessage(message)
+        }
     }
     
-    func rotate(direction: Direction, withSpeed speed: Float){
-        move(direction, withSpeed: speed)
+    func rotate(direction: Direction, withSpeed speed: Float, forceSending: Bool = false){
+        move(direction, withSpeed: speed, forceSending: forceSending)
     }
     
+    func stopAll(forceSending: Bool = false){
+        move(.LEFT, withSpeed: 0, forceSending: forceSending)
+        rotate(.CCW, withSpeed: 0, forceSending: forceSending)
+    }
     
     func sendCooledDownMessage(message: String){
         if(!stepCoolDown){
             self.sendRawMessage(message)
-            print(message)
             stepCoolDown = true;
             delay(self.cooldownTime){
                 self.stepCoolDown = false

@@ -72,7 +72,7 @@ class Recording{
     
     /**
      * add an Action to the recording and automatically set
-     * the sime interval since the last action was added
+     * the time interval since the last action was added
      */
     func addAction(withStringAction action: String){
         //calculate the time since the last action occurred

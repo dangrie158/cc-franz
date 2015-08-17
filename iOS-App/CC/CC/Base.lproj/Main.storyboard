@@ -576,22 +576,7 @@
                             </scrollView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEY-od-SNG">
                                 <rect key="frame" x="398" y="45" width="167" height="449"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcE-3M-70K">
-                                        <rect key="frame" x="0.0" y="0.0" width="167" height="449"/>
-                                        <animations/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="hcE-3M-70K" secondAttribute="bottom" id="1Zs-Wk-RnG"/>
-                                    <constraint firstAttribute="trailing" secondItem="hcE-3M-70K" secondAttribute="trailing" id="3AA-tq-zA5"/>
-                                    <constraint firstItem="hcE-3M-70K" firstAttribute="top" secondItem="hEY-od-SNG" secondAttribute="top" id="6wx-3F-c6n"/>
-                                    <constraint firstItem="hcE-3M-70K" firstAttribute="centerY" secondItem="hEY-od-SNG" secondAttribute="centerY" id="MLF-9A-aNI"/>
-                                    <constraint firstItem="hcE-3M-70K" firstAttribute="leading" secondItem="hEY-od-SNG" secondAttribute="leading" id="orJ-l6-pJR"/>
-                                    <constraint firstItem="hcE-3M-70K" firstAttribute="centerX" secondItem="hEY-od-SNG" secondAttribute="centerX" id="rP7-2f-PaF"/>
-                                </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpa-Q2-z2N">
                                 <rect key="frame" x="217" y="45" width="166" height="449"/>
@@ -641,6 +626,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Scripting" image="scriptingViewIcon" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="angularScrollview" destination="hEY-od-SNG" id="haD-ZY-S9U"/>
                         <outlet property="linearScrollview" destination="8G6-LH-NP0" id="Rvi-io-t2m"/>
                     </connections>
                 </viewController>
