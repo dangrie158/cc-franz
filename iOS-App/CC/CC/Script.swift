@@ -9,12 +9,12 @@
 import CoreData
 
 class ScriptAction{
-    private var start: Double
-    private var length: Double
-    private var direction: CameraSlider.Direction
-    private var speed: Float
-    private var currentlyPlaying: Bool
-    private var stop: Double{
+    var start: Double
+    var length: Double
+    var direction: CameraSlider.Direction
+    var speed: Float
+    var currentlyPlaying: Bool
+    var stop: Double{
         get{
             return start + length
         }
@@ -39,7 +39,7 @@ class Script : NSObject{
     var length : Double{
         get{
             var totalLength = 0.0
-            for action in self.actions{
+            for action in self.linearActions + self.angularActions{
                 if action.stop > totalLength{
                     totalLength = action.stop
                 }
@@ -47,7 +47,8 @@ class Script : NSObject{
             return totalLength
         }
     }
-    private var actions = [ScriptAction]()
+    var linearActions = [ScriptAction]()
+    var angularActions = [ScriptAction]()
     var lastLinearAction : ScriptAction? = nil
     var lastAngularAction : ScriptAction? = nil
     private var currentPlaybackState : State = .STOPPED
@@ -73,7 +74,12 @@ class Script : NSObject{
     * add a precomposed action element to the recoding
     */
     func addAction(action: ScriptAction){
-        actions.append(action)
+        if action.direction == .LEFT || action.direction == .RIGHT {
+            linearActions.append(action)
+        }
+        else if action.direction == .CW || action.direction == .CCW {
+            angularActions.append(action)
+        }
     }
     
     
@@ -117,7 +123,7 @@ class Script : NSObject{
         // stop all slider movement
         self.receiver?.stopAll()
         // clear all current playing flags
-        for action in self.actions{
+        for action in self.linearActions + self.angularActions{
             action.currentlyPlaying = false
         }
     }
@@ -127,31 +133,28 @@ class Script : NSObject{
         var angularAction : ScriptAction? = nil
         var linearAction : ScriptAction? = nil
         
-        for action in actions{
-            // check if angular action or linear action
-            if action.direction == .CW || action.direction == .CCW {
-                // check if we are currently in this action
-                if action.start <= playingTime && action.stop > playingTime && action.currentlyPlaying == false {
-                    // save this action as the action to be sent
-                    angularAction = action
-                }
-                // check if we left a script action block that is not stopped yet and if we do not have a new action
-                else if action.stop < playingTime && angularAction == nil && action.currentlyPlaying == true {
-                    // create a new action to stop all angular movement
-                    angularAction = ScriptAction(start: 0, length: 0, direction: .CW, speed: 0)
-                }
+        for action in self.angularActions{
+            // check if we are currently in this action
+            if action.start <= playingTime && action.stop > playingTime && action.currentlyPlaying == false {
+                // save this action as the action to be sent
+                angularAction = action
             }
-            else if action.direction == .LEFT || action.direction == .RIGHT{
-                // check if we are currently in this action
-                if action.start <= playingTime && action.stop > playingTime && action.currentlyPlaying == false {
-                    // save this action as the action to be sent
-                    linearAction = action
-                }
-                    // check if we left a script action block that is not stopped yet and if we do not have a new action
-                else if action.stop < playingTime && linearAction == nil && action.currentlyPlaying == true {
-                    // create a new action to stop all linear movement
-                    linearAction = ScriptAction(start: 0, length: 0, direction: .LEFT, speed: 0)
-                }
+            // check if we left a script action block that is not stopped yet and if we do not have a new action
+            else if action.stop < playingTime && angularAction == nil && action.currentlyPlaying == true {
+                // create a new action to stop all angular movement
+                angularAction = ScriptAction(start: 0, length: 0, direction: .CW, speed: 0)
+            }
+        }
+        for action in self.linearActions {
+            // check if we are currently in this action
+            if action.start <= playingTime && action.stop > playingTime && action.currentlyPlaying == false {
+                // save this action as the action to be sent
+                linearAction = action
+            }
+                // check if we left a script action block that is not stopped yet and if we do not have a new action
+            else if action.stop < playingTime && linearAction == nil && action.currentlyPlaying == true {
+                // create a new action to stop all linear movement
+                linearAction = ScriptAction(start: 0, length: 0, direction: .LEFT, speed: 0)
             }
         }
         // compose messages and send them
@@ -206,7 +209,7 @@ class Script : NSObject{
         // get mutable copy to modify
         let scriptActionItems = scriptActionSet.mutableCopy() as! NSMutableOrderedSet
         // fill in the action entities
-        for action in self.actions{
+        for action in self.linearActions + self.angularActions {
             let managedAction = NSManagedObject(entity: actionEntity!, insertIntoManagedObjectContext: managedContext)
             managedAction.setValue(action.start, forKey: "start")
             managedAction.setValue(action.length, forKey: "length")

@@ -579,9 +579,15 @@
                                 <animations/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpa-Q2-z2N">
-                                <rect key="frame" x="217" y="45" width="166" height="449"/>
+                                <rect key="frame" x="217" y="45" width="166" height="494"/>
                                 <animations/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.090196078431372548" green="0.094117647058823528" blue="0.078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQS-PB-2Yy">
                                 <rect key="frame" x="398" y="509" width="167" height="30"/>
@@ -603,6 +609,7 @@
                         <animations/>
                         <color key="backgroundColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="Ygp-4x-Nu8" secondAttribute="bottom" constant="12" id="32C-Em-dmd"/>
                             <constraint firstItem="hEY-od-SNG" firstAttribute="leading" secondItem="hpa-Q2-z2N" secondAttribute="trailing" constant="15" id="4HC-YQ-cBs"/>
                             <constraint firstItem="Ygp-4x-Nu8" firstAttribute="centerX" secondItem="8G6-LH-NP0" secondAttribute="centerX" id="89T-av-dvg"/>
                             <constraint firstItem="hpa-Q2-z2N" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="25" id="A54-Hy-dRb"/>
@@ -615,7 +622,7 @@
                             <constraint firstItem="Ygp-4x-Nu8" firstAttribute="top" secondItem="8G6-LH-NP0" secondAttribute="bottom" constant="15" id="RXf-N0-tIS"/>
                             <constraint firstItem="TQS-PB-2Yy" firstAttribute="width" secondItem="hEY-od-SNG" secondAttribute="width" id="T0K-Dw-T9M"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="hEY-od-SNG" secondAttribute="bottom" constant="57" id="TYc-0F-wM9"/>
-                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="hpa-Q2-z2N" secondAttribute="bottom" constant="57" id="XCp-YV-pyO"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="hpa-Q2-z2N" secondAttribute="bottom" constant="12" id="XCp-YV-pyO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hEY-od-SNG" secondAttribute="trailing" constant="15" id="fJO-QL-E0l"/>
                             <constraint firstItem="8G6-LH-NP0" firstAttribute="width" secondItem="hpa-Q2-z2N" secondAttribute="width" id="nLr-xG-TnR"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="8G6-LH-NP0" secondAttribute="bottom" constant="57" id="scm-Lh-flr"/>
@@ -623,6 +630,11 @@
                             <constraint firstItem="8G6-LH-NP0" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="25" id="w2O-0c-0Ir"/>
                             <constraint firstItem="hpa-Q2-z2N" firstAttribute="width" secondItem="hEY-od-SNG" secondAttribute="width" id="zim-FU-HxG"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="32C-Em-dmd"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Scripting" image="scriptingViewIcon" id="cPa-gy-q4n"/>
                     <connections>
