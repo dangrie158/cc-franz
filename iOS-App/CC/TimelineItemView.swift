@@ -22,7 +22,7 @@ class TimelineItemView: UIView {
         self.length = length
         setup(type)
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

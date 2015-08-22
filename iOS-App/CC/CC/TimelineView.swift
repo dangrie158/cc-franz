@@ -11,15 +11,15 @@ import UIKit
 
 class TimelineView: UIView {
     
-    var scriptActions = [ScriptAction]()
-    var scaling = 1.0
+    private var scriptActions = [ScriptAction]()
+    private var scaling = 1.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
         
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -29,10 +29,10 @@ class TimelineView: UIView {
         // draw equally spaced lines
         for var y = 0; y < Int(self.frame.size.height); y += Int(50 * scaling) {
             let lineRect:CGRect = CGRectMake(0.0, CGFloat(y), self.frame.width, 1.0)
+            //transparent white
             CGContextSetRGBFillColor(context, 1.0, 1.0, 1.0, 0.1)
             CGContextFillRect(context, lineRect)
         }
-        
     }
     
     func setup(){
@@ -59,6 +59,7 @@ class TimelineView: UIView {
         
         self.scriptActions = actions
         for action in self.scriptActions {
+            //1 pixel shpuld represent 1 second in the action
             addTimelineItem(action.start, length: action.length, type: action.direction)
         }
     }
@@ -89,5 +90,4 @@ class TimelineView: UIView {
         superScrollView.contentSize = self.frame.size
         self.setNeedsDisplay()
     }
-    
 }

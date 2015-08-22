@@ -10,13 +10,29 @@ import UIKit
 
 class ScriptController: UIViewController, UIScrollViewDelegate {
 
-    
-    @IBOutlet weak var angularScrollview: UIScrollView!
-    @IBOutlet weak var linearScrollview: UIScrollView!
+    /*******************************
+    * instance methods / variables *
+    ********************************/
     var linearTimelineView : TimelineView? = nil
     var angularTimelineView : TimelineView? = nil
     var linearPinchGestureRecognizer : UIPinchGestureRecognizer? = nil
     var angularPinchGestureRecognizer : UIPinchGestureRecognizer? = nil
+    var currentScript : Script? = nil
+    var playbackStartedTime : NSDate? = nil
+    var updateRecordTimeTimer:NSTimer? = nil
+    var pauseClickedTime : NSDate? = nil
+    var scale : Double = 1.0
+    
+    /*******************************
+    *             outlets          *
+    ********************************/
+    @IBOutlet weak var angularScrollview: UIScrollView!
+    @IBOutlet weak var linearScrollview: UIScrollView!
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var elapsedTimeView: FBLCDFontView!
+    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -41,18 +57,18 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
         linearScrollview.delegate = self
         angularScrollview.delegate = self
         
-        let yo = Script(withName: "yo")
-        yo.addAction(ScriptAction(start: 0.0, length: 20.0, direction: .LEFT, speed: 10))
-        yo.addAction(ScriptAction(start: 10.0, length: 5.0, direction: .CW, speed: 20))
-        yo.addAction(ScriptAction(start: 80.0, length: 60.0, direction: .CCW, speed: 50))
-        yo.addAction(ScriptAction(start: 40.0, length: 18.0, direction: .LEFT, speed: 5))
-        yo.addAction(ScriptAction(start: 60.0, length: 30.0, direction: .RIGHT, speed: 2))
-        yo.play(on: CameraSlider.getInstance()){
-            print("ready done stuff")
-        }
+        currentScript = Script(withName: "yo")
+        currentScript!.addAction(ScriptAction(start: 0.0, length: 10.0, direction: .LEFT, speed: 10))
+        currentScript!.addAction(ScriptAction(start: 10.0, length: 5.0, direction: .CW, speed: 20))
+        currentScript!.addAction(ScriptAction(start: 10.0, length: 5.0, direction: .CCW, speed: 50))
+        currentScript!.addAction(ScriptAction(start: 15.0, length: 5.0, direction: .LEFT, speed: 5))
+        currentScript!.addAction(ScriptAction(start: 20.0, length: 5.0, direction: .RIGHT, speed: 2))
+
         
-        linearTimelineView?.replaceScriptActionsInView(yo.linearActions)
-        angularTimelineView?.replaceScriptActionsInView(yo.angularActions)
+        linearTimelineView?.replaceScriptActionsInView(currentScript!.linearActions)
+        angularTimelineView?.replaceScriptActionsInView(currentScript!.angularActions)
+        
+        self.elapsedTimeView.text = "00:00"
 
     }
 
@@ -83,6 +99,13 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
     
     func handlePinchWithGestureRecognizer(recognizer: UIPinchGestureRecognizer){
 
+       
+        let oldScale = self.scale
+        if (oldScale < 10 && oldScale > 0.1) || (oldScale > 10 && recognizer.scale < 1) || (oldScale < 0.1 && recognizer.scale > 1) {
+            self.scale *= Double(((recognizer.scale - 1) * 0.1) + 1 )
+        }
+        
+        print(self.scale)
         // we do not distinct between linear and angular scroll view since we are
         // only interested in the y position
         let pinchCenter = recognizer.locationInView(linearScrollview).y
@@ -108,8 +131,101 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
         }
         
         linearScrollview.setContentOffset(CGPoint(x: 0.0, y: contentOffset), animated: false)
+    }
+    
+    /*******************************
+    *          view actions        *
+    ********************************/
+    
+    @IBAction func stopPressed(sender: AnyObject) {
+        playButton.enabled = true
+        pauseButton.enabled = false
+        stopButton.enabled = false
         
+        //enable scrolling
+        linearScrollview.userInteractionEnabled = true
+        angularScrollview.userInteractionEnabled = true
+        
+        // clean up the values and stop the timer
+        self.updateRecordTimeTimer?.invalidate()
+        self.updateRecordTimeTimer = nil
+        self.currentScript?.stop()
+        // when we stop we also reset the text to 0
+        // (which we do not do when the playback just finished and was not stopped by the user,
+        // this way we emphasize the stop action)
+        self.elapsedTimeView.text = "00:00"
+        self.pauseClickedTime = nil
+        
+        //move the script to the top
+        linearScrollview.setContentOffset(CGPoint(x:0, y: 0), animated: true)
     }
 
+    @IBAction func playPressed(sender: AnyObject) {
+        playButton.enabled = false
+        pauseButton.enabled = true
+        stopButton.enabled = true
+        
+        //disable scrolling
+        linearScrollview.userInteractionEnabled = false
+        angularScrollview.userInteractionEnabled = false
+        
+        // if we are at the start of a recording
+        if self.pauseClickedTime == nil {
+            // save the time when the playback has started
+            self.playbackStartedTime = NSDate()
+        }
+        else{
+            // otherwise calculate the time the playback was paused ...
+            let timeSincePauseStarted = NSDate().timeIntervalSinceDate((self.pauseClickedTime)!)
+            self.pauseClickedTime = nil
+            // ... and add it to the starting time, to get the real playback time
+            self.playbackStartedTime = self.playbackStartedTime?.dateByAddingTimeInterval(timeSincePauseStarted)
+        }
+        // start a timer to update the display of the playback time
+        self.updateRecordTimeTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("updatePlayTimer"), userInfo: nil, repeats: true)
+        // play the recording
+        self.currentScript?.play(on: CameraSlider.getInstance()){
+            // clean up after the playback has finished
+            self.updateRecordTimeTimer?.invalidate()
+            self.updateRecordTimeTimer = nil
+            self.elapsedTimeView.text = self.formatTime((self.currentScript?.length)!)
+        }
+    }
+    
+    @IBAction func pausePressed(sender: AnyObject) {
+        playButton.enabled = true
+        pauseButton.enabled = false
+        stopButton.enabled = true
+        
+        // save the date when the pausing began and stop the update timer
+        self.pauseClickedTime = NSDate()
+        self.updateRecordTimeTimer?.invalidate()
+        self.updateRecordTimeTimer = nil
+        // save the current action where we paused the playback to resume from this position later on
+        self.currentScript?.pause()
+    }
+    
+    // format an interval to a human readable string
+    func formatTime(time : Double) -> String {
+        if(time < 60){
+            return NSString(format: "%02d:%02d", Int(time), Int(time * 100) % 100) as String
+        }else{
+            return NSString(format: "%02d:%02d", Int(time)/60, Int(time) % 60) as String
+        }
+    }
+    
+    // callback for the play timer
+    func updatePlayTimer() {
+        let interval = NSDate().timeIntervalSinceDate((self.playbackStartedTime)!)
+        if(interval <= self.currentScript?.length){
+            self.elapsedTimeView.text = formatTime(interval)
+        }
+        
+        let startPoint : CGFloat = -1 * linearScrollview.frame.height / 2.0
+        let currentPlaybackPoint = Double(startPoint) + (interval * self.scale)
+        
+        linearScrollview.contentOffset = CGPoint(x:0, y: currentPlaybackPoint)
+    }
+    
 }
 
