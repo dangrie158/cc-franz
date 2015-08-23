@@ -22,6 +22,8 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
     var updateRecordTimeTimer:NSTimer? = nil
     var pauseClickedTime : NSDate? = nil
     var scale : Double = 1.0
+    var lastRecognizerScale : Double = 1.0
+    var startYContentOffset : Double = 0.0
     
     /*******************************
     *             outlets          *
@@ -59,10 +61,11 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
         
         currentScript = Script(withName: "yo")
         currentScript!.addAction(ScriptAction(start: 0.0, length: 10.0, direction: .LEFT, speed: 10))
-        currentScript!.addAction(ScriptAction(start: 10.0, length: 5.0, direction: .CW, speed: 20))
-        currentScript!.addAction(ScriptAction(start: 10.0, length: 5.0, direction: .CCW, speed: 50))
-        currentScript!.addAction(ScriptAction(start: 15.0, length: 5.0, direction: .LEFT, speed: 5))
-        currentScript!.addAction(ScriptAction(start: 20.0, length: 5.0, direction: .RIGHT, speed: 2))
+        currentScript!.addAction(ScriptAction(start: 100.0, length: 5.0, direction: .CW, speed: 20))
+        currentScript!.addAction(ScriptAction(start: 100.0, length: 5.0, direction: .CCW, speed: 50))
+        currentScript!.addAction(ScriptAction(start: 150.0, length: 5.0, direction: .LEFT, speed: 5))
+        currentScript!.addAction(ScriptAction(start: 200.0, length: 200.0, direction: .RIGHT, speed: 2))
+        currentScript!.addAction(ScriptAction(start: 450.0, length: 300.0, direction: .RIGHT, speed: 2))
 
         
         linearTimelineView?.replaceScriptActionsInView(currentScript!.linearActions)
@@ -98,27 +101,27 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
     }
     
     func handlePinchWithGestureRecognizer(recognizer: UIPinchGestureRecognizer){
-
-       
-        let oldScale = self.scale
-        if (oldScale < 10 && oldScale > 0.1) || (oldScale > 10 && recognizer.scale < 1) || (oldScale < 0.1 && recognizer.scale > 1) {
-            self.scale *= Double(((recognizer.scale - 1) * 0.1) + 1 )
+        
+        if recognizer.state == UIGestureRecognizerState.Ended {
+            self.lastRecognizerScale = 1.0
+            return
         }
         
-        print(self.scale)
-        // we do not distinct between linear and angular scroll view since we are
-        // only interested in the y position
-        let pinchCenter = recognizer.locationInView(linearScrollview).y
-        let percentScrolledInTimeline = (linearTimelineView?.frame.size.height)!
-        let contentOffset = linearScrollview.contentOffset.y * (recognizer.scale/2)
+        if recognizer.state == UIGestureRecognizerState.Began {
+            // we do not distinct between linear and angular scroll view since we are
+            // only interested in the y position
+            self.startYContentOffset = Double(linearScrollview.contentOffset.y)
+        }
         
-        print("location")
-        print(recognizer.locationInView(linearTimelineView))
+        self.scale = self.scale + (Double(recognizer.scale) - self.lastRecognizerScale)
         
-//        linearScrollview.setContentOffset(CGPoint(x: 0.0, y: pinchCenter), animated: true)
+        self.scale = min(self.scale, 3)
+        self.scale = max(self.scale, 0.5)
         
-        linearTimelineView!.setScale(Double(recognizer.scale))
-        angularTimelineView!.setScale(Double(recognizer.scale))
+        linearTimelineView!.setScale(Double(self.scale))
+        angularTimelineView!.setScale(Double(self.scale))
+        
+        //syncronize the two scroll view heights
         let linearHeight = linearTimelineView?.frame.maxY
         let angularHeight = angularTimelineView?.frame.maxY
         if linearHeight > angularHeight{
@@ -130,7 +133,7 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
             linearScrollview!.contentSize.height = angularHeight!
         }
         
-        linearScrollview.setContentOffset(CGPoint(x: 0.0, y: contentOffset), animated: false)
+        self.lastRecognizerScale = Double(recognizer.scale)
     }
     
     /*******************************
@@ -215,6 +218,7 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
     }
     
     // callback for the play timer
+    // and scoll position update
     func updatePlayTimer() {
         let interval = NSDate().timeIntervalSinceDate((self.playbackStartedTime)!)
         if(interval <= self.currentScript?.length){

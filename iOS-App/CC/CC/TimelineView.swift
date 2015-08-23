@@ -65,15 +65,17 @@ class TimelineView: UIView {
     }
     
     func setScale(scaleFactor: Double){
+        self.scaling = scaleFactor
+        
         var maxHeight : CGFloat = 0.0
         let superScrollView = self.superview as! UIScrollView
+        
         for subview in self.subviews{
             let timelineItem = subview as! TimelineItemView
-            let oldScale = timelineItem.getScale()
-            if (oldScale < 10 && oldScale > 0.1) || (oldScale > 10 && scaleFactor < 1) || (oldScale < 0.1 && scaleFactor > 1) {
-                timelineItem.setScale(Double(((scaleFactor - 1) * 0.1) + 1 ) * oldScale)
-                timelineItem.setNeedsDisplay()
-            }
+
+            timelineItem.setScale(scaleFactor)
+            timelineItem.setNeedsDisplay()
+            
             if maxHeight < subview.frame.maxY{
                 maxHeight = subview.frame.maxY
             }
@@ -84,9 +86,7 @@ class TimelineView: UIView {
         else {
             self.frame.size.height = maxHeight
         }
-        if (self.scaling < 10 && self.scaling > 0.1) || (self.scaling > 10 && scaleFactor < 1) || (self.scaling < 0.1 && scaleFactor > 1){
-            self.scaling *= (((scaleFactor - 1) * 0.1) + 1 )
-        }
+
         superScrollView.contentSize = self.frame.size
         self.setNeedsDisplay()
     }
