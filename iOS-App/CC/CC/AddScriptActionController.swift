@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddScriptAction: UIViewController, UIGestureRecognizerDelegate {
+class AddScriptAction: TouchOutsidePopup {
 
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet weak var direction: UISegmentedControl!
@@ -21,16 +21,9 @@ class AddScriptAction: UIViewController, UIGestureRecognizerDelegate {
     private var onCompleteCallback : ((ScriptAction)->())?
     private var duration = 0
     private var start = 0.0
-    private var tapOutsideRecognizer : UITapGestureRecognizer? = nil
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        // register gesture recognizer to get view touch events
-        tapOutsideRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTapBehind:"))
-        tapOutsideRecognizer!.numberOfTapsRequired = 1
-        tapOutsideRecognizer!.cancelsTouchesInView = false
-        tapOutsideRecognizer!.delegate = self
-        self.view.window?.addGestureRecognizer(tapOutsideRecognizer!)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -101,11 +94,8 @@ class AddScriptAction: UIViewController, UIGestureRecognizerDelegate {
             self.onCompleteCallback!(action)
         }
         
-        // unregister gesture listener otherwise we still get touches after view is dismissed
-        self.view.window?.removeGestureRecognizer(self.tapOutsideRecognizer!)
-        self.dismissViewControllerAnimated(true, completion: { () -> Void in
-            // we cannot unregister the gesture lister here, because the windows has already been destroyed
-        })
+        // hide the popup
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func durationMinus100(sender: AnyObject) {
         addDuration(-100)
@@ -154,39 +144,4 @@ class AddScriptAction: UIViewController, UIGestureRecognizerDelegate {
         
         return speedText
     }
-
-    
-    
-    /**************************************
-    * UIGestureRecognizerDelegate methods *
-    **************************************/
-        
-    func handleTapBehind(sender : UITapGestureRecognizer){
-        if(sender.state == UIGestureRecognizerState.Ended){
-            let rootView = self.view.window?.rootViewController?.view
-            let location = sender.locationInView(rootView)
-            // if touch was performed outside of frame --> dismiss the view
-            if(!self.view.pointInside(self.view.convertPoint(location, fromView: rootView), withEvent: nil)){
-                // unregister gesture listener otherwise we still get touches after view is dismissed
-                self.view.window?.removeGestureRecognizer(sender)
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    // we cannot unregister the gesture lister here, because the windows has already been destroyed
-                })
-            }
-        }
-    }
-    
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        return true
-    }
-
-
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Playback: UIViewController, UIGestureRecognizerDelegate {
+class Playback: TouchOutsidePopup {
     
     /*******************************
     * instance methods / variables *
@@ -31,12 +31,6 @@ class Playback: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        // register gesture recognizer to get view touch events
-        let tapOutsideRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTapBehind:"))
-        tapOutsideRecognizer.numberOfTapsRequired = 1
-        tapOutsideRecognizer.cancelsTouchesInView = false
-        tapOutsideRecognizer.delegate = self
-        self.view.window?.addGestureRecognizer(tapOutsideRecognizer)
     }
     
     override func viewDidLoad() {
@@ -112,38 +106,6 @@ class Playback: UIViewController, UIGestureRecognizerDelegate {
         // this way we emphasize the stop action)
         self.elapsedTimeView.text = "00:00"
         self.currentRecordingActionIndex = 0
-    }
-    
-    
-    /**************************************
-    * UIGestureRecognizerDelegate methods *
-    **************************************/
-    
-    func handleTapBehind(sender : UITapGestureRecognizer){
-        if(sender.state == UIGestureRecognizerState.Ended){
-            let rootView = self.view.window?.rootViewController?.view
-            let location = sender.locationInView(rootView)
-            // if touch was performed outside of frame --> dismiss the view
-            if(!self.view.pointInside(self.view.convertPoint(location, fromView: rootView), withEvent: nil)){
-                // unregister gesture listener otherwise we still get touches after view is dismissed
-                self.view.window?.removeGestureRecognizer(sender)
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    // we cannot unregister the gesture lister here, because the windows has already been destroyed
-                })
-            }
-        }
-    }
-    
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        return true
     }
     
     // set the recording to play back
