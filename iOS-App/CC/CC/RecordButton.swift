@@ -29,19 +29,19 @@ class RecordButton:UIButton{
         super.init(frame: frame)
         setupRecordButton()
     }
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupRecordButton()
     }
     
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        drawBackground(context!, inArea: rect)
+        drawBackground(context, inArea: rect)
         switch currentState{
             case .RECORDING:
-                drawStop(context!, inArea:rect)
+                drawStop(context, inArea:rect)
             case .STOPPED:
-                drawRec(context!, inArea:rect)
+                drawRec(context, inArea:rect)
         }
     }
     

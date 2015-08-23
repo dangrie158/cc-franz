@@ -22,7 +22,7 @@ class TimelineItemView: UIView {
         self.length = length
         setup(type)
     }
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -53,7 +53,9 @@ class TimelineItemView: UIView {
     override func didMoveToSuperview() {
         print("did")
         print(superview?.frame.width)
-        self.frame = CGRectMake(0.0, CGFloat(start * scale), (self.superview?.bounds.width)!, CGFloat(length * scale))
+        if(superview != nil){
+            self.frame = CGRectMake(0.0, CGFloat(start * scale), (self.superview?.bounds.width)!, CGFloat(length * scale))
+        }
     }
     
     override func drawRect(rect: CGRect) {

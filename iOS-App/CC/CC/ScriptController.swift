@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Tobias Schneider. All rights reserved.
 //
 
-import UIKit
+import CoreData
 
-class ScriptController: UIViewController, UIScrollViewDelegate {
+class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
     /*******************************
     * instance methods / variables *
@@ -22,8 +22,11 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
     var updateRecordTimeTimer:NSTimer? = nil
     var pauseClickedTime : NSDate? = nil
     var scale : Double = 1.0
-    var lastRecognizerScale : Double = 1.0
-    var startYContentOffset : Double = 0.0
+    var lastRecognizerScale = 1.0
+    var startYContentOffset = 0.0
+    var managedContext : NSManagedObjectContext? = nil
+    var scripts = [NSManagedObject]()
+    var currentScriptChanged = false
     
     /*******************************
     *             outlets          *
@@ -34,7 +37,15 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var elapsedTimeView: FBLCDFontView!
+    @IBOutlet weak var scriptsListView: UITableView!
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        scriptsListView.registerClass(UITableViewCell.self,
+            forCellReuseIdentifier: "Cell")
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -59,25 +70,44 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
         linearScrollview.delegate = self
         angularScrollview.delegate = self
         
-        currentScript = Script(withName: "yo")
-        currentScript!.addAction(ScriptAction(start: 0.0, length: 10.0, direction: .LEFT, speed: 10))
-        currentScript!.addAction(ScriptAction(start: 100.0, length: 5.0, direction: .CW, speed: 20))
-        currentScript!.addAction(ScriptAction(start: 100.0, length: 5.0, direction: .CCW, speed: 50))
-        currentScript!.addAction(ScriptAction(start: 150.0, length: 5.0, direction: .LEFT, speed: 5))
-        currentScript!.addAction(ScriptAction(start: 200.0, length: 200.0, direction: .RIGHT, speed: 2))
-        currentScript!.addAction(ScriptAction(start: 450.0, length: 300.0, direction: .RIGHT, speed: 2))
+        newScript(NSObject())
 
-        
-        linearTimelineView?.replaceScriptActionsInView(currentScript!.linearActions)
-        angularTimelineView?.replaceScriptActionsInView(currentScript!.angularActions)
-        
         self.elapsedTimeView.text = "00:00"
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        // initialized globally
+        self.managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName:"Script")
+        fetchRequest.relationshipKeyPathsForPrefetching = ["actions"]
+        var fetchedResults : [NSManagedObject]? = nil
+        
+        do{
+            try fetchedResults = self.managedContext!.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+        }
+        catch{
+            print("Failed to load scripts from database.")
+        }
+        
+        self.scripts = fetchedResults!
 
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // update the UI
+    func updateCurrentScript(script: Script){
+        self.currentScriptChanged = false
+        self.currentScript = script
+        linearTimelineView?.replaceScriptActionsInView(currentScript!.linearActions)
+        angularTimelineView?.replaceScriptActionsInView(currentScript!.angularActions)
     }
 
     // hide the status bar for the whole view controller
@@ -139,6 +169,31 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
     /*******************************
     *          view actions        *
     ********************************/
+    
+    func showAddActionViewController(forAxis type: CameraSlider.Axis){
+        // create new playback view controller
+        let AddActionVC = AddScriptAction(nibName: "AddScriptAction", bundle: nil)
+        // show the view controller
+        AddActionVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        AddActionVC.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+        AddActionVC.setAxis(type)
+        AddActionVC.setStart((self.currentScript?.length)!)
+        AddActionVC.onComplete { (action: ScriptAction) -> () in
+            self.currentScript?.addAction(action)
+            self.updateCurrentScript(self.currentScript!)
+            self.currentScriptChanged = true
+        }
+        self.presentViewController(AddActionVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func addLinearAction(sender: AnyObject) {
+        showAddActionViewController(forAxis: .MOVEMENT)
+    }
+    
+    @IBAction func addAngularAction(sender: AnyObject) {
+        showAddActionViewController(forAxis: .ROTATION)
+    }
+    
     
     @IBAction func stopPressed(sender: AnyObject) {
         playButton.enabled = true
@@ -230,6 +285,126 @@ class ScriptController: UIViewController, UIScrollViewDelegate {
         
         linearScrollview.contentOffset = CGPoint(x:0, y: currentPlaybackPoint)
     }
+    
+    
+    @IBAction func newScript(sender: AnyObject) {
+        func createNewScript(action _: UIAlertAction?){
+            self.currentScript = Script(withName: NSDate().description)
+            updateCurrentScript(currentScript!)
+        }
+        
+        if currentScriptChanged {
+            let alert = UIAlertController(title: "New Script", message: "Do you want to create a new script?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+            //add a cancel button
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+            //add a new script button
+            alert.addAction(UIAlertAction(title: "New Script", style: UIAlertActionStyle.Default, handler: createNewScript))
+            
+            //show the view controller
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        else{
+            createNewScript(action: nil)
+        }
+        
+    }
+    
+    
+    @IBAction func saveScript(sender: AnyObject) {
+        askUserForNameAndSave(self.currentScript!)
+    }
+    
+    // save script
+    func askUserForNameAndSave(script:Script){
+        //the textfield where the user can enter
+        //a new name for the script
+        var newNameField:UITextField? = nil;
+        
+        //updates the name of the script and saves the script
+        //this is the handler for the save button
+        func saveScript(action _: UIAlertAction!) {
+            if(!newNameField!.text!.isEmpty){
+                script.name = (newNameField?.text)!
+            }
+            
+            let managedObject = script.save(self.managedContext)
+            self.scripts.append(managedObject)
+            self.scriptsListView.reloadData()
+        }
+        
+        let alert = UIAlertController(title: "Save As", message: "Please enter the recordings name", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        //add a cancel button
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        //add a save button
+        alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default, handler: saveScript))
+        //add a text field here the user can enter a new name
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = script.name
+            //save the new created textfield so we can get access
+            //to the entered text later
+            newNameField = textField
+        })
+        
+        //show the view controller
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    /*******************************
+    *       table view protocol    *
+    ********************************/
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return scripts.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell?
+        let script = scripts[indexPath.row]
+        cell?.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 1.0)
+        cell?.textLabel?.textColor = UIColor.lightGrayColor()
+        cell?.preservesSuperviewLayoutMargins = false
+        cell?.layoutMargins = UIEdgeInsetsZero
+        cell?.separatorInset = UIEdgeInsetsZero
+        cell!.textLabel!.text = script.valueForKey("name") as? String
+        
+        return cell!
+    }
+    
+    /**
+    * set the tableView as editable
+    */
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    /**
+    * delete table rows
+    */
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            // remove the deleted item from the model
+            self.managedContext!.deleteObject(scripts[indexPath.row] as NSManagedObject)
+            do{
+                try self.managedContext!.save()
+            }
+            catch{
+                print("Could not save")
+            }
+            scripts.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // get the recording object from the managed objects
+        let selectedScript = scripts[indexPath.row]
+        let script = Script.getFromManagedObject(selectedScript)
+        updateCurrentScript(script)
+    }
+
+
     
 }
 

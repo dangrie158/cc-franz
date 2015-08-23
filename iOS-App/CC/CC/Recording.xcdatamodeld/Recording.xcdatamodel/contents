@@ -9,11 +9,11 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="actions" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Action" inverseName="recording" inverseEntity="Action" syncable="YES"/>
     </entity>
-    <entity name="Script" syncable="YES">
+    <entity name="Script" representedClassName="Script" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="actions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScriptAction" inverseName="script" inverseEntity="ScriptAction" syncable="YES"/>
+        <relationship name="actions" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ScriptAction" inverseName="script" inverseEntity="ScriptAction" syncable="YES"/>
     </entity>
-    <entity name="ScriptAction" syncable="YES">
+    <entity name="ScriptAction" representedClassName="ScriptAction" syncable="YES">
         <attribute name="direction" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
         <attribute name="length" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="speed" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
