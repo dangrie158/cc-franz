@@ -92,7 +92,6 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        print("connectededed")
         setState(.CONNECTED)
     }
     
@@ -121,7 +120,6 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     //it will automatically re-attempt
     //to connect
     func startConnecting() {
-        print("starting")
         socketConnect()
     }
     
@@ -148,7 +146,6 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     }
     
     func onDisconnect( callback:()->Void ){
-        print("ON DISCONNECT")
         disconnectedCallback = callback
     }
     

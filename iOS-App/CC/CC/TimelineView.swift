@@ -19,7 +19,7 @@ class TimelineView: UIView {
         setup()
         
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -39,16 +39,76 @@ class TimelineView: UIView {
         // setup graphical UI
         self.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.02)        
     }
-        
+    
+    
     override func didAddSubview(subview: UIView) {
+        recalculateContentHeight(subview)
+        
+        //add all gestures we need to detect drag and drop
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("actionGesture:"))
+        subview.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    func recalculateContentHeight(subview: UIView){
         let subviewHeight = subview.frame.height
         if(subview.frame.origin.y + subviewHeight > self.frame.height){
             self.frame.size.height = CGFloat(subview.frame.origin.y + subviewHeight)
         }
+        
+        if let scrollContainer = self.superview as? UIScrollView{
+            scrollContainer.contentSize = self.frame.size
+        }
     }
     
-    func addTimelineItem(start: Double, length: Double, type: CameraSlider.Direction){
-        self.addSubview(TimelineItemView(start: start, length: length, scale: 1.0, type: type))
+    /****************************
+    *   Drag and Drop Handler   *
+    *****************************/
+    func actionGesture(recognizer: UIGestureRecognizer){
+        let item = recognizer.view as! TimelineItemView
+        
+        //if we end any of the gestures, clear the drag mode and return
+        if recognizer.state == UIGestureRecognizerState.Ended{
+            item.isInDragMode = false
+            return
+        //a long press began
+        }else if recognizer.state == UIGestureRecognizerState.Began{
+            //set the drag mode when we start dragging
+            item.isInDragMode = true
+            
+            //we need to save the offset of the touch in the view so we can use
+            //it in successive actions
+            item.dragTouchOffset = recognizer.locationInView(item).y
+        }else if recognizer.state == UIGestureRecognizerState.Changed {
+            //we moved the touch, update the view
+            if item.isInDragMode {
+                let offsetInView = recognizer.locationInView(self).y
+                let offsetInSubview = item.dragTouchOffset
+                let newStartPoint = max(offsetInView - offsetInSubview, 0)
+                
+                if !newStartOverlapsAction(item.scriptAction!, withNewStart: Double(newStartPoint)){
+                    item.setStart(newStartPoint)
+                    recalculateContentHeight(item)
+                }
+            }
+        }
+    }
+    
+    func newStartOverlapsAction(newAction: ScriptAction, withNewStart newstart: Double) -> Bool{
+        for action in self.scriptActions{
+            //check if we overlap a action that is already present
+            //and not the same action
+            if(action !== newAction){
+                if(newstart + newAction.length > action.start && action.start + action.length >= newstart){
+                    return true
+                }
+            }
+        }
+        
+        return false
+    }
+
+    func addTimelineItem(action: ScriptAction, type: CameraSlider.Direction){
+        self.addSubview(TimelineItemView(action: action, scale: 1.0, type: type))
     }
     
     func replaceScriptActionsInView(actions: [ScriptAction]){
@@ -60,7 +120,7 @@ class TimelineView: UIView {
         self.scriptActions = actions
         for action in self.scriptActions {
             //1 pixel shpuld represent 1 second in the action
-            addTimelineItem(action.start, length: action.length, type: action.direction)
+            addTimelineItem(action, type: action.direction)
         }
     }
     

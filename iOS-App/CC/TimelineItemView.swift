@@ -11,18 +11,40 @@ import Foundation
 class TimelineItemView: UIView {
     
     private var scale : Double = 1.0
-    private var start : Double = 0
-    private var length : Double = 0
+    private var dragState = false
+    var scriptAction : ScriptAction? = nil
     
-    init(start: Double, length: Double, scale: Double, type: CameraSlider.Direction) {
+    var dragTouchOffset = CGFloat()
+    var isInDragMode : Bool {
+        get {return self.dragState}
+        set(newState) {
+            self.dragState = newState
+            
+            var r : CGFloat = 0.0
+            var g : CGFloat = 0.0
+            var b : CGFloat = 0.0
+            var a : CGFloat = 0.0
+            self.backgroundColor!.getRed(&r, green: &g, blue: &b, alpha: &a)
+            
+            if newState == true{
+                self.backgroundColor = UIColor(red: r, green: g, blue: b, alpha:0.3)
+            }else{
+                self.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 0.6)
+            }
+            
+            self.setNeedsLayout()
+        }
+    }
+    
+    init(action: ScriptAction, scale: Double, type: CameraSlider.Direction) {
         let frame = CGRectMake(0.0, 0, 0, 0)
         super.init(frame: frame)
+        
+        self.scriptAction = action
         self.scale = scale
-        self.start = start
-        self.length = length
         setup(type)
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -39,22 +61,29 @@ class TimelineItemView: UIView {
     
     func setScale(scale: Double){
         self.scale = scale
-        self.frame = CGRectMake(0.0, CGFloat(start * scale), self.superview!.bounds.width, CGFloat(length * scale))
+        
+        let start: CGFloat = CGFloat(scriptAction!.start)
+        let length: CGFloat = CGFloat(scriptAction!.length)
+        self.frame = CGRectMake(0.0, start * CGFloat(scale), self.superview!.bounds.width, length * CGFloat(scale))
     }
     
     func getScale() -> Double{
         return self.scale
     }
-
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        print("TOUCHED")
+    
+    func setStart(newStart: CGFloat){
+        self.frame.origin.y = newStart
+        self.scriptAction?.start = Double(newStart)
+        self.setNeedsLayout()
     }
     
     override func didMoveToSuperview() {
         print("did")
         print(superview?.frame.width)
         if(superview != nil){
-            self.frame = CGRectMake(0.0, CGFloat(start * scale), (self.superview?.bounds.width)!, CGFloat(length * scale))
+            let start: CGFloat = CGFloat(scriptAction!.start)
+            let length: CGFloat = CGFloat(scriptAction!.length)
+            self.frame = CGRectMake(0.0, start * CGFloat(scale), (self.superview?.bounds.width)!, length * CGFloat(scale))
         }
     }
     
@@ -70,6 +99,4 @@ class TimelineItemView: UIView {
         CGContextSetRGBFillColor(context, r, g, b, 1.0)
         CGContextFillRect(context, lineRect)
     }
-    
-
 }

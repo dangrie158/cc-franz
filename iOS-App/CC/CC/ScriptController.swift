@@ -65,8 +65,11 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         angularScrollview.addSubview(angularTimelineView!)
         angularScrollview.contentSize = CGSize(width: angularScrollview.frame.width, height: angularTimelineView!.frame.height)
         angularScrollview.addGestureRecognizer(angularPinchGestureRecognizer!)
-
         
+        //observe the content height to syncronize the scrollviews
+        linearTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        angularTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+
         linearScrollview.delegate = self
         angularScrollview.delegate = self
         
@@ -120,6 +123,9 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         angularTimelineView?.removeGestureRecognizer(angularPinchGestureRecognizer!)
     }
     
+    /*******************************
+    *      scroll view protocol    *
+    ********************************/
     // synchronize the scroll position between the angular and linear scrollview
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView == linearScrollview{
@@ -164,6 +170,28 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         }
         
         self.lastRecognizerScale = Double(recognizer.scale)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        //temporarly remove the observers to avoid a infinite loop
+        linearTimelineView!.removeObserver(self, forKeyPath: "frame")
+        angularTimelineView!.removeObserver(self, forKeyPath: "frame")
+        
+        if (keyPath == "frame")
+        {
+            //contentSize of either scrollview changed
+            if object === self.linearTimelineView{
+                self.angularTimelineView?.frame.size.height = self.linearTimelineView!.frame.size.height
+            }else if object === self.angularTimelineView{
+                self.linearTimelineView?.frame.size.height = self.angularTimelineView!.frame.size.height
+            }
+            
+            self.linearTimelineView?.setNeedsLayout()
+            self.angularTimelineView?.setNeedsLayout()
+        }
+        
+        linearTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        angularTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
     }
     
     /*******************************
@@ -283,7 +311,7 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         let startPoint : CGFloat = -1 * linearScrollview.frame.height / 2.0
         let currentPlaybackPoint = Double(startPoint) + (interval * self.scale)
         
-        linearScrollview.contentOffset = CGPoint(x:0, y: currentPlaybackPoint)
+        linearScrollview.setContentOffset(CGPoint(x:0, y: currentPlaybackPoint), animated: false);
     }
     
     
