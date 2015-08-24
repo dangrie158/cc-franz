@@ -93,7 +93,7 @@
                                                         <rect key="frame" x="67" y="48" width="63" height="32"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                        <color key="tintColor" red="0.41176470590000003" green="0.85490196080000003" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="tintColor" red="0.65098039220000004" green="0.8862745098" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" image="homing_rotation"/>
                                                         <connections>
                                                             <action selector="homeRotation:" destination="M24-T3-sVR" eventType="touchUpInside" id="8Vu-kb-CXO"/>
@@ -103,14 +103,14 @@
                                                         <rect key="frame" x="50" y="48" width="63" height="32"/>
                                                         <animations/>
                                                         <rect key="contentStretch" x="0.5" y="0.5" width="1" height="1"/>
-                                                        <color key="tintColor" red="0.41176470590000003" green="0.85490196080000003" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="tintColor" red="0.65098039220000004" green="0.8862745098" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" image="tara"/>
                                                         <connections>
                                                             <action selector="rerefRotation:" destination="M24-T3-sVR" eventType="touchUpInside" id="F5X-38-xel"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Homing Control" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oha-BF-ENp">
-                                                        <rect key="frame" x="43" y="17" width="95" height="16"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Homing Control" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oha-BF-ENp">
+                                                        <rect key="frame" x="42" y="17" width="96" height="16"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -244,8 +244,8 @@
                                             <color key="titleColor" red="0.3921568627" green="0.85098039219999999" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Recording Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGL-tY-5Kv">
-                                        <rect key="frame" x="43" y="20" width="95" height="19"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGL-tY-5Kv">
+                                        <rect key="frame" x="42" y="20" width="96" height="19"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -378,7 +378,7 @@
                                                         <rect key="frame" x="67" y="46" width="63" height="32"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                        <color key="tintColor" red="0.41176470588235292" green="0.85490196078431369" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="tintColor" red="0.99215686270000003" green="0.59215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" image="homing_linear"/>
                                                         <connections>
                                                             <action selector="homeLinear:" destination="M24-T3-sVR" eventType="touchUpInside" id="TVE-Oa-Bc5"/>
@@ -398,8 +398,8 @@
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Homing Control" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vC-hY-r6p">
-                                                        <rect key="frame" x="43" y="15" width="95" height="16"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Homing Control" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vC-hY-r6p">
+                                                        <rect key="frame" x="42" y="15" width="96" height="16"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -409,10 +409,10 @@
                                                         <rect key="frame" x="50" y="46" width="63" height="32"/>
                                                         <animations/>
                                                         <rect key="contentStretch" x="0.5" y="0.5" width="1" height="1"/>
-                                                        <color key="tintColor" red="0.41176470590000003" green="0.85490196080000003" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="tintColor" red="0.99215686270000003" green="0.59215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" image="tara"/>
                                                         <connections>
-                                                            <action selector="rerefLinear:" destination="M24-T3-sVR" eventType="touchUpInside" id="H7Y-4k-pjv"/>
+                                                            <action selector="rereferenceLinear:" destination="M24-T3-sVR" eventType="touchUpInside" id="5aN-z4-fID"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -718,7 +718,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="newScript:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="bXy-s8-Fy6"/>
+                                            <action selector="newButtonPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="kvg-F7-AN0"/>
                                         </connections>
                                     </button>
                                 </subviews>

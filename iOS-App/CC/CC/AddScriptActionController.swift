@@ -19,7 +19,7 @@ class AddScriptAction: TouchOutsidePopup {
     
     private var axis : CameraSlider.Axis?
     private var onCompleteCallback : ((ScriptAction)->())?
-    private var duration = 0
+    private var duration = 5
     private var start = 0.0
     
     override func viewDidAppear(animated: Bool) {
@@ -57,7 +57,7 @@ class AddScriptAction: TouchOutsidePopup {
     }
     
     func addDuration(duration: Int){
-        if self.duration + duration >= 0 {
+        if self.duration + duration >= 5 {
             self.duration += duration
             durationLabel.text = self.duration.description
         }

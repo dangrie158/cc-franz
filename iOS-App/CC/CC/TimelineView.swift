@@ -13,26 +13,36 @@ class TimelineView: UIView {
     
     private var scriptActions = [ScriptAction]()
     private var scaling = 1.0
+    private var itemLongPressCallback : ((TimelineItemView)->())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
         
     }
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
     
     override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
         let context = UIGraphicsGetCurrentContext()
+        CGContextClearRect(context, rect)
+        var nol = 0
         // draw equally spaced lines
         for var y = 0; y < Int(self.frame.size.height); y += Int(50 * scaling) {
+            nol += 1
             let lineRect:CGRect = CGRectMake(0.0, CGFloat(y), self.frame.width, 1.0)
             //transparent white
             CGContextSetRGBFillColor(context, 1.0, 1.0, 1.0, 0.1)
             CGContextFillRect(context, lineRect)
         }
+        print("numer of lines \(nol)")
+    }
+    
+    func onLongPressItem(callback : (TimelineItemView)->()){
+        self.itemLongPressCallback = callback
     }
     
     func setup(){
@@ -42,6 +52,7 @@ class TimelineView: UIView {
     
     
     override func didAddSubview(subview: UIView) {
+        super.didAddSubview(subview)
         recalculateContentHeight(subview)
         
         //add all gestures we need to detect drag and drop
@@ -58,6 +69,8 @@ class TimelineView: UIView {
         if let scrollContainer = self.superview as? UIScrollView{
             scrollContainer.contentSize = self.frame.size
         }
+        setNeedsLayout()
+        setNeedsDisplay()
     }
     
     /****************************
@@ -68,6 +81,12 @@ class TimelineView: UIView {
         
         //if we end any of the gestures, clear the drag mode and return
         if recognizer.state == UIGestureRecognizerState.Ended{
+            if !item.wasDragged{
+                if itemLongPressCallback != nil{
+                    itemLongPressCallback!(item)
+                }
+            }
+            item.wasDragged = false
             item.isInDragMode = false
             return
         //a long press began
@@ -79,6 +98,7 @@ class TimelineView: UIView {
             //it in successive actions
             item.dragTouchOffset = recognizer.locationInView(item).y
         }else if recognizer.state == UIGestureRecognizerState.Changed {
+            item.wasDragged = true
             //we moved the touch, update the view
             if item.isInDragMode {
                 let offsetInView = recognizer.locationInView(self).y
@@ -148,6 +168,8 @@ class TimelineView: UIView {
         }
 
         superScrollView.contentSize = self.frame.size
+        print("super size: \(superScrollView.contentSize)")
         self.setNeedsDisplay()
+        self.setNeedsLayout()
     }
 }

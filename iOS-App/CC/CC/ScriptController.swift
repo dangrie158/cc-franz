@@ -8,8 +8,8 @@
 
 import CoreData
 
-class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
-
+class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate{
+    
     /*******************************
     * instance methods / variables *
     ********************************/
@@ -72,8 +72,10 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
 
         linearScrollview.delegate = self
         angularScrollview.delegate = self
+        linearTimelineView?.onLongPressItem(handleScriptActionLongpress)
+        angularTimelineView?.onLongPressItem(handleScriptActionLongpress)
         
-        newScript(NSObject())
+        
 
         self.elapsedTimeView.text = "00:00"
 
@@ -97,6 +99,12 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         }
         
         self.scripts = fetchedResults!
+        if self.currentScript == nil {
+            newScript(false)
+        }
+        else {
+            updateCurrentScript(self.currentScript!)
+        }
 
     }
 
@@ -137,11 +145,14 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
     }
     
     func handlePinchWithGestureRecognizer(recognizer: UIPinchGestureRecognizer){
-        
         if recognizer.state == UIGestureRecognizerState.Ended {
             self.lastRecognizerScale = 1.0
             return
         }
+        
+        //temporarly remove the observers since we already know we are changing them
+        linearTimelineView!.removeObserver(self, forKeyPath: "frame")
+        angularTimelineView!.removeObserver(self, forKeyPath: "frame")
         
         if recognizer.state == UIGestureRecognizerState.Began {
             // we do not distinct between linear and angular scroll view since we are
@@ -156,24 +167,34 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         
         linearTimelineView!.setScale(Double(self.scale))
         angularTimelineView!.setScale(Double(self.scale))
+        linearTimelineView?.setNeedsLayout()
+        linearTimelineView?.setNeedsDisplay()
+        angularTimelineView?.setNeedsLayout()
+        angularTimelineView?.setNeedsDisplay()
         
         //syncronize the two scroll view heights
-        let linearHeight = linearTimelineView?.frame.maxY
-        let angularHeight = angularTimelineView?.frame.maxY
+        let linearHeight = linearTimelineView?.bounds.maxY
+        print("linearHeight: \(linearHeight)")
+        let angularHeight = angularTimelineView?.bounds.maxY
+        print("angularHeight: \(angularHeight)")
         if linearHeight > angularHeight{
             angularTimelineView!.frame.size.height = linearHeight!
             angularScrollview!.contentSize.height = linearHeight!
+            print("angular content height: \(angularScrollview.contentSize.height)")
         }
         else{
             linearTimelineView!.frame.size.height = angularHeight!
             linearScrollview!.contentSize.height = angularHeight!
+            print("linear content height: \(angularScrollview.contentSize.height)")
         }
         
         self.lastRecognizerScale = Double(recognizer.scale)
+        linearTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        angularTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        //temporarly remove the observers to avoid a infinite loop
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [NSObject : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        //temporarly remove the observers to prevent infinite loop
         linearTimelineView!.removeObserver(self, forKeyPath: "frame")
         angularTimelineView!.removeObserver(self, forKeyPath: "frame")
         
@@ -181,17 +202,61 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         {
             //contentSize of either scrollview changed
             if object === self.linearTimelineView{
-                self.angularTimelineView?.frame.size.height = self.linearTimelineView!.frame.size.height
+                self.angularTimelineView?.frame.size.height = self.linearTimelineView!.bounds.size.height
             }else if object === self.angularTimelineView{
-                self.linearTimelineView?.frame.size.height = self.angularTimelineView!.frame.size.height
+                self.linearTimelineView?.frame.size.height = self.angularTimelineView!.bounds.size.height
             }
-            
-            self.linearTimelineView?.setNeedsLayout()
-            self.angularTimelineView?.setNeedsLayout()
         }
         
         linearTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        linearTimelineView?.setNeedsDisplay()
+        linearTimelineView?.setNeedsLayout()
         angularTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        angularTimelineView?.setNeedsDisplay()
+        angularTimelineView?.setNeedsLayout()
+    }
+    
+    func handleScriptActionLongpress(item: TimelineItemView){
+        //Create the AlertController
+        let actionSheetController: UIAlertController = UIAlertController(title: "Edit Script Action", message: "", preferredStyle: .ActionSheet)
+        
+        //Create and add the Cancel action
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        actionSheetController.addAction(cancelAction)
+        
+        //Create and add first option action
+        let editAction: UIAlertAction = UIAlertAction(title: "Edit", style: .Default) { action -> Void in
+            print("edit")
+            
+        }
+        actionSheetController.addAction(editAction)
+        
+        //Create and add a second option action
+        let deleteAction: UIAlertAction = UIAlertAction(title: "Delete", style: .Destructive) { action -> Void in
+            for var i = 0; i < self.currentScript!.linearActions.count; i += 1 {
+                if self.currentScript!.linearActions[i] === item.scriptAction {
+                    self.currentScript!.linearActions.removeAtIndex(i)
+                }
+            }
+            
+            for var i = 0; i < self.currentScript!.angularActions.count; i += 1 {
+                if self.currentScript!.angularActions[i] === item.scriptAction {
+                    self.currentScript!.angularActions.removeAtIndex(i)
+                }
+            }
+            
+            self.updateCurrentScript(self.currentScript!)
+        }
+        actionSheetController.addAction(deleteAction)
+        
+        //We need to provide a popover sourceView when using it on iPad
+        actionSheetController.popoverPresentationController?.sourceView = item
+        
+        //Present the AlertController
+        self.presentViewController(actionSheetController, animated: true, completion: nil)
+
     }
     
     /*******************************
@@ -314,14 +379,17 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         linearScrollview.setContentOffset(CGPoint(x:0, y: currentPlaybackPoint), animated: false);
     }
     
+    @IBAction func newButtonPressed(sender: AnyObject) {
+        newScript()
+    }
     
-    @IBAction func newScript(sender: AnyObject) {
+    func newScript(askToSave: Bool = true) {
         func createNewScript(action _: UIAlertAction?){
             self.currentScript = Script(withName: NSDate().description)
             updateCurrentScript(currentScript!)
         }
         
-        if currentScriptChanged {
+        if askToSave && currentScriptChanged {
             let alert = UIAlertController(title: "New Script", message: "Do you want to create a new script?", preferredStyle: UIAlertControllerStyle.Alert)
         
             //add a cancel button
