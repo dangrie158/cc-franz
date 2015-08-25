@@ -34,10 +34,11 @@ class Recording{
             return totalLength
         }
     }
-    private var actions = [Action]()
+    var actions = [Action]()
     private var lastActionTime = NSDate()
     private var currentActionIndex = 0
     private var currentPlaybackState : State = .STOPPED
+    private var receiver : CameraSlider? = nil
     let startTime = NSDate()
     
     /***********************
@@ -87,6 +88,7 @@ class Recording{
      * play recording via camera slider
      */
     func play(on receiver: CameraSlider, actionIndex: Int = 0, onFinish : () -> ()){
+        self.receiver = receiver
         self.currentPlaybackState = .PLAYING
         // if we reach the last action call the callback and stop processing
         if(actionIndex >= actions.count){
@@ -112,6 +114,7 @@ class Recording{
     */
     func pause() -> Int{
         self.currentPlaybackState = .PAUSED
+        self.receiver?.stopAll()
         return currentActionIndex
     }
     
@@ -120,6 +123,7 @@ class Recording{
     */
     func stop(){
         self.currentPlaybackState = .STOPPED
+        self.receiver?.stopAll()
         currentActionIndex = 0
     }
     

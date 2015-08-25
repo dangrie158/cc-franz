@@ -11,6 +11,7 @@
                 <outlet property="direction" destination="ZVq-S0-om2" id="alK-Ej-sJ7"/>
                 <outlet property="durationLabel" destination="CjS-8A-pQ0" id="s6G-RX-nB7"/>
                 <outlet property="popupTitle" destination="hZn-LQ-J7g" id="s3X-rB-cTR"/>
+                <outlet property="saveButton" destination="Ix5-AS-Hsa" id="Dxe-NU-oHc"/>
                 <outlet property="speedLabel" destination="ZRM-Xe-oN0" id="arp-Oa-lP8"/>
                 <outlet property="speedSlider" destination="g23-Hs-W38" id="sWR-SU-Tau"/>
                 <outlet property="speedTitle" destination="EMO-m5-WIF" id="LqW-eG-IVJ"/>
@@ -81,8 +82,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IkI-jg-Ous">
                     <rect key="frame" x="180" y="312" width="240" height="30"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRM-Xe-oN0">
-                            <rect key="frame" x="203" y="7" width="17" height="16"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRM-Xe-oN0">
+                            <rect key="frame" x="195" y="7" width="25" height="16"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.99215686270000003" green="0.95483513450000002" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -115,8 +116,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uXH-7a-OMq">
                     <rect key="frame" x="250" y="418" width="100" height="30"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="05" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjS-8A-pQ0">
-                            <rect key="frame" x="42" y="7" width="17" height="16"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjS-8A-pQ0">
+                            <rect key="frame" x="47" y="7" width="8" height="16"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.99215686270000003" green="0.59215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>

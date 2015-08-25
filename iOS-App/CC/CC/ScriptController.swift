@@ -13,8 +13,8 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
     /*******************************
     * instance methods / variables *
     ********************************/
-    var linearTimelineView : TimelineView? = nil
-    var angularTimelineView : TimelineView? = nil
+    var linearTimelineView : TimelineView
+    var angularTimelineView : TimelineView
     var linearPinchGestureRecognizer : UIPinchGestureRecognizer? = nil
     var angularPinchGestureRecognizer : UIPinchGestureRecognizer? = nil
     var currentScript : Script? = nil
@@ -39,6 +39,28 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
     @IBOutlet weak var elapsedTimeView: FBLCDFontView!
     @IBOutlet weak var scriptsListView: UITableView!
     
+    required init(coder aDecoder: NSCoder) {
+        let linearTimelineViewFrame = CGRectMake(0.0, 0.0, 0, 0)
+        linearTimelineView = TimelineView(frame: linearTimelineViewFrame)
+        let angularTimelineViewFrame = CGRectMake(0.0, 0.0, 0, 0)
+        angularTimelineView = TimelineView(frame: angularTimelineViewFrame)
+        
+        super.init(coder : aDecoder)
+        
+        linearTimelineView.onLongPressItem(handleScriptActionLongpress)
+        angularTimelineView.onLongPressItem(handleScriptActionLongpress)
+    }
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        let linearTimelineViewFrame = CGRectMake(0.0, 0.0, 0, 0)
+        linearTimelineView = TimelineView(frame: linearTimelineViewFrame)
+        let angularTimelineViewFrame = CGRectMake(0.0, 0.0, 0, 0)
+        angularTimelineView = TimelineView(frame: angularTimelineViewFrame)
+        
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        linearTimelineView.onLongPressItem(handleScriptActionLongpress)
+        angularTimelineView.onLongPressItem(handleScriptActionLongpress)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,31 +76,39 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         linearPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("handlePinchWithGestureRecognizer:"))
         angularPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("handlePinchWithGestureRecognizer:"))
         
-        let linearTimelineViewFrame = CGRectMake(0.0, 0.0, linearScrollview.bounds.width, linearScrollview.frame.height)
-        linearTimelineView = TimelineView(frame: linearTimelineViewFrame)
-        linearScrollview.addSubview(linearTimelineView!)
-        linearScrollview.contentSize = CGSize(width: linearScrollview.frame.width, height: linearTimelineView!.frame.height)
         linearScrollview.addGestureRecognizer(linearPinchGestureRecognizer!)
-        
-        let angularTimelineViewFrame = CGRectMake(0.0, 0.0, angularScrollview.bounds.width, angularScrollview.frame.height)
-        angularTimelineView = TimelineView(frame: angularTimelineViewFrame)
-        angularScrollview.addSubview(angularTimelineView!)
-        angularScrollview.contentSize = CGSize(width: angularScrollview.frame.width, height: angularTimelineView!.frame.height)
         angularScrollview.addGestureRecognizer(angularPinchGestureRecognizer!)
         
         //observe the content height to syncronize the scrollviews
-        linearTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
-        angularTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        linearTimelineView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        angularTimelineView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
 
         linearScrollview.delegate = self
         angularScrollview.delegate = self
-        linearTimelineView?.onLongPressItem(handleScriptActionLongpress)
-        angularTimelineView?.onLongPressItem(handleScriptActionLongpress)
-        
-        
-
         self.elapsedTimeView.text = "00:00"
+        
+        // autolayout constraints are not complete finished within the viewWillAppear function, therefore
+        // the contenSize information has to be set in the viewDidAppear function
+        linearTimelineView.frame = CGRectMake(0.0, 0.0, linearScrollview.bounds.width, linearScrollview.frame.height)
+        linearScrollview.contentSize = CGSize(width: linearScrollview.bounds.width, height: linearTimelineView.bounds.height)
+        if !linearScrollview.subviews.contains(linearTimelineView){
+            linearScrollview.addSubview(linearTimelineView)
+        }
+        
+        angularTimelineView.frame = CGRectMake(0.0, 0.0, angularScrollview.bounds.width, angularScrollview.frame.height)
+        angularScrollview.contentSize = CGSize(width: angularScrollview.bounds.width, height: angularTimelineView.bounds.height)
+        if !angularScrollview.subviews.contains(angularTimelineView){
+            angularScrollview.addSubview(angularTimelineView)
+        }
 
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        linearTimelineView.removeObserver(self, forKeyPath: "frame")
+        linearTimelineView.removeGestureRecognizer(linearPinchGestureRecognizer!)
+        angularTimelineView.removeObserver(self, forKeyPath: "frame")
+        angularTimelineView.removeGestureRecognizer(angularPinchGestureRecognizer!)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -117,18 +147,13 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
     func updateCurrentScript(script: Script){
         self.currentScriptChanged = false
         self.currentScript = script
-        linearTimelineView?.replaceScriptActionsInView(currentScript!.linearActions)
-        angularTimelineView?.replaceScriptActionsInView(currentScript!.angularActions)
+        linearTimelineView.replaceScriptActionsInView(currentScript!.linearActions)
+        angularTimelineView.replaceScriptActionsInView(currentScript!.angularActions)
     }
 
     // hide the status bar for the whole view controller
     override func prefersStatusBarHidden() -> Bool {
         return true
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        linearTimelineView?.removeGestureRecognizer(linearPinchGestureRecognizer!)
-        angularTimelineView?.removeGestureRecognizer(angularPinchGestureRecognizer!)
     }
     
     /*******************************
@@ -151,8 +176,8 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         }
         
         //temporarly remove the observers since we already know we are changing them
-        linearTimelineView!.removeObserver(self, forKeyPath: "frame")
-        angularTimelineView!.removeObserver(self, forKeyPath: "frame")
+        linearTimelineView.removeObserver(self, forKeyPath: "frame")
+        angularTimelineView.removeObserver(self, forKeyPath: "frame")
         
         if recognizer.state == UIGestureRecognizerState.Began {
             // we do not distinct between linear and angular scroll view since we are
@@ -165,55 +190,53 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         self.scale = min(self.scale, 3)
         self.scale = max(self.scale, 0.5)
         
-        linearTimelineView!.setScale(Double(self.scale))
-        angularTimelineView!.setScale(Double(self.scale))
-        linearTimelineView?.setNeedsLayout()
-        linearTimelineView?.setNeedsDisplay()
-        angularTimelineView?.setNeedsLayout()
-        angularTimelineView?.setNeedsDisplay()
+        linearTimelineView.setScale(Double(self.scale))
+        angularTimelineView.setScale(Double(self.scale))
+        linearTimelineView.setNeedsLayout()
+        linearTimelineView.setNeedsDisplay()
+        angularTimelineView.setNeedsLayout()
+        angularTimelineView.setNeedsDisplay()
         
         //syncronize the two scroll view heights
-        let linearHeight = linearTimelineView?.bounds.maxY
+        let linearHeight = linearTimelineView.bounds.maxY
         print("linearHeight: \(linearHeight)")
-        let angularHeight = angularTimelineView?.bounds.maxY
+        let angularHeight = angularTimelineView.bounds.maxY
         print("angularHeight: \(angularHeight)")
         if linearHeight > angularHeight{
-            angularTimelineView!.frame.size.height = linearHeight!
-            angularScrollview!.contentSize.height = linearHeight!
-            print("angular content height: \(angularScrollview.contentSize.height)")
+            angularTimelineView.frame.size.height = linearHeight
+            angularScrollview.contentSize.height = linearHeight
         }
         else{
-            linearTimelineView!.frame.size.height = angularHeight!
-            linearScrollview!.contentSize.height = angularHeight!
-            print("linear content height: \(angularScrollview.contentSize.height)")
+            linearTimelineView.frame.size.height = angularHeight
+            linearScrollview.contentSize.height = angularHeight
         }
         
         self.lastRecognizerScale = Double(recognizer.scale)
-        linearTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
-        angularTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        linearTimelineView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        angularTimelineView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [NSObject : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         //temporarly remove the observers to prevent infinite loop
-        linearTimelineView!.removeObserver(self, forKeyPath: "frame")
-        angularTimelineView!.removeObserver(self, forKeyPath: "frame")
+        linearTimelineView.removeObserver(self, forKeyPath: "frame")
+        angularTimelineView.removeObserver(self, forKeyPath: "frame")
         
         if (keyPath == "frame")
         {
             //contentSize of either scrollview changed
             if object === self.linearTimelineView{
-                self.angularTimelineView?.frame.size.height = self.linearTimelineView!.bounds.size.height
+                self.angularTimelineView.frame.size.height = self.linearTimelineView.bounds.size.height
             }else if object === self.angularTimelineView{
-                self.linearTimelineView?.frame.size.height = self.angularTimelineView!.bounds.size.height
+                self.linearTimelineView.frame.size.height = self.angularTimelineView.bounds.size.height
             }
         }
         
-        linearTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
-        linearTimelineView?.setNeedsDisplay()
-        linearTimelineView?.setNeedsLayout()
-        angularTimelineView!.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
-        angularTimelineView?.setNeedsDisplay()
-        angularTimelineView?.setNeedsLayout()
+        linearTimelineView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        linearTimelineView.setNeedsDisplay()
+        linearTimelineView.setNeedsLayout()
+        angularTimelineView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        angularTimelineView.setNeedsDisplay()
+        angularTimelineView.setNeedsLayout()
     }
     
     func handleScriptActionLongpress(item: TimelineItemView){
@@ -228,7 +251,7 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         
         //Create and add first option action
         let editAction: UIAlertAction = UIAlertAction(title: "Edit", style: .Default) { action -> Void in
-            print("edit")
+            self.showAddAndEditActionViewController(forAxis: (item.scriptAction?.direction.axis)!, oldScriptAction: item.scriptAction)
             
         }
         actionSheetController.addAction(editAction)
@@ -263,28 +286,41 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
     *          view actions        *
     ********************************/
     
-    func showAddActionViewController(forAxis type: CameraSlider.Axis){
+    func showAddAndEditActionViewController(forAxis type: CameraSlider.Axis, oldScriptAction : ScriptAction? = nil){
         // create new playback view controller
-        let AddActionVC = AddScriptAction(nibName: "AddScriptAction", bundle: nil)
+        let AddAndEditActionVC = AddAndEditScriptAction(nibName: "AddScriptAction", bundle: nil)
         // show the view controller
-        AddActionVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        AddActionVC.modalPresentationStyle = UIModalPresentationStyle.FormSheet
-        AddActionVC.setAxis(type)
-        AddActionVC.setStart((self.currentScript?.length)!)
-        AddActionVC.onComplete { (action: ScriptAction) -> () in
-            self.currentScript?.addAction(action)
-            self.updateCurrentScript(self.currentScript!)
-            self.currentScriptChanged = true
+        AddAndEditActionVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        AddAndEditActionVC.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+        AddAndEditActionVC.setAxis(type)
+        if (oldScriptAction != nil){
+            AddAndEditActionVC.setScriptAction(oldScriptAction!)
+            AddAndEditActionVC.onComplete({ (action: ScriptAction) -> () in
+                oldScriptAction?.start = action.start
+                oldScriptAction?.length = action.length
+                oldScriptAction?.direction = action.direction
+                oldScriptAction?.speed = action.speed
+                self.updateCurrentScript(self.currentScript!)
+                self.currentScriptChanged = true
+            })
         }
-        self.presentViewController(AddActionVC, animated: true, completion: nil)
+        else {
+            AddAndEditActionVC.setStart((self.currentScript?.length)!)
+            AddAndEditActionVC.onComplete { (action: ScriptAction) -> () in
+                self.currentScript?.addAction(action)
+                self.updateCurrentScript(self.currentScript!)
+                self.currentScriptChanged = true
+            }
+        }
+        self.presentViewController(AddAndEditActionVC, animated: true, completion: nil)
     }
     
     @IBAction func addLinearAction(sender: AnyObject) {
-        showAddActionViewController(forAxis: .MOVEMENT)
+        showAddAndEditActionViewController(forAxis: .MOVEMENT)
     }
     
     @IBAction func addAngularAction(sender: AnyObject) {
-        showAddActionViewController(forAxis: .ROTATION)
+        showAddAndEditActionViewController(forAxis: .ROTATION)
     }
     
     
@@ -309,6 +345,11 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         
         //move the script to the top
         linearScrollview.setContentOffset(CGPoint(x:0, y: 0), animated: true)
+        
+        // enable the list view
+        scriptsListView.userInteractionEnabled = true
+        scriptsListView.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 1.0)
+        scriptsListView.reloadData()
     }
 
     @IBAction func playPressed(sender: AnyObject) {
@@ -341,6 +382,10 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
             self.updateRecordTimeTimer = nil
             self.elapsedTimeView.text = self.formatTime((self.currentScript?.length)!)
         }
+        // disable list view, so the user cannot change the active script during playback
+        scriptsListView.userInteractionEnabled = false
+        scriptsListView.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 0.8)
+        scriptsListView.reloadData()
     }
     
     @IBAction func pausePressed(sender: AnyObject) {
@@ -354,6 +399,8 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         self.updateRecordTimeTimer = nil
         // save the current action where we paused the playback to resume from this position later on
         self.currentScript?.pause()
+        // disable list view, so the user cannot change the active script during playback
+        scriptsListView.userInteractionEnabled = false
     }
     
     // format an interval to a human readable string
@@ -458,8 +505,14 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell?
         let script = scripts[indexPath.row]
-        cell?.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 1.0)
-        cell?.textLabel?.textColor = UIColor.lightGrayColor()
+        if self.currentScript?.currentPlaybackState == .STOPPED {
+            cell?.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 1.0)
+            cell?.textLabel?.textColor = UIColor.lightGrayColor()
+        }
+        else {
+            cell?.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 0.8)
+            cell?.textLabel?.textColor = UIColor.darkGrayColor()
+        }
         cell?.preservesSuperviewLayoutMargins = false
         cell?.layoutMargins = UIEdgeInsetsZero
         cell?.separatorInset = UIEdgeInsetsZero

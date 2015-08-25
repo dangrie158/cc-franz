@@ -51,7 +51,7 @@ class Script : NSObject{
     var angularActions = [ScriptAction]()
     var lastLinearAction : ScriptAction? = nil
     var lastAngularAction : ScriptAction? = nil
-    private var currentPlaybackState : State = .STOPPED
+    var currentPlaybackState : State = .STOPPED
     var startTime : NSDate? = nil
     var pauseTime : NSDate? = nil
     var timer : NSTimer? = nil

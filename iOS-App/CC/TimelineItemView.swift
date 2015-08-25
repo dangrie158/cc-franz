@@ -99,9 +99,15 @@ class TimelineItemView: UIView {
         var b : CGFloat = 0.0
         var a : CGFloat = 0.0
         self.backgroundColor!.getRed(&r, green: &g, blue: &b, alpha: &a)
-        // draw left highlight line
-        let lineRect:CGRect = CGRectMake(0.0, 0.0, 10, self.frame.height)
+        // draw highlight line according to direction
+        var lineRect : CGRect? = nil
+        if self.scriptAction?.direction == .LEFT || self.scriptAction?.direction == .CCW {
+            lineRect = CGRectMake(0.0, 0.0, 10, self.bounds.height)
+        }
+        else {
+            lineRect = CGRectMake(self.bounds.width-10, 0.0, 10, self.bounds.height)
+        }
         CGContextSetRGBFillColor(context, r, g, b, 1.0)
-        CGContextFillRect(context, lineRect)
+        CGContextFillRect(context, lineRect!)
     }
 }

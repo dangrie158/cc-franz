@@ -1,5 +1,5 @@
 //
-//  AddScriptAction.swift
+//  AddAndEditScriptAction.swift
 //  CC
 //
 //  Created by Tobias Schneider on 8/23/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddScriptAction: TouchOutsidePopup {
+class AddAndEditScriptAction: TouchOutsidePopup {
 
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet weak var direction: UISegmentedControl!
@@ -16,11 +16,13 @@ class AddScriptAction: TouchOutsidePopup {
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var speedTitle: UILabel!
-    
+    @IBOutlet weak var saveButton: UIButton!
+
     private var axis : CameraSlider.Axis?
     private var onCompleteCallback : ((ScriptAction)->())?
     private var duration = 5
     private var start = 0.0
+    private var scriptAction : ScriptAction?
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -42,6 +44,24 @@ class AddScriptAction: TouchOutsidePopup {
             self.direction.setTitle("CW", forSegmentAtIndex: 1)
             self.speedTitle.text = "Speed [°/s]"
         }
+        
+        if self.scriptAction != nil {
+            self.saveButton.setTitle("Edit Action", forState: UIControlState.Normal)
+            self.start = scriptAction!.start
+            self.duration = Int(scriptAction!.length)
+            self.durationLabel.text = Int(scriptAction!.length).description
+            self.speedSlider.value = scriptAction!.speed
+            switch scriptAction!.direction.axis {
+            case .MOVEMENT : self.speedLabel.text = calculateLinearSpeed(scriptAction!.speed)
+            case .ROTATION : self.speedLabel.text = calculateAngularSpeed(scriptAction!.speed)
+            }
+            switch scriptAction!.direction {
+            case .LEFT : fallthrough
+            case .CCW : self.direction.selectedSegmentIndex = 0
+            case .RIGHT : fallthrough
+            case .CW : self.direction.selectedSegmentIndex = 1
+            }
+        }
     }
     
     func setAxis(axis: CameraSlider.Axis){
@@ -50,6 +70,10 @@ class AddScriptAction: TouchOutsidePopup {
     
     func setStart(start: Double){
         self.start = start
+    }
+    
+    func setScriptAction(scriptAction : ScriptAction){
+        self.scriptAction = scriptAction
     }
     
     func onComplete(action: (ScriptAction)->()){
@@ -132,14 +156,14 @@ class AddScriptAction: TouchOutsidePopup {
     *       speed references       *
     ********************************/
     func calculateLinearSpeed(speed: Float) -> String{
-        let actualSpeed = speed * 40
-        let speedText = NSString(format: "%02d", Int(actualSpeed)).description
+        let actualSpeed = speed * 67.5
+        let speedText = NSString(format: "%03d", Int(actualSpeed)).description
         
         return speedText
     }
     
     func calculateAngularSpeed(speed: Float) -> String{
-        let actualSpeed = speed * 250
+        let actualSpeed = speed * 100
         let speedText = NSString(format: "%03d", Int(actualSpeed)).description
         
         return speedText

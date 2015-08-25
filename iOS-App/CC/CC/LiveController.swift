@@ -64,7 +64,12 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.updateRecordTimeTimer?.invalidate()
             self.updateRecordTimeTimer = nil
         
-            self.askUserForNameAndSave(recording);
+            if recording.actions.count > 0 {
+                self.askUserForNameAndSave(recording);
+            }
+            else {
+                self.showRecordEmptyMessage()
+            }
             
             //reset the time display
             self.recordTimeView.text = "00:00"
@@ -135,6 +140,17 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
             
         //show the view controller
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func showRecordEmptyMessage(){
+        let alert = UIAlertController(title: "Empty Recording", message: "You did not perform any actions", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        //add a ok button
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        
+        //show the view controller
+        self.presentViewController(alert, animated: true, completion: nil)
+        
     }
     
     /*******************************
@@ -257,7 +273,7 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     *       speed references       *
     ********************************/
     func calculateLinearSpeed(speed: Float, to direction: CameraSlider.Direction) -> String{
-        let actualSpeed = speed * 40
+        let actualSpeed = speed * 67.5
         var speedText = "";
         if(direction == .RIGHT){
             speedText = " " + NSString(format: "%02d", Int(actualSpeed)).description
@@ -269,7 +285,7 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func calculateAngularSpeed(speed: Float, to direction: CameraSlider.Direction) -> String{
-        let actualSpeed = speed * 250
+        let actualSpeed = speed * 100
         var speedText = "";
         if(direction == .CW){
             speedText = " " + NSString(format: "%03d", Int(actualSpeed)).description

@@ -20,6 +20,14 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         case LEFT
         case CCW
         case CW
+        var axis: CameraSlider.Axis{
+            switch self{
+            case RIGHT : return .MOVEMENT
+            case LEFT : return .MOVEMENT
+            case .CW : return .ROTATION
+            case .CCW : return .ROTATION
+            }
+        }
     }
     
     enum Axis{

@@ -29,16 +29,13 @@ class TimelineView: UIView {
         super.drawRect(rect)
         let context = UIGraphicsGetCurrentContext()
         CGContextClearRect(context, rect)
-        var nol = 0
         // draw equally spaced lines
         for var y = 0; y < Int(self.frame.size.height); y += Int(50 * scaling) {
-            nol += 1
             let lineRect:CGRect = CGRectMake(0.0, CGFloat(y), self.frame.width, 1.0)
             //transparent white
             CGContextSetRGBFillColor(context, 1.0, 1.0, 1.0, 0.1)
             CGContextFillRect(context, lineRect)
         }
-        print("numer of lines \(nol)")
     }
     
     func onLongPressItem(callback : (TimelineItemView)->()){
