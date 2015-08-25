@@ -38,6 +38,8 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var elapsedTimeView: FBLCDFontView!
     @IBOutlet weak var scriptsListView: UITableView!
+    @IBOutlet weak var linearPlayIndicator: UIView!
+    @IBOutlet weak var angularPlayIndicator: UIView!
     
     required init(coder aDecoder: NSCoder) {
         let linearTimelineViewFrame = CGRectMake(0.0, 0.0, 0, 0)
@@ -350,6 +352,10 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         scriptsListView.userInteractionEnabled = true
         scriptsListView.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 1.0)
         scriptsListView.reloadData()
+        
+        // hide indicator lines
+        linearPlayIndicator.hidden = true
+        angularPlayIndicator.hidden = true
     }
 
     @IBAction func playPressed(sender: AnyObject) {
@@ -386,6 +392,10 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         scriptsListView.userInteractionEnabled = false
         scriptsListView.backgroundColor = UIColor(red: 0.1529411, green: 0.1568627, blue: 0.1333333, alpha: 0.8)
         scriptsListView.reloadData()
+        
+        // show indicator lines
+        linearPlayIndicator.hidden = false
+        angularPlayIndicator.hidden = false
     }
     
     @IBAction func pausePressed(sender: AnyObject) {

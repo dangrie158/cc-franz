@@ -817,7 +817,7 @@
                                     <action selector="addLinearAction:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="d8J-Lf-Hn5"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7N-2m-X8s" userLabel="Play Indicator Linear">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7N-2m-X8s" userLabel="Play Indicator Linear">
                                 <rect key="frame" x="35" y="269" width="167" height="1"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.98039215690000003" green="0.0" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
@@ -825,7 +825,7 @@
                                     <constraint firstAttribute="height" constant="1" id="QQR-la-RaS"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cyY-Kz-frz" userLabel="Play Indicator Angular">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cyY-Kz-frz" userLabel="Play Indicator Angular">
                                 <rect key="frame" x="398" y="269" width="167" height="1"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.98039215690000003" green="0.0" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
@@ -880,8 +880,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Scripting" image="scriptingViewIcon" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="angularPlayIndicator" destination="cyY-Kz-frz" id="XXS-Mh-lWj"/>
                         <outlet property="angularScrollview" destination="hEY-od-SNG" id="haD-ZY-S9U"/>
                         <outlet property="elapsedTimeView" destination="fRg-EN-v3u" id="4Hf-FT-0Ah"/>
+                        <outlet property="linearPlayIndicator" destination="t7N-2m-X8s" id="Wtv-fs-evf"/>
                         <outlet property="linearScrollview" destination="8G6-LH-NP0" id="Rvi-io-t2m"/>
                         <outlet property="pauseButton" destination="8fD-Kq-hpd" id="cJQ-CJ-UtX"/>
                         <outlet property="playButton" destination="rNL-Q0-s2f" id="WGR-Jb-v3M"/>
