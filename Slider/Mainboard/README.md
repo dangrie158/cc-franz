@@ -237,7 +237,7 @@ Total costs for electrical parts: <br />
 
 We designed the schematic modular to get a good overview of the whole system and work independently on single modules. 
 
-######Microcontroller
+######Microcontroller (not labeled, the part in the center)
 For the brain of our slider we’ve chosen an ATMEGA 328 from Atmel. The reason for this simply was the huge amount of information and tutorials out there for this chip. This is the same chip you have on the Arduino Uno, the one you may have in your parts bin.  Just for kicks (and maybe also because this was a requirement by our lecturer) we did not use the Arduino bootloader or libraries and programmed the chip directly through the ISP interface. <br />
 The chip has an whopping 32kB of Flash and 2kB of RAM.
 
