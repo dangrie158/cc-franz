@@ -233,6 +233,8 @@ Total costs for electrical parts: <br />
 **~ 39,33€ + shipping fees**
 
 #####Schematic
+<img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/schematic.png" alt="" style="width: 380px;"/> 
+
 We designed the schematic modular to get a good overview of the whole system and work independently on single modules. 
 
 ######Microcontroller
