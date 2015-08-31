@@ -21,7 +21,7 @@ The whole protocol is based on WebSockets. Clients can send masked payload to th
 
 where:
 
-* `axis is either 'M' or 'R' as single char
+* `axis` is either 'M' or 'R' as single char
 * `direction` is either '+', '-' or '0' where '0' stands for STOP
 * `speed` is an integer 00-FF which is sent as hex
 
@@ -66,7 +66,7 @@ Since our Timer runs an interrupt, and you should never wait or do any long runn
 To debug the Firmware, it is always nice to have a simpler way than toggling an LED. Text, for example, is great for this purpose. You can send values of variables, markers where you are in the execution and so on. <br />
 For this purpose we added a second serial port to our project. Sadly, the ATMEGA only offers one hardware UART. Therefore, we needed to emulate one. Since we did not need to receive anything from the port, the task was rather simple. Receiving is kind of hard, because RS232 is asynchronous and has no clock. For this reason, it is critical to notice when a byte starts and then check the logic levels on the line every 1/BAUD_RATE seconds. You can do this with pin change interrupts and a timer, but it gets rather complicated. For sending you can just bit bang the byte synchronously with delays. 
 
-<img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/bits.png.png" alt="" style="width: 380px;"/>
+<img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/bits.png" alt="" style="width: 380px;"/>
 
 You start to transmit a bit by pulling the line low for a bittime. After that, you start transmitting the byte bitwise starting with the least significant bit and waiting a bit time before the next bit. After transmitting the most significant bit, you pull the line high again for the stop bit. After that, you can transmit the next byte by sending a start bit first.
 
