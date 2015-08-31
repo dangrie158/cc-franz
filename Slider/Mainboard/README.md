@@ -2,232 +2,35 @@
 
 #####BOM (What you need)
 
-<table>
-  <tr>
-    <td>Qty</td>
-    <td>Device</td>
-    <td>Package</td>
-    <td>Value</td>
-    <td>Parts</td>
-    <td>Description</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>A4988</td>
-    <td>DIP</td>
-    <td>–</td>
-    <td>U3, U4</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>¼W Resistor</td>
-    <td>0207</td>
-    <td>100 kΩ</td>
-    <td>R15</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Potentiometer</td>
-    <td>CA9V</td>
-    <td>100 kΩ</td>
-    <td>R16</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>8</td>
-    <td>Ceramic Capacitor </td>
-    <td>C050</td>
-    <td>100 nF</td>
-    <td>C1, C2, C4, C5, C6, E13, E14, E15</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Electrolytic Capacitor</td>
-    <td>CA9V</td>
-    <td>100 µF</td>
-    <td>C4, C8</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>¼W Resistor</td>
-    <td>0207</td>
-    <td>100 Ω</td>
-    <td>R3, R4, R10, R11, R12</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>8</td>
-    <td>¼W Resistor</td>
-    <td>0207</td>
-    <td>10 kΩ</td>
-    <td>R1, R2, R5, R6, R7, R8, R9, R14</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Electrolytic Capacitor</td>
-    <td>CA9V</td>
-    <td>10 µF</td>
-    <td>C3, C16</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Power Check</td>
-    <td>–</td>
-    <td>–</td>
-    <td>JP1</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Crystal Oscillator</td>
-    <td>HC49</td>
-    <td>16 MHz</td>
-    <td>Q1</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Diode</td>
-    <td>DO41</td>
-    <td>–</td>
-    <td>D2</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>Electrolytic Capacitor</td>
-    <td>CA9V</td>
-    <td>1 µF</td>
-    <td>C9, C10, C11, C12</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Ceramic Capacitor </td>
-    <td>C050</td>
-    <td>22 pF</td>
-    <td>C17, C18</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>LM33CV</td>
-    <td>TO22</td>
-    <td>–</td>
-    <td>IC2</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>8705</td>
-    <td>TO22</td>
-    <td>–</td>
-    <td>IC1</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Atmega328P</td>
-    <td>DIL28</td>
-    <td>–</td>
-    <td>U1</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>BC337</td>
-    <td>TO92</td>
-    <td>–</td>
-    <td>T1, T2</td>
-    <td>NPM Transistor</td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>2 Pole Connector</td>
-    <td>–</td>
-    <td>–</td>
-    <td>IROUT</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>3 Pole Connector</td>
-    <td>–</td>
-    <td>–</td>
-    <td>ENDSTOP</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>4 Pole Connector</td>
-    <td>–</td>
-    <td>–</td>
-    <td>MOT1, MOT2, RS232</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>2x3 Pin Header</td>
-    <td>–</td>
-    <td>–</td>
-    <td>ICSP</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>3 Channel DIP switch</td>
-    <td>–</td>
-    <td>–</td>
-    <td>MSMOT1, MSMOT2</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>ESP8266</td>
-    <td>–</td>
-    <td>–</td>
-    <td>U5</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>LM358</td>
-    <td>DIL08</td>
-    <td>–</td>
-    <td>IC3</td>
-    <td>jelly bean Opamp</td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>MAX232</td>
-    <td>DIL16</td>
-    <td>–</td>
-    <td>U2</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>5mm LED</td>
-    <td>–</td>
-    <td>–</td>
-    <td>D1</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>6</td>
-    <td>Tactile Button</td>
-    <td>–</td>
-    <td>–</td>
-    <td>HOMING, LEFT, RIGHT, TILTCCW, TILTCW, RESET</td>
-    <td></td>
-  </tr>
-</table>
+| Qty | Device                 | Package | Value  | Parts                                       | Description      |
+|-----|------------------------|---------|--------|---------------------------------------------|------------------|
+| 2   | A4988                  | DIP     | –      | U3, U4                                      |                  |
+| 1   | ¼W Resistor            | 0207    | 100 kΩ | R15                                         |                  |
+| 1   | Potentiometer          | CA9V    | 100 kΩ | R16                                         |                  |
+| 8   | Ceramic Capacitor      | C050    | 100 nF | C1, C2, C4, C5, C6, E13, E14, E15           |                  |
+| 2   | Electrolytic Capacitor | CA9V    | 100 µF | C4, C8                                      |                  |
+| 5   | ¼W Resistor            | 0207    | 100 Ω  | R3, R4, R10, R11, R12                       |                  |
+| 8   | ¼W Resistor            | 0207    | 10 kΩ  | R1, R2, R5, R6, R7, R8, R9, R14             |                  |
+| 2   | Electrolytic Capacitor | CA9V    | 10 µF  | C3, C16                                     |                  |
+| 1   | Power Check            | –       | –      | JP1                                         |                  |
+| 1   | Crystal Oscillator     | HC49    | 16 MHz | Q1                                          |                  |
+| 1   | Diode                  | DO41    | –      | D2                                          |                  |
+| 4   | Electrolytic Capacitor | CA9V    | 1 µF   | C9, C10, C11, C12                           |                  |
+| 2   | Ceramic Capacitor      | C050    | 22 pF  | C17, C18                                    |                  |
+| 1   | LM33CV                 | TO22    | –      | IC2                                         |                  |
+| 1   | 8705                   | TO22    | –      | IC1                                         |                  |
+| 1   | Atmega328P             | DIL28   | –      | U1                                          |                  |
+| 2   | BC337                  | TO92    | –      | T1, T2                                      | NPM Transistor   |
+| 1   | 2 Pole Connector       | –       | –      | IROUT                                       |                  |
+| 1   | 3 Pole Connector       | –       | –      | ENDSTOP                                     |                  |
+| 3   | 4 Pole Connector       | –       | –      | MOT1, MOT2, RS232                           |                  |
+| 1   | 2x3 Pin Header         | –       | –      | ICSP                                        |                  |
+| 2   | 3 Channel DIP switch   | –       | –      | MSMOT1, MSMOT2                              |                  |
+| 1   | ESP8266                | –       | –      | U5                                          |                  |
+| 1   | LM358                  | DIL08   | –      | IC3                                         | jelly bean Opamp |
+| 1   | MAX232                 | DIL16   | –      | U2                                          |                  |
+| 1   | 5mm LED                | –       | –      | D1                                          |                  |
+| 6   | Tactile Button         | –       | –      | HOMING, LEFT, RIGHT, TILTCCW, TILTCW, RESET |                  |
 
 Total costs for electrical parts: <br />
 **~ 39,33€ + shipping fees**
