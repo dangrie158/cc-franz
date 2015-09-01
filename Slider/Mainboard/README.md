@@ -135,7 +135,9 @@ We used external pulldown resistors although the ATMEGA has internal ones for al
 
 <a href="https://github.com/dangrie158/cc-franz/raw/develop/Docs/Pdf/mainboard_layout.pdf"><img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/board.png" alt="" /></a>
 
-The board should be milled on the CNC machine we also used for the aluminum parts. For this reason we tried to lay out the board single sided just because it is much easier for home production. We ended up using 18 jumper wires, which is a pretty good end result. The general layout uses the same modular setup we designed into our schematic. Since we do not need any high speed data transmission lines, the board is rather simple and there were not many potential problems. However, some things we kept in mind include:
+The board should be milled on the CNC machine we also used for the aluminum parts. For this reason we tried to lay out the board single sided just because it is much easier for home production. We ended up using 18 jumper wires, which is a pretty good end result. If you don't have a CNC mashine and don't want to install eagle, we have a black and white version of the layout for etching [here](https://github.com/dangrie158/cc-franz/raw/develop/Docs/Pdf/mainboard_etch.pdf).
+
+The general layout uses the same modular setup we designed into our schematic. Since we do not need any high speed data transmission lines, the board is rather simple and there were not many potential problems. However, some things we kept in mind include:
 
 ######Local regulation and power traces
 You should avoid running your power traces across the whole board, just because the copper also has a resistance. This resistance is higher, the narrower and longer the trace is. For this reason, the high current +12V power traces for the motor supply are 50 mil wide and are kept as short as possible, thus the power jack is quite close to the motor controllers. <br />
