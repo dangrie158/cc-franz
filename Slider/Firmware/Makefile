@@ -62,7 +62,7 @@ TARGET = firmware
 OBJDIR = .
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c uart.c timer.c
+SRC = $(TARGET).c uart.c timer.c software_uart.c
 
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC = 
@@ -253,7 +253,7 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = stk500v1
+AVRDUDE_PROGRAMMER = avrisp
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
 AVRDUDE_PORT = /dev/tty.usbmodem14*    # programmer connected to serial device

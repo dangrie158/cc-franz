@@ -4,6 +4,7 @@
 
 void (*timerCallback)();
 
+//setup a timer and register a receiver callback
 void timerInit(void (*callback)()){
 	cli();
 
