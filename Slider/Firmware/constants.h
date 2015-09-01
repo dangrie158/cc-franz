@@ -10,7 +10,7 @@
 #define CLEAR(PORT,PIN) ((PORT) &= ~((1) << (PIN)))
 #define TOGGLE(PORT,PIN) ((PORT) ^= ((1) << (PIN)))
 #define ISSET(PORT, PIN) (((PORT) >> (PIN)) & (1))
-#define VALUE(PORT, PIN, STATUS) ((PORT) ^= (-(STATUS) ^ (PORT)) & ((1) << (PIN)))
+#define VALUE(PORT, PIN, STATUS) (PORT) = (PORT) & ~((uintmax_t)(1) << (PIN)) | ((uintmax_t)(STATUS) << (PIN))
 
 /********************************/
 /*     VARIOUS DEFINITIONS      */
