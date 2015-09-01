@@ -105,6 +105,7 @@ Now, let’s assume the voltage at the inverting input to our amplifier is raise
 You can clearly see that R1 and R2 are now in parallel. We can calculate the resistance they have as
 
 <img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/formula_6.png" alt="" style="width: 40%"/>.
+
 That’s of course the same value we calculated for the other state. The interesting thing, however, is that we now have another threshold voltage. We can calculate it as
 
 <img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/formula_7.png" alt="" style="width: 50%"/>.
@@ -133,6 +134,7 @@ We used external pulldown resistors although the ATMEGA has internal ones for al
 ######Layout
 
 <a href="https://github.com/dangrie158/cc-franz/raw/develop/Docs/Pdf/mainboard_layout.pdf"><img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/board.png" alt="" /></a>
+
 The board should be milled on the CNC machine we also used for the aluminum parts. For this reason we tried to lay out the board single sided just because it is much easier for home production. We ended up using 18 jumper wires, which is a pretty good end result. The general layout uses the same modular setup we designed into our schematic. Since we do not need any high speed data transmission lines, the board is rather simple and there were not many potential problems. However, some things we kept in mind include:
 
 ######Local regulation and power traces
