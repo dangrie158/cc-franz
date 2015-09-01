@@ -41,7 +41,7 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
     @IBOutlet weak var linearPlayIndicator: UIView!
     @IBOutlet weak var angularPlayIndicator: UIView!
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         let linearTimelineViewFrame = CGRectMake(0.0, 0.0, 0, 0)
         linearTimelineView = TimelineView(frame: linearTimelineViewFrame)
         let angularTimelineViewFrame = CGRectMake(0.0, 0.0, 0, 0)
@@ -218,7 +218,7 @@ class ScriptController: UIViewController, UIScrollViewDelegate, UITableViewDataS
         angularTimelineView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [NSObject : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         //temporarly remove the observers to prevent infinite loop
         linearTimelineView.removeObserver(self, forKeyPath: "frame")
         angularTimelineView.removeObserver(self, forKeyPath: "frame")

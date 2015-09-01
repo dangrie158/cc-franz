@@ -49,13 +49,14 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     
     private let cooldownTime = 0.2
     // node websocket
-//    private let controlAdress = "85.214.213.194:8080"
+    private let controlAdress = "85.214.213.194:8080"
     // physical websocket
-    private let controlAdress = "192.168.4.1:8080"
+//    private let controlAdress = "192.168.4.1:8080"
     private var currentConnectionState:State = .DISCONNECTED
     
     private var connectedCallback : ((SRWebSocket) -> Void)? = nil
     private var disconnectedCallback : (() -> Void)? = nil
+    private var positionChangedCallback : ((CameraSlider.Axis, Int) -> Void)? = nil
     
     private var wsConnection:SRWebSocket?
     private var currentRecording:Recording?
@@ -96,7 +97,29 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     * ConnectionManagement *
     ***********************/
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        print("Message: \(message)")
+        let messageText = (message as! String)
+
+        let start = messageText.startIndex
+        
+        if messageText.characters.count == 6  && messageText[start] ==  "P"{
+            let secondChar = advance(start, 1)
+            let number = advance(start, 2)
+
+            var axis = CameraSlider.Axis.MOVEMENT
+            if messageText[secondChar] == "R" {
+                axis = CameraSlider.Axis.ROTATION
+            }else if messageText[secondChar] == "M" {
+                axis = CameraSlider.Axis.MOVEMENT
+            }
+        
+            let speed = Int(messageText.substringFromIndex(number), radix:16)
+        
+            if(speed != nil){
+                if self.positionChangedCallback != nil{
+                    self.positionChangedCallback!(axis, speed!)
+                }
+            }
+        }
     }
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
@@ -155,6 +178,14 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     
     func onDisconnect( callback:()->Void ){
         disconnectedCallback = callback
+    }
+    
+    func onPositionChanged(callback: ((CameraSlider.Axis, Int) -> Void)){
+        self.positionChangedCallback = callback
+    }
+    
+    func clearPositionChangedCallback(){
+        self.positionChangedCallback = nil
     }
     
     private func setState(newState:State){

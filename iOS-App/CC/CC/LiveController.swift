@@ -95,8 +95,22 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         self.recordings = fetchedResults!
+        
+        //register position changed callback
+        CameraSlider.getInstance().onPositionChanged(updatePosition)
     }
-
+    
+    override func viewWillDisappear(animated: Bool) {
+        CameraSlider.getInstance().clearPositionChangedCallback()
+    }
+    
+    func updatePosition(axis: CameraSlider.Axis, speed: Int){
+        if axis == .MOVEMENT{
+            linearPositionView.text = NSString(format: "%04d", speed) as String
+        }else if axis == .ROTATION{
+            angularPositionView.text = NSString(format: "%04d", speed) as String
+        }
+    }
     
     func updateRecordTimer() {
         let interval = NSDate().timeIntervalSinceDate((self.currentRecording?.startTime)!)
