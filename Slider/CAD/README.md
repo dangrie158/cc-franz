@@ -18,7 +18,7 @@ with eBay links – no affiliate, we do it all for love
 | 2   | [GT2 pulley](http://www.ebay.de/itm/Zahnrad-Pulley-GT2-20-Zahne-fur-5mm-Welle-CNC-RepRap-3D-Drucker-Prusa-/181838550576?hash=item2a566c1630)                          |                                                | ~ 2,90€ pc.               |
 | 1   | [small turntable](http://www.ebay.de/itm/Drehteller-70x70mm-Drehlager-Drehtablett-Drehplatte-Flanschlager-Druckkugellager-/131458159153?hash=item1e9b845231)                     | 70mm x 70mm - 2¾ in x 2¾ in                    | ~ 2,58€ pc.               |
 |     | Nuts and bolds                      | (M8, M6, M4, M3 and probably a couple more..)  | ~ 20€                     |
-|     |                                     | **Total costs for mechanical parts:**              | **~ 138.20€ + shipping fees** |
+Total costs for mechanical parts: **~ 138.20€ + shipping fees**
 
 #####Machining the parts
 To connect all the parts we used the 2mm sheet metal. Since we had access to a CNC milling machine, we created CAD drawings for most of the parts. All holes are included in the drawings, however if you are missing small enough end mills, like we did, you might have to drill some of the holes manually. It comes in handy to print the drawing at 100% final scale and tape it on the milled part using scotch tape. This way, you can use the marked centers to spot the holes before drilling.
