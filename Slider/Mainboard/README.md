@@ -36,7 +36,7 @@ Total costs for electrical parts: <br />
 **~ 39,33€ + shipping fees**
 
 #####Schematic
-<img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/schematic.png" alt="" style="width: 380px;"/> 
+<a href="https://github.com/dangrie158/cc-franz/raw/develop/Docs/Pdf/mainboard_schematic.pdf"><img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/schematic.png" alt="" /></a>
 
 We designed the schematic modular to get a good overview of the whole system and work independently on single modules. 
 
@@ -49,7 +49,7 @@ For the operation of the Camera Slider we need 3 different voltage rails: +12V f
 The +12V line is directly connected to the main power jack, which is supplied by an external plug pack. The +12V are only fed through a diode to protect the circuit from reverse polarization, which results in a small voltage drop of about the typical 0.7V.
 For the +5V a linear 7805 voltage regulator was used, which turns any input voltage from +7V - +35V into a regulated +5V. The aforementioned is accomplished by burning all the extra energy and turning it into heat. During normal operation our slider consumes about 300mA on the +5V rail and therefore the energy of
 
-<img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/formula_1.png" alt="" style="width: 60%"/> 
+<img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/formula_1.png" alt="" style="width: 60%"/>
 
 heat needs to be dissipated. For that reason we attached a small heatsink to the voltage regulator. <br />
 The 3.3V rail is also regulated by a linear regulator, but this time with another output voltage. The input voltage comes from the +5V line, which means that the 7805 needs to supply the current for the +3.3V rail as well. However, directly attaching the regulator to the 12V would mean that it needs to dissipate all the power down to the 3.3V, wich would result in a drop voltage of 12V - 3.3V = 8.7V. This way, the heat is spread across the two regulators.
@@ -131,6 +131,8 @@ For test reasons, and to be able to control the slider without having an iPad at
 We used external pulldown resistors although the ATMEGA has internal ones for all I/O pins. We’ve decided to use external ones because it is easy to lay traces underneath them. It would also be possible to replace the resistors R5-R9 with simple copper wire and use the internal pulldowns.
 
 ######Layout
+
+<a href="https://github.com/dangrie158/cc-franz/raw/develop/Docs/Pdf/mainboard_layout.pdf"><img src="https://raw.githubusercontent.com/dangrie158/cc-franz/develop/Docs/Images/board.png" alt="" /></a>
 The board should be milled on the CNC machine we also used for the aluminum parts. For this reason we tried to lay out the board single sided just because it is much easier for home production. We ended up using 18 jumper wires, which is a pretty good end result. The general layout uses the same modular setup we designed into our schematic. Since we do not need any high speed data transmission lines, the board is rather simple and there were not many potential problems. However, some things we kept in mind include:
 
 ######Local regulation and power traces

@@ -23,7 +23,7 @@ Secondly, you can create simple scripts over an intuitive, graphical UI to progr
 
 ## TOC
 
-* [Mechanical Engineering](Slider/CAD/README.md)
-* [Electrical Engineering](Slider/Mainboard/README.md)
-* [ESP8266 WiFi Module](Slider/WiFi-Module/README.md)
-* [Microcontroller](Slider/Firmware/README.md)
+* [Mechanical Engineering](Slider/CAD/)
+* [Electrical Engineering](Slider/Mainboard/)
+* [ESP8266 WiFi Module](Slider/WiFi-Module/)
+* [Microcontroller](Slider/Firmware/)
