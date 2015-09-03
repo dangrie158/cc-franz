@@ -1,148 +1,22 @@
-Websocket Daemon for the ESP 8266
-=================================
+###ESP8266 WiFi Module
+The ESP8266 is a Xtensa LX106 Microcontroller with an integrated 802.11x WiFi transceiver. It has an integrated TCP stack and therefore provides a good abstraction layer.<br />
+With its standard Firmware, the communication happens over a simple AT Command interface over a serial UART. With this interface the use of the chip is very limited.
 
-This is a Websocket implementation based upon the [RFC 6455](https://tools.ietf.org/html/rfc6455).
+#####Why WebSockets
+We wanted to use WebSockets as the communication protocol on top of TCP. This leaves us with the option to create a web based control interface for the slider, although this is not planned in the near future. There are also WebSocket libraries available for almost any language. Furthermore, websockets are fast and lightweight, so virtually perfect for the use in an embedded environment. Sadly, there is no ESP8266 firmware out there that supports WebSockets, but since we are both software developers this should be nothing to worry about.<br />
+Basically we want the ESP8266 Chip to be responsible up until the WebSocket protocol. The communication should still happen over the UART interface. If the module receives a WebSocket message, it unpacks the payload and writes it out over UART. If it receives a line (terminated by CR&LF), it creates a new WebSocket frame and sends it to all its clients.<br />
+The module also acts as a WebSocket server that opens a WLAN access point clients can connect to. This is important because it is impossible to create a WLAN with an iPad.
 
-The Library uses a stripped Version of the [esphttpd](http://git.spritesserver.nl/esphttpd.git/) as a base. Even though the Websocket Implementation is fully independent from this code, I used this Project as a starting point. So thanks to the author os this project.
+#####WebSocket protocol
+The WebSocket protocol is rather simple: 
+* The client sends a HTTP request to the server with the headers ‘Connection: upgrade’ and ‘Upgrade: websockets’ set. Furthermore, a random 32byte key, the ‘Sec-Websocket-Key’,’ is send within the headers.
+* The Server calculates the answer to the ‘Sec-Websocket-Key’:
+*  it concatenates the WebSocket GUID ‘258EAFA5-E914-47DA-95CA-C5AB0DC85B11’ to the original key
+*  it calculates the SHA1 hash of the result
+*  it Base64 encodes the hash
+* The server sends the response with the status code ‘101 - Switching Protocols’ and the calculated key
 
+After this sequence the TCP connection is ready to transmit WebSocket frames. This whole routine happens in the `wsRecvCb `callback in the code. The key is calculated in `createWsAcceptKey`. <br />
+WebSocket frames are in a simple binary format that is described in the header file `websocketd.h`. The description is basically a copy of the [RFC 6455](https://tools.ietf.org/html/rfc6455). The parsing of the received frames and the sending happens in `parseWsFrame` and `sendWsMessage` respectively. <br />
+The main loop happens in `user_main.c` which starts the WebSocket server, registers a callback for new messages and reads the UART.
 
-The code implements a WebSocket Deamon for the ESP8266 WiFi Module. It supports:
-
-* listening for new Clients
-* doing the handshake 
-* Sending and receiving messages
-  * as plain text
-  * as binary
-* message unmasking
-* creating arbitary message frames
-* callbacks for received messages
-
-ToDo:
-
-* connect to servers
-* send as client
-
-There are no direct dependencies, as a SHA1 and a Base64 implementation are part of the code.
-
-Sample server that just echoes ws frames on the UART (serial)
--------------------------------------------------------------
-
-```c
-void onWsMessage(WSConnection *connection, const WSFrame *message) {
-    for (int i = 0; i < message->payloadLength; i++) {
-        stdoutPutchar(message->payloadData[i]);
-    }
-    stdoutPutchar('\n');
-}
-
-void onWsConnection(WSConnection *connection) {
-    connection->onMessage = &onWsMessage;
-}
-
-
-
-//Main routine. Initialize stdout, the I/O and the webserver and we're done.
-void user_init(void) {
-    uart_init();
-    ioInit();
-    websocketdInit(8080, &onWsConnection);
-
-    //Start os task
-    system_os_task(rxLoop, RX_PRIO, user_procTaskQueue, RX_QUEUE_LEN);
-    system_os_post(RX_PRIO, 0, 0 );
-
-    os_printf("\nReady\n");
-}
-```
-
-sample server that echoes the serial data (bidirectional)
----------------------------------------------------------
-
-```c
-#include "espmissingincludes.h"
-#include "ets_sys.h"
-#include "osapi.h"
-#include "os_type.h"
-#include "uart.h"
-#include "websocketd.h"
-
-#define RX_PRIO 0
-#define RX_QUEUE_LEN 1
-#define COMMAND_MAXLEN 1024
-
-os_event_t user_procTaskQueue[RX_QUEUE_LEN];
-static char *statusCommand = "STATUS:";
-static uint8_t commandMatcher = 0;
-static uint8_t commandMatched = FALSE;
-static char command[COMMAND_MAXLEN];
-static uint32_t commandPosition = 0;
-
-
-//Main code function
-static void ICACHE_FLASH_ATTR rxLoop(os_event_t *events) {
-
-	int c = uart0_rx_one_char();
-
-	if (c != -1) {
-
-		if (commandMatched == TRUE) {
-			if (c == '\n' || c == '\r') {
-				broadcastWsMessage(command, commandPosition, FLAG_FIN | OPCODE_TEXT);
-				commandMatched = FALSE;
-				commandPosition = 0;
-				commandMatcher = 0;
-			}else{
-				command[commandPosition++] = c;
-			}
-
-			if (commandPosition == COMMAND_MAXLEN) {
-				commandMatched = FALSE;
-				commandPosition = 0;
-				commandMatcher = 0;
-			}
-		} else {
-			if (statusCommand[commandMatcher] == c) {
-				commandMatcher++;
-
-				if (commandMatcher == strlen(statusCommand)) {
-					commandMatched = TRUE;
-				}
-			} else {
-				commandMatcher = 0;
-			}
-		}
-	}
-
-	system_os_post(RX_PRIO, 0, 0 );
-}
-
-void onWsMessage(WSConnection *connection, const WSFrame *message) {
-	for (int i = 0; i < message->payloadLength; i++) {
-		stdoutPutchar(message->payloadData[i]);
-	}
-	stdoutPutchar('\n');
-}
-
-void onWsConnection(WSConnection *connection) {
-	connection->onMessage = &onWsMessage;
-}
-
-
-
-//Main routine. Initialize stdout, the I/O and the webserver and we're done.
-void user_init(void) {
-	uart_init();
-	ioInit();
-	websocketdInit(8080, &onWsConnection);
-
-	//Start os task
-	system_os_task(rxLoop, RX_PRIO, user_procTaskQueue, RX_QUEUE_LEN);
-	system_os_post(RX_PRIO, 0, 0 );
-
-	os_printf("\nReady\n");
-}
-
-
-```
-
-For Build and upload instructions please refer to the `README.esphttpd` of the esphttpd author. 
