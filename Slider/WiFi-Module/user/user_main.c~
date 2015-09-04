@@ -64,7 +64,6 @@ void onWsMessage(WSConnection *connection, const WSFrame *message) {
 
 void onWsConnection(WSConnection *connection) {
 	connection->onMessage = &onWsMessage;
-	os_printf("New Websocket Client Connected");
 }
 
 void wifiInit(){
