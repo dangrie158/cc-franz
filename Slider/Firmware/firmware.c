@@ -14,11 +14,11 @@
 
 #define __LOGARITHMIC_SPEED__ 1
 
-volatile uint8_t speedLinear = 0;
-volatile uint8_t speedAngular = 0;
+volatile uint32_t speedLinear = 0;
+volatile uint32_t speedAngular = 0;
 
-volatile uint32_t stepCounterLinear = 0;
-volatile uint32_t stepCounterAngular = 0;
+volatile int32_t stepCounterLinear = 0;
+volatile int32_t stepCounterAngular = 0;
 
 volatile uint32_t sendPositionDebounceCounter = 0;
 
@@ -65,13 +65,13 @@ void doLinearStep(uint8_t dir)
     SET(MOTOR_DRIVER_PORT, LINEAR_STEP_PIN);
 
     //wait a millisecond
-    _delay_ms(1);
+    _delay_ms(6);
 
     //set the step count back low
     CLEAR(MOTOR_DRIVER_PORT, LINEAR_STEP_PIN);
 
     //wait another millisecond
-    _delay_ms(1);
+    _delay_ms(6);
 }
 void doAngularStep(uint8_t dir)
 {
@@ -85,13 +85,27 @@ void doAngularStep(uint8_t dir)
     SET(MOTOR_DRIVER_PORT, ANGULAR_STEP_PIN);
 
     //wait a millisecond
-    _delay_ms(1);
+    _delay_ms(6);
 
     //set the step count back low
     CLEAR(MOTOR_DRIVER_PORT, ANGULAR_STEP_PIN);
 
     //wait another millisecond
-    _delay_ms(1);
+    _delay_ms(6);
+}
+
+void homeLinear(){
+	while(stepCounterLinear != 0){
+		uint8_t dir = stepCounterLinear > 0 ? DIR_RIGHT : DIR_LEFT;
+		doLinearStep(dir);
+	}
+}
+
+void homeAngular(){
+	while(stepCounterAngular != 0){
+		uint8_t dir = stepCounterAngular > 0 ? DIR_CW : DIR_CCW;
+		doAngularStep(dir);
+	}
 }
 
 void timerElapsed()
@@ -99,8 +113,9 @@ void timerElapsed()
     static uint8_t timeoutCounterLinear = 0;
     static uint8_t timeoutCounterAngular = 0;
 
-    timeoutCounterLinear++;
     timeoutCounterAngular++;
+    //each time we increment the move counter by 2, so it is twice as fast as the angular rotation
+    timeoutCounterLinear += 4;
     sendPositionDebounceCounter++;
 
     if (timeoutCounterLinear >= speedLinear && !linearStopped) {
@@ -126,7 +141,7 @@ void timerElapsed()
 
         timeoutCounterAngular = 0;
         //increment step counter because we're going to perform a step
-        linearDirection ? stepCounterAngular++ : stepCounterAngular--;
+        angularDirection ? stepCounterAngular++ : stepCounterAngular--;
         // set rotate pin high to do a step
         SET(MOTOR_DRIVER_PORT, ANGULAR_STEP_PIN);
     }
@@ -165,11 +180,7 @@ void handleUI()
 }
 
 int speedStringToSpeed(char* speedString){
-#if __LOGARITHMIC_SPEED__
-                return ((1.0f / strtol(speedString, NULL, 16)) * 255);
-#else
-                return 255 - strtol(speedString, NULL, 16);
-#endif
+    return 270 - strtol(speedString, NULL, 16);
 }
 
 void handleUartMessages()
@@ -179,7 +190,9 @@ void handleUartMessages()
         uartReadLine(line);
 
         if (line[0] == 'M') {
+        	//handle move messages
             if (line[1] == '+') {
+            	//positive direction -> DIR_RIGHT
                 linearStopped = false;
                 linearDirection = DIR_RIGHT;
                 speedLinear = speedStringToSpeed(line + 2);
@@ -194,7 +207,9 @@ void handleUartMessages()
             }
         }
         else if (line[0] == 'R') {
+        	//handle rotation messages
             if (line[1] == '+') {
+            	//positive direction -> DIR_CW
                 angularStopped = false;
                 angularDirection = DIR_CW;
                 speedAngular = speedStringToSpeed(line + 2);
@@ -207,6 +222,21 @@ void handleUartMessages()
             else if (line[1] == '0') {
                 angularStopped = true;
             }
+        }
+        else if(line[0] == 'H'){
+        	//handle HOMING
+        	if(line[1] == 'M'){
+        		homeLinear();
+        	}else if(line[1] == 'R'){
+        		homeAngular();
+        	}
+        }else if(line[0] == 'Z'){
+        	//handle rereference
+        	if(line[1] == 'M'){
+        		stepCounterLinear = 0;
+        	}else if(line[1] == 'R'){
+        		stepCounterAngular = 0;
+        	}
         }
     }
 }
@@ -243,7 +273,7 @@ void checkPositionAndSendUpdate(){
     static int lastStepCountAngular = 0;
 
     if(lastStepCountAngular != stepCounterAngular){
-        char* message = "PM0000";
+        char* message = "PR0000";
         if(stepCounterAngular <= 0xFFFF){
             //write the speed to the buffer at offset 2
             itoa(stepCounterAngular, message + 2, 16);
@@ -254,7 +284,7 @@ void checkPositionAndSendUpdate(){
     }
 
     if(lastStepCountLinear != stepCounterLinear){
-        char* message = "PR0000";
+        char* message = "PM0000";
         if(stepCounterLinear <= 0xFFFF){
             //write the speed to the buffer at offset 2
             itoa(stepCounterLinear, message + 2, 16);

@@ -38,9 +38,9 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.recordTimeView.text = "00:00"
         self.angularPositionView.text = "360"
-        self.angularSpeedView.text = "00"
+        self.angularSpeedView.text = " 00"
         self.linearPositionView.text = "000"
-        self.linearSpeedView.text = "00"
+        self.linearSpeedView.text = " 00"
         
         recordButton.setStartListener(){
             
@@ -287,7 +287,7 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     *       speed references       *
     ********************************/
     func calculateLinearSpeed(speed: Float, to direction: CameraSlider.Direction) -> String{
-        let actualSpeed = speed * 67.5
+        let actualSpeed = speed * 33
         var speedText = "";
         if(direction == .RIGHT){
             speedText = " " + NSString(format: "%02d", Int(actualSpeed)).description
@@ -299,12 +299,12 @@ class LiveController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func calculateAngularSpeed(speed: Float, to direction: CameraSlider.Direction) -> String{
-        let actualSpeed = speed * 100
+        let actualSpeed = speed * 72
         var speedText = "";
         if(direction == .CW){
-            speedText = " " + NSString(format: "%03d", Int(actualSpeed)).description
+            speedText = " " + NSString(format: "%02d", Int(actualSpeed)).description
         }else{
-            speedText = "-" + NSString(format: "%03d", Int(actualSpeed)).description
+            speedText = "-" + NSString(format: "%02d", Int(actualSpeed)).description
         }
         
         return speedText

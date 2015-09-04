@@ -49,9 +49,9 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     
     private let cooldownTime = 0.2
     // node websocket
-    private let controlAdress = "85.214.213.194:8080"
+    //private let controlAdress = "85.214.213.194:8080"
     // physical websocket
-    //private let controlAdress = "192.168.4.1:8080"
+    private let controlAdress = "192.168.4.1:8080"
     private var currentConnectionState:State = .DISCONNECTED
     
     private var connectedCallback : ((SRWebSocket) -> Void)? = nil
@@ -97,6 +97,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
     * ConnectionManagement *
     ***********************/
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+        
         let messageText = (message as! String)
 
         let start = messageText.startIndex
@@ -237,7 +238,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
         // define direction sign as "+" or "-" depending on LEFT/CCW or RIGHT/CW
         let directionSign = speed == 0 ? "" : (direction == .LEFT || direction == .CCW ? "-" : "+")
         // use 255 different speed values
-        let speedValue:String = String(Int(speed*255), radix: 16)
+        let speedValue:String = NSString(format: "%02X", Int(speed*255)) as String
         // build message
         let message:String = axis + directionSign + speedValue
         // send message
@@ -277,6 +278,7 @@ class CameraSlider: NSObject, SRWebSocketDelegate {
             self.currentRecording?.addAction(withStringAction: message)
         }
         wsConnection?.send(message)
+        print(message)
     }
     
     

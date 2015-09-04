@@ -156,14 +156,14 @@ class AddAndEditScriptAction: TouchOutsidePopup {
     *       speed references       *
     ********************************/
     func calculateLinearSpeed(speed: Float) -> String{
-        let actualSpeed = speed * 67.5
+        let actualSpeed = speed * 33
         let speedText = NSString(format: "%03d", Int(actualSpeed)).description
         
         return speedText
     }
     
     func calculateAngularSpeed(speed: Float) -> String{
-        let actualSpeed = speed * 100
+        let actualSpeed = speed * 72
         let speedText = NSString(format: "%03d", Int(actualSpeed)).description
         
         return speedText
