@@ -48,7 +48,7 @@ class TimelineItemView: UIView {
         self.scale = scale
         setup(type)
     }
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -80,7 +80,7 @@ class TimelineItemView: UIView {
     
     func setStart(newStart: CGFloat){
         self.frame.origin.y = newStart
-        self.scriptAction?.start = Double(newStart)
+        self.scriptAction!.start = Double(newStart) / self.scale
         self.setNeedsLayout()
     }
     

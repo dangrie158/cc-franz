@@ -20,7 +20,7 @@ class TimelineView: UIView {
         setup()
         
     }
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -102,7 +102,7 @@ class TimelineView: UIView {
                 let offsetInSubview = item.dragTouchOffset
                 let newStartPoint = max(offsetInView - offsetInSubview, 0)
                 
-                if !newStartOverlapsAction(item.scriptAction!, withNewStart: Double(newStartPoint)){
+                if !newStartOverlapsAction(item.scriptAction!, withNewStart: Double(newStartPoint) / self.scaling){
                     item.setStart(newStartPoint)
                     recalculateContentHeight(item)
                 }
@@ -115,7 +115,7 @@ class TimelineView: UIView {
             //check if we overlap a action that is already present
             //and not the same action
             if(action !== newAction){
-                if(newstart + newAction.length > action.start && action.start + action.length >= newstart){
+                if((newstart + newAction.length) * self.scaling > (action.start*self.scaling) && (action.start + action.length) * self.scaling >= (newstart*self.scaling)){
                     return true
                 }
             }
